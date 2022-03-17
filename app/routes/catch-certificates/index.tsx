@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { json, Link, useLoaderData } from "remix";
 import { CatchCertificate, getCatchCertificates } from "./catchCertificate";
 
@@ -5,7 +6,7 @@ export const loader = async () => {
   return json(getCatchCertificates());
 };
 
-const index = () => {
+const Dashboard: React.FC = (): ReactElement => {
   const certificates = useLoaderData<CatchCertificate[]>();
   return (
     <table className="govuk-table">
@@ -27,7 +28,7 @@ const index = () => {
       </thead>
       <tbody className="govuk-table__body">
         {certificates.map(({ documentNumber, userReference, status }) => (
-          <tr className="govuk-table__row">
+          <tr key={documentNumber} className="govuk-table__row">
             <td scope="row" className="govuk-table__cell">
               {documentNumber}
             </td>
@@ -48,4 +49,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Dashboard;
