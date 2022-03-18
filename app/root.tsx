@@ -142,7 +142,7 @@ function Banner() {
 function Document() {
   return (
     <div className="govuk-width-container">
-      <main className="govuk-main-wrapper " id="main-content"  role="main">
+      <main className="govuk-main-wrapper" id="main-content"  role="main">
         <Banner />
         <Outlet />
       </main>

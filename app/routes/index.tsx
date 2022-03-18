@@ -3,8 +3,8 @@ import { Link } from "remix";
 
 const Home: React.FC = (): ReactElement => {
   return (
-    <>
-      <h1 className="govuk-heading-xl">What do you want to do?</h1>
+    <div className="govuk-!-padding-top-6">
+      <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">What do you want to do?</h1>
       <ul>
         <li>
           <Link to="/catch-certificates" className="govuk-link">
@@ -22,7 +22,7 @@ const Home: React.FC = (): ReactElement => {
           </Link>
         </li>
       </ul>
-    </>
+    </div>
   )
 }
 
