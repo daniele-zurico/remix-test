@@ -1,4 +1,6 @@
-export const Header = () => (
+import { ReactElement } from "react";
+
+export const Header: React.FC = (): ReactElement => (
   <header className="govuk-header " role="banner" data-module="govuk-header">
     <div className="govuk-header__container govuk-width-container">
       <div className="govuk-header__logo">
@@ -42,7 +44,7 @@ export const Header = () => (
 
           <ul id="navigation" className="govuk-header__navigation-list">
             <li className="govuk-header__navigation-item govuk-header__navigation-item--active">
-              <a className="govuk-header__link" href="#1">
+              <a className="govuk-header__link" href="/">
                 Home
               </a>
             </li>
