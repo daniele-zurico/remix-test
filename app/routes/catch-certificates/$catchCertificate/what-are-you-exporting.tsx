@@ -21,6 +21,7 @@ const $catchCertificate = () => {
         <Tab label="Add products" eventKey="tab-pane-add-products">
           <>
             <h2 className="govuk-heading-l">Add products</h2>
+            <div>I'm the content of the tab Add products</div>
           </>
         </Tab>
         <Tab
@@ -29,6 +30,7 @@ const $catchCertificate = () => {
         >
           <>
             <h2 className="govuk-heading-l">Add products from favourites</h2>
+            <div>I'm the content of the tab from favourites</div>
           </>
         </Tab>
       </TabGroup>
