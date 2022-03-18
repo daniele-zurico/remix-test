@@ -21,7 +21,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="govuk-template__body">
+      {/* TODO - add js-enabled inline script document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled') */}
+      <body className="govuk-template__body js-enabled">
         <CookieBanner />
         <Header />
         <Document />
