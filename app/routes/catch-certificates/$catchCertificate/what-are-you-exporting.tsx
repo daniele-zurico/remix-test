@@ -8,9 +8,8 @@ export const loader: LoaderFunction = async ({ params }) => {
 const $catchCertificate = () => {
   const ccNumber = useLoaderData();
   return (
-    <>
-      CatchCertificate: {ccNumber}
-      <h1 className="govuk-heading-l">What are you exporting?</h1>
+    <div className="govuk-!-padding-top-6">
+      <h1 className="govuk-heading-xl">What are you exporting?</h1>
       <TabGroup
         containerClassName="govuk-tabs"
         className="govuk-tabs__list"
@@ -21,8 +20,7 @@ const $catchCertificate = () => {
       >
         <Tab label="Add products" eventKey="tab-pane-add-products">
           <>
-            <h2>Add products</h2>
-            <div>I'm the content of the tab Add products</div>
+            <h2 className="govuk-heading-l">Add products</h2>
           </>
         </Tab>
         <Tab
@@ -30,12 +28,11 @@ const $catchCertificate = () => {
           eventKey="tab-pane-add-products-from-favourites"
         >
           <>
-            <h2>Add products from favourites</h2>
-            <div>I'm the content of the tab from favourites</div>
+            <h2 className="govuk-heading-l">Add products from favourites</h2>
           </>
         </Tab>
       </TabGroup>
-    </>
+    </div>
   );
 };
 

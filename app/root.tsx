@@ -27,7 +27,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="govuk-template__body">
+      {/* TODO - add js-enabled inline script document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled') */}
+      <body className="govuk-template__body js-enabled">
         <CookieBanner />
         <Header />
         <Document />
@@ -95,7 +96,7 @@ function Header() {
 
             <ul id="navigation" className="govuk-header__navigation-list">
               <li className="govuk-header__navigation-item govuk-header__navigation-item--active">
-                <a className="govuk-header__link" href="#1">
+                <a className="govuk-header__link" href="/">
                   Home
                 </a>
               </li>

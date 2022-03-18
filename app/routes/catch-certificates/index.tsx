@@ -13,7 +13,7 @@ const Dashboard: React.FC = (): ReactElement => {
       <thead className="govuk-table__head">
         <tr className="govuk-table__row">
           <th scope="col" className="govuk-table__header">
-            documentNumber
+            Document number
           </th>
           <th scope="col" className="govuk-table__header">
             Your reference
