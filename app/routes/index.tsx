@@ -11,6 +11,16 @@ const Home: React.FC = (): ReactElement => {
             Catch certificates
           </Link>
         </li>
+        <li>
+          <Link to="/processing-statements" className="govuk-link">
+            Processing statements
+          </Link>
+        </li>
+        <li>
+          <Link to="/storage-documents" className="govuk-link">
+            Storage Documents
+          </Link>
+        </li>
       </ul>
     </div>
   )

@@ -1,13 +1,13 @@
 import { ReactElement } from "react";
 import { json, Link, useLoaderData } from "remix";
-import { CatchCertificate, getCatchCertificates } from "./catchCertificate";
+import { ProcessingStatement, getProcessingStatements } from "./processingStatement";
 
 export const loader = async () => {
-  return json(getCatchCertificates());
+  return json(getProcessingStatements());
 };
 
 const Dashboard: React.FC = (): ReactElement => {
-  const certificates = useLoaderData<CatchCertificate[]>();
+  const certificates = useLoaderData<ProcessingStatement[]>();
   return (
     <table className="govuk-table">
       <thead className="govuk-table__head">
@@ -22,25 +22,21 @@ const Dashboard: React.FC = (): ReactElement => {
             Date started
           </th>
           <th scope="col" className="govuk-table__header">
-            Status
-          </th>
-          <th scope="col" className="govuk-table__header">
             Action
           </th>
         </tr>
       </thead>
       <tbody className="govuk-table__body">
-        {certificates.map(({ documentNumber, userReference, status, startedAt }) => (
+        {certificates.map(({ documentNumber, userReference, startedAt }) => (
           <tr key={documentNumber} className="govuk-table__row">
             <td scope="row" className="govuk-table__cell">
               {documentNumber}
             </td>
             <td className="govuk-table__cell">{userReference}</td>
             <td className="govuk-table__cell">{startedAt}</td>
-            <td className="govuk-table__cell">{status}</td>
             <td className="govuk-table__cell">
               <Link
-                to={`/catch-certificates/${documentNumber}/what-are-you-exporting`}
+                to={`/`}
                 className="govuk-link"
               >
                 Continue
