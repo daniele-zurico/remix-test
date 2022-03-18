@@ -11,8 +11,9 @@ import styles from "~/styles/all.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
-  viewport: "width=device-width,initial-scale=1",
+  title: "GOV.UK - What do you want to do ?",
+  viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
+  themeColor: "#0b0c0c"
 });
 
 export function links() {
@@ -21,12 +22,12 @@ export function links() {
 
 export default function App() {
   return (
-    <html lang="en">
+    <html className="govuk-template" lang="en">
       <head>
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="govuk-template__body">
         <Header />
         <Document />
         <Footer />
@@ -36,17 +37,6 @@ export default function App() {
       </body>
     </html>
   );
-}
-
-function Document() {
-  return (
-    <div className="govuk-width-container">
-      <main className="govuk-main-wrapper " id="content">
-        <Banner />
-        <Outlet />
-      </main>
-    </div>
-  )
 }
 
 function Header() {
@@ -114,6 +104,17 @@ function Banner() {
       </p>
     </div>
 );
+}
+
+function Document() {
+  return (
+    <div className="govuk-width-container">
+      <main className="govuk-main-wrapper " id="main-content"  role="main">
+        <Banner />
+        <Outlet />
+      </main>
+    </div>
+  )
 }
 
 function Footer() {
