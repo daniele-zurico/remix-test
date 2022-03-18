@@ -20,19 +20,13 @@ const $catchCertificate = () => {
         contentClassName="govuk-tabs__panel"
       >
         <Tab label="Add products" eventKey="tab-pane-add-products">
-          <>
-            <h2>Add products</h2>
-            <div>I'm the content of the tab Add products</div>
-          </>
+          <div>I'm the content of the tab Add products</div>
         </Tab>
         <Tab
           label="Add products from favourites"
           eventKey="tab-pane-add-products-from-favourites"
         >
-          <>
-            <h2>Add products from favourites</h2>
-            <div>I'm the content of the tab from favourites</div>
-          </>
+          <div>I'm the content of the tab from favourites</div>
         </Tab>
       </TabGroup>
     </>
