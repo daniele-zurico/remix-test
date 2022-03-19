@@ -8,22 +8,22 @@ export const Footer: React.FC = (): ReactElement => (
           <h2 className="govuk-visually-hidden">Support links</h2>
           <ul className="govuk-footer__inline-list">
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="#1">
+              <a className="govuk-footer__link" href="/accessibility">
                 Accessibility
               </a>
             </li>
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="#2">
+              <a className="govuk-footer__link" href="/cookies">
                 Cookies
               </a>
             </li>
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="#3">
+              <a className="govuk-footer__link" href="/privacy-notice">
                 Privacy
               </a>
             </li>
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="#3">
+              <a className="govuk-footer__link" href="/service-improvement-plan">
                 Service Improvement
               </a>
             </li>
