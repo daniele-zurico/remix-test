@@ -1,14 +1,9 @@
 import { ReactElement } from "react";
 import { Form, redirect } from "remix";
 import { PrimaryButton } from "../components/primaryButton";
+import { Action } from "../../interfaces/action.interface";
 
-interface ActionProps {
-  request: Request,
-  context: any,
-  params: any
-}
-
-export const action = async ({ request }: ActionProps) => {
+export const action = async ({ request }: Action) => {
   const form = await request.formData();
   const journeySelection = form.get('journeySelection')?.toString() || '/';
   return redirect(journeySelection);
@@ -23,7 +18,7 @@ const Home: React.FC = (): ReactElement => {
           <fieldset className="govuk-fieldset govuk-!-margin-bottom-6">
             <div className="govuk-radios" data-module="govuk-radios">
               <div className="govuk-radios__item">
-                <input className="govuk-radios__input" id="createCatchCertificate" name="journeySelection" value="/catch-certificates" defaultChecked type="radio"/>
+                <input className="govuk-radios__input" id="createCatchCertificate" name="journeySelection" value="/create-catch-certificate/catch-certificates" defaultChecked type="radio"/>
                 <label className="govuk-label govuk-radios__label" htmlFor="createCatchCertificate">
                   Create a UK catch certificate (Including links to direct landing documents)
                 </label>

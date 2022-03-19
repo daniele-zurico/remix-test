@@ -1,5 +1,6 @@
-import { Tab, TabGroup } from "@capgeminiuk/dcx-react-library";
 import { json, LoaderFunction, useLoaderData } from "remix";
+import { Tab, TabGroup } from "@capgeminiuk/dcx-react-library";
+import { BackButton } from "../../../components";
 
 export const loader: LoaderFunction = async ({ params }) => {
   return json(params.catchCertificate);
@@ -8,7 +9,9 @@ export const loader: LoaderFunction = async ({ params }) => {
 const $catchCertificate = () => {
   const ccNumber = useLoaderData();
   return (
-    <div className="govuk-!-padding-top-6">
+    <>
+      <BackButton href={`/create-catch-certificate/${ccNumber}/add-your-reference`} />
+      <div className="govuk-!-padding-top-6">
       <h1 className="govuk-heading-xl">What are you exporting?</h1>
       <TabGroup
         containerClassName="govuk-tabs"
@@ -35,6 +38,7 @@ const $catchCertificate = () => {
         </Tab>
       </TabGroup>
     </div>
+    </>
   );
 };
 

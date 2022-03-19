@@ -15,6 +15,7 @@ export function links() {
 }
 
 export function ErrorBoundary({ error }: any) {
+  console.error(error);
   return (
     <html className="govuk-template" lang="en">
       <head>
