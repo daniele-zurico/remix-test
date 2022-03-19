@@ -11,7 +11,7 @@ interface ActionProps {
 export const action = async ({ request }: ActionProps) => {
   const form = await request.formData();
   const journeySelection = form.get('journeySelection')?.toString() || '/';
-  return redirect(journeySelection)
+  return redirect(journeySelection);
 }
 
 const Home: React.FC = (): ReactElement => {
