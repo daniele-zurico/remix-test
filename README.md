@@ -52,6 +52,16 @@ rm -rf app
 cp -R ../my-old-remix-app/app app
 ```
 
+### Environment Variables
+
+`touch .env`
+
+Add contents of `.envSample` to `.env`
+
+```
+example:
+LIMIT_ADD_SPECIES=100
+```
 ### Start the application
 ----------------------
 mmo-cc-orchestration-svc

@@ -1,5 +1,5 @@
 import { MainApp, Document, Error, PageNotFound } from "./components";
-import type { MetaFunction } from "remix";
+import { MetaFunction, json, useLoaderData } from "remix";
 import styles from "~/styles/all.css";
 
 export const meta: MetaFunction = () => ({
@@ -11,6 +11,14 @@ export const meta: MetaFunction = () => ({
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
+}
+
+export async function loader() {
+  return json({
+    ENV: {
+      LIMIT_ADD_SPECIES: process.env.LIMIT_ADD_SPECIES
+    },
+  });
 }
 
 export function ErrorBoundary({ error }: any) {
@@ -31,8 +39,9 @@ export function CatchBoundary() {
 }
 
 export default function App() {
+  const data = useLoaderData();
   return (
-    <MainApp>
+    <MainApp applicationConfig={data.ENV}>
       <Document />
     </MainApp>
   );
