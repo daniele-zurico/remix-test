@@ -27,7 +27,7 @@ export const Header: React.FC = (): ReactElement => (
       </div>
       <div className="govuk-header__content">
         <a
-          href="/"
+          href="/create-catch-certificate/catch-certificates"
           className="govuk-header__link govuk-header__link--service-name"
         >
           Create a UK catch certificate

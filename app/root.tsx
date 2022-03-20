@@ -1,5 +1,4 @@
-import { Links, LiveReload, Meta, Scripts, ScrollRestoration } from "remix";
-import { CookieBanner, Header, Footer, Document, Error, PageNotFound } from "./components";
+import { MainApp, Document, Error, PageNotFound } from "./components";
 import type { MetaFunction } from "remix";
 import styles from "~/styles/all.css";
 
@@ -17,61 +16,24 @@ export function links() {
 export function ErrorBoundary({ error }: any) {
   console.error(error);
   return (
-    <html className="govuk-template" lang="en">
-      <head>
-        <Meta />
-        <Links />
-      </head>
-      <body className="govuk-template__body">
-        <CookieBanner />
-        <Header />
-        <Error />
-        <Footer />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </body>
-    </html>
-  )
+    <MainApp>
+      <Error />
+    </MainApp>
+  ) ;
 }
 
 export function CatchBoundary() {
   return (
-    <html className="govuk-template" lang="en">
-    <head>
-      <Meta />
-      <Links />
-    </head>
-    <body className="govuk-template__body">
-      <CookieBanner />
-      <Header />
+    <MainApp>
       <PageNotFound />
-      <Footer />
-      <ScrollRestoration />
-      <Scripts />
-      <LiveReload />
-    </body>
-  </html>
-  )
+    </MainApp>
+  );
 }
 
 export default function App() {
   return (
-    <html className="govuk-template" lang="en">
-      <head>
-        <Meta />
-        <Links />
-      </head>
-      {/* TODO - add js-enabled inline script document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled') */}
-      <body className="govuk-template__body js-enabled">
-        <CookieBanner />
-        <Header />
-        <Document />
-        <Footer />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </body>
-    </html>
-  );
+    <MainApp>
+      <Document />
+    </MainApp>
+  )
 }
