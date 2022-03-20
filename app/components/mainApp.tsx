@@ -8,8 +8,7 @@ export const MainApp: React.FC = ({ children }): ReactElement => (
     <Meta />
     <Links />
   </head>
-  {/* TODO - add js-enabled inline script document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled') */}
-  <body className="govuk-template__body js-enabled">
+  <body className="govuk-template__body">
     <CookieBanner />
     <Header />
     {children}
@@ -18,5 +17,10 @@ export const MainApp: React.FC = ({ children }): ReactElement => (
     <Scripts />
     <LiveReload />
   </body>
+  <script
+    dangerouslySetInnerHTML={{
+      __html: `document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');`,
+    }}
+  />
 </html>
 )

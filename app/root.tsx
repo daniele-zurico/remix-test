@@ -19,7 +19,7 @@ export function ErrorBoundary({ error }: any) {
     <MainApp>
       <Error />
     </MainApp>
-  ) ;
+  );
 }
 
 export function CatchBoundary() {
@@ -35,5 +35,5 @@ export default function App() {
     <MainApp>
       <Document />
     </MainApp>
-  )
+  );
 }
