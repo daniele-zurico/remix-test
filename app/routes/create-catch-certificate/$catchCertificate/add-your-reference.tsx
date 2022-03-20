@@ -34,8 +34,6 @@ export const action = async ({ request, params }: Action) => {
   const form = await request.formData();
   const userReference = form.get('userReference');
 
-  console.log('POSTING', userReference);
-
   await fetch("http://localhost:3001/orchestration/api/v1/userReference", {
     method: 'POST',
     headers: {

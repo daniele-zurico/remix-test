@@ -1,5 +1,5 @@
 import { Links, LiveReload, Meta, Scripts, ScrollRestoration } from "remix";
-import { CookieBanner, Header, Footer, Document, Error } from "./components";
+import { CookieBanner, Header, Footer, Document, Error, PageNotFound } from "./components";
 import type { MetaFunction } from "remix";
 import styles from "~/styles/all.css";
 
@@ -32,6 +32,26 @@ export function ErrorBoundary({ error }: any) {
         <LiveReload />
       </body>
     </html>
+  )
+}
+
+export function CatchBoundary() {
+  return (
+    <html className="govuk-template" lang="en">
+    <head>
+      <Meta />
+      <Links />
+    </head>
+    <body className="govuk-template__body">
+      <CookieBanner />
+      <Header />
+      <PageNotFound />
+      <Footer />
+      <ScrollRestoration />
+      <Scripts />
+      <LiveReload />
+    </body>
+  </html>
   )
 }
 

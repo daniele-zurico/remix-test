@@ -4,6 +4,7 @@ export {Document} from './document';
 export {Footer} from './footer';
 export {CookieBanner} from './cookieBanner';
 export {Error} from './error';
+export {PageNotFound} from './pageNotFound';
 export {Help} from './help';
 export {PrimaryButton} from './primaryButton';
 export {SecondaryButton} from './secondaryButton';
