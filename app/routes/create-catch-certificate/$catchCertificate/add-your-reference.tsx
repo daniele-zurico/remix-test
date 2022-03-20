@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { Form, redirect, json, LoaderFunction, useLoaderData } from "remix";
+import { Form, redirect, json, LoaderFunction, useLoaderData, useCatch } from "remix";
 import type { MetaFunction } from "remix";
-import { Action } from "../../../../interfaces/action.interface";
+import { isEmpty } from "lodash";
+import { IAction } from "../../../../interfaces/action.interface";
+import { IError, IErrorTransformed } from "../../../../interfaces/errors.interface";
+import { getErrorMessage, getTransformedError } from "../../../../data/lookupErrorText";
 import { 
   BackButton,
   Help,
@@ -9,6 +12,12 @@ import {
   PrimaryButton,
   SecondaryButton
 } from "../../../components";
+import { ErrorSummary } from "~/components/errorSummary";
+
+interface IUserReferenceProps {
+  userReference?: string;
+  errors?: IErrorTransformed;
+}
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -29,12 +38,12 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json({ userReference });
 };
 
-export const action = async ({ request, params }: Action) => {
+export const action = async ({ request, params }: IAction) => {
   const { catchCertificate = '' } = params;
   const form = await request.formData();
   const userReference = form.get('userReference');
 
-  await fetch("http://localhost:3001/orchestration/api/v1/userReference", {
+  const response = await fetch("http://localhost:3001/orchestration/api/v1/userReference", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -42,12 +51,28 @@ export const action = async ({ request, params }: Action) => {
     },
     body: JSON.stringify({ userReference: userReference })
   });
+
+  if (response.status === 400) {
+    const data = await response.json();
+    throw json({ userReferenceError: data['userReference'], userReference }, 400);
+  }
   
   return redirect(`/create-catch-certificate/${catchCertificate}/what-are-you-exporting`);
 }
 
-const UserReferencePage: React.FC = () => {
-  const data: { userReference: string } = useLoaderData<{ userReference: string }>();
+export function CatchBoundary() {
+  const caught = useCatch();
+  const lookupErrorMessage: IError[] = [{
+    key: 'userReference',
+    message: getErrorMessage(caught.data.userReferenceError)
+  }]
+  const errorUserReference: string = caught.data.userReference;
+  return <UserReferencePage errors={getTransformedError(lookupErrorMessage)} userReference={errorUserReference}/>
+}
+
+
+const UserReferencePage: React.FC<IUserReferenceProps> = ({ errors = {}, userReference }: React.PropsWithChildren<IUserReferenceProps>) => {
+  const data: { userReference: string } = useLoaderData<{ userReference: string }>() || { userReference };
   const [userRefernce, setUserReference] = useState<string>(data.userReference);
 
   const onChangeUserReference: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement>) => {
@@ -57,6 +82,7 @@ const UserReferencePage: React.FC = () => {
 
   return (
     <div className="govuk-!-padding-top-6">
+      {!isEmpty(errors) && <ErrorSummary errors={Object.keys(errors).flatMap((key: string) => errors[key])} />}
       <BackButton href='/create-catch-certificate/catch-certificates'/>
       <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">Add your reference for this export</h1>
       <Form method="post">
@@ -67,6 +93,7 @@ const UserReferencePage: React.FC = () => {
           id_hint="userReferenceHint"
           value={userRefernce}
           onChange={onChangeUserReference}
+          error={errors.userReference}
         />
         <SecondaryButton>Save as draft</SecondaryButton>
         <PrimaryButton>Save and continue</PrimaryButton>

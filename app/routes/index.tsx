@@ -1,9 +1,9 @@
 import { ReactElement } from "react";
 import { Form, redirect } from "remix";
 import { PrimaryButton } from "../components/primaryButton";
-import { Action } from "../../interfaces/action.interface";
+import { IAction } from "../../interfaces/action.interface";
 
-export const action = async ({ request }: Action) => {
+export const action = async ({ request }: IAction) => {
   const form = await request.formData();
   const journeySelection = form.get('journeySelection')?.toString() || '/';
   return redirect(journeySelection);
