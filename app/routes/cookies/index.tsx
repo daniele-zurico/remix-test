@@ -8,7 +8,7 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-const CookiePage: React.FC = (): ReactElement => {
+const CookiePage = (): ReactElement => {
   return (
     <div className="govuk-!-padding-top-6">
       <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">Cookies Policy</h1>

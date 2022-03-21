@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { Link } from "remix";
 
-export const CookieBanner: React.FC = (): ReactElement => (
+export const CookieBanner = (): ReactElement => (
   <div
     className="govuk-cookie-banner "
     data-nosnippet

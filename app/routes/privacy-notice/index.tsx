@@ -9,7 +9,7 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-const PrivacyPage: React.FC = (): ReactElement => {
+const PrivacyPage = (): ReactElement => {
   return (
     <div className="govuk-!-padding-top-6">
       <BackButton href='/'/>

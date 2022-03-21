@@ -8,7 +8,7 @@ export const loader = async () => {
   return json(getStorageDocuments());
 };
 
-const Dashboard: React.FC = (): ReactElement => {
+const Dashboard = (): ReactElement => {
   const certificates = useLoaderData<StorageDocument[]>();
   return (
     <ProgressTable 

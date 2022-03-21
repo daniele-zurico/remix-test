@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-export const Footer: React.FC = (): ReactElement => (
+export const Footer = (): ReactElement => (
   <footer className="govuk-footer " role="contentinfo">
     <div className="govuk-width-container ">
       <div className="govuk-footer__meta">

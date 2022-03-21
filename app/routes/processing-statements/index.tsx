@@ -8,7 +8,7 @@ export const loader = async () => {
   return json(getProcessingStatements());
 };
 
-const Dashboard: React.FC = (): ReactElement => {
+const Dashboard = (): ReactElement => {
   const certificates = useLoaderData<ProcessingStatement[]>();
   return (
     <ProgressTable
