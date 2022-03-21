@@ -1,5 +1,6 @@
 import { Link, MetaFunction } from "remix";
-import { Banner } from "./banner";
+import { Banner, LanguageToggle } from "./";
+import { IMainPageProps } from "interfaces/main.interface";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -8,7 +9,7 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-export const PageNotFound = () => (
+export const PageNotFound = ({ languages, locale }: IMainPageProps) => (
   <div className="govuk-width-container">
     <Banner />
     <main
@@ -19,6 +20,7 @@ export const PageNotFound = () => (
       <h1 className="govuk-heading-l govuk-!-margin-bottom-6">
         Page not found
       </h1>
+      <LanguageToggle languages={languages} locale={locale} />
       <p className="govuk-body">
         If you typed the web address, check it is correct.
         <br />

@@ -10,22 +10,12 @@ import {
 import type { MetaFunction } from "remix";
 import { isEmpty } from "lodash";
 import { IAction } from "../../../../interfaces/action.interface";
-import {
-  IError,
-  IErrorTransformed,
-} from "../../../../interfaces/errors.interface";
-import {
-  getErrorMessage,
-  getTransformedError,
-} from "../../../../data/lookupErrorText";
+import { IError } from "../../../../interfaces/errors.interface";
+import { IUserReferenceProps } from "interfaces/catch-certificate.interface";
+import { getErrorMessage, getTransformedError } from "../../../../data/lookupErrorText";
 import { BackButton, Help, HintTextInput } from "../../../components";
 import { ErrorSummary } from "~/components/errorSummary";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
-
-interface IUserReferenceProps {
-  userReference?: string;
-  errors?: IErrorTransformed;
-}
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",

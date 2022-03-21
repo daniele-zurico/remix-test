@@ -1,15 +1,9 @@
 import { ReactElement } from "react";
 import { json, useLoaderData } from "remix";
-import { CatchCertificate, CompletedCertificate } from "./catchCertificate";
-import { Notification } from "../../../data/notification";
-import {
-  ProgressTable,
-  CompleteTable,
-  NotificationBanner,
-  PrimaryButton,
-} from "~/components";
-import { Journeys } from "../../../data/constants";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
+import { IDashboardData } from "../../../interfaces/catch-certificate.interface";
+import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
+import { Journeys } from "../../../data/constants";
 
 export const loader = async () => {
   const res = await fetch(
@@ -26,11 +20,7 @@ export const loader = async () => {
 };
 
 const Dashboard = (): ReactElement => {
-  const data = useLoaderData<{
-    inProgress: CatchCertificate[];
-    completed: CompletedCertificate[];
-    notification: Notification;
-  }>();
+  const data = useLoaderData<IDashboardData>();
 
   return (
     <>
