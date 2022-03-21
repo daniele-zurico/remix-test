@@ -6,7 +6,7 @@ interface IMainAppProps {
   applicationConfig?: any
 }
 
-export const MainApp<IMainAppProps> = ({ children, applicationConfig } : React.PropsWithChildren<IMainAppProps>): ReactElement => {
+export const MainApp = ({ children, applicationConfig } : React.PropsWithChildren<IMainAppProps>): ReactElement => {
   return (
     <html className="govuk-template" lang="en">
       <head>
