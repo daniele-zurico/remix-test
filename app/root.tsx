@@ -13,14 +13,6 @@ export function links() {
   return [{ rel: "stylesheet", href: styles }];
 }
 
-export async function loader() {
-  return json({
-    ENV: {
-      LIMIT_ADD_SPECIES: process.env.LIMIT_ADD_SPECIES,
-    },
-  });
-}
-
 export function ErrorBoundary({ error }: any) {
   console.error(error);
   return (
@@ -39,9 +31,8 @@ export function CatchBoundary() {
 }
 
 export default function App() {
-  const data = useLoaderData();
   return (
-    <MainApp applicationConfig={data.ENV}>
+    <MainApp>
       <Document />
     </MainApp>
   );
