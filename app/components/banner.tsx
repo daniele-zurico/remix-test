@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-export const Banner: React.FC = (): ReactElement => (
+export const Banner = (): ReactElement => (
   <div className="govuk-width-container app-width-container">
     <div className="govuk-phase-banner">
       <p className="govuk-phase-banner__content">

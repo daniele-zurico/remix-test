@@ -9,7 +9,7 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-export const Error:React.FC = (): ReactElement => (
+export const Error = (): ReactElement => (
   <div className="govuk-width-container">
     <Banner />
     <main className="govuk-main-wrapper govuk-!-padding-top-6" id="main-content" role="main">

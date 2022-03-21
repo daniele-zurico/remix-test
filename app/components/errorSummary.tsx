@@ -5,7 +5,7 @@ interface IErrorSummaryProps {
   errors: IError[];
 }
 
-export const ErrorSummary: React.FC<IErrorSummaryProps> = ({ errors }: React.PropsWithChildren<IErrorSummaryProps>): ReactElement => (
+export const ErrorSummary<IErrorSummaryProps> = ({ errors }: React.PropsWithChildren<IErrorSummaryProps>): ReactElement => (
   <div className="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-disable-auto-focus="true" data-module="govuk-error-summary">
     <h2 className="govuk-error-summary__title" id="error-summary-title">
       There is a problem

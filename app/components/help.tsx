@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-export const Help: React.FC = (): ReactElement => (
+export const Help = (): ReactElement => (
   <div className="govuk-!-margin-bottom-6">
     <hr style={{ borderTop: '2px solid #1d70b8' }} />
     <h2 className="govuk-heading-l">Need help?</h2>

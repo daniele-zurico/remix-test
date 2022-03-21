@@ -15,7 +15,7 @@ export const loader = async () => {
   return json({ ...data, notification });
 };
 
-const Dashboard: React.FC = (): ReactElement => {
+const Dashboard = (): ReactElement => {
   const data = useLoaderData<{
     inProgress: CatchCertificate[],
     completed: CompletedCertificate[]
