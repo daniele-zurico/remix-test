@@ -37,7 +37,7 @@ const Home = () => (
           />
           <FormRadio
             id="createStorageDocument"
-            value="/processing-statements"
+            value="/storage-documents"
             label="Create a UK storage document"
             labelClassName="govuk-label govuk-radios__label"
             inputClassName="govuk-radios__input"
