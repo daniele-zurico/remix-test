@@ -21,9 +21,7 @@ export const MainApp = ({ children, applicationConfig } : React.PropsWithChildre
         <ScrollRestoration />
         <script
           dangerouslySetInnerHTML={{
-            __html: `document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-              window.ENV = ${JSON.stringify((applicationConfig !== undefined) ? {...applicationConfig} : {})}
-            `,
+            __html: `document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');`,
           }}
         />
         <Scripts />

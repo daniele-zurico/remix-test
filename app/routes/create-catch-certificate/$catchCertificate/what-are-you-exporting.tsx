@@ -3,21 +3,25 @@ import { Tab, TabGroup } from "@capgeminiuk/dcx-react-library";
 import { BackButton } from "../../../components";
 
 export const loader: LoaderFunction = async ({ params }) => {
-  return json(params.catchCertificate);
+  return json({
+    documentNumber: params.catchCertificate,
+    config: {
+      maxSpeciesLimit: process.env.LIMIT_ADD_SPECIES
+    }
+  });
 };
 
 const $catchCertificate = () => {
-  const ccNumber = useLoaderData();
-  const limitAddSpecies = (typeof window !== "undefined") ? (window as any).ENV.LIMIT_ADD_SPECIES : '';
+  const { documentNumber, config } = useLoaderData();
   return (
     <>
-      <BackButton href={`/create-catch-certificate/${ccNumber}/add-your-reference`} />
+      <BackButton href={`/create-catch-certificate/${documentNumber}/add-your-reference`} />
       <div className="govuk-!-padding-top-6">
         <div className="govuk-inset-text govuk-!-margin-top-0">
           <p>Please Note:</p>
           <ul>
             <li>Each product must have at least one landing.</li>
-            <li>{`A maximum of ${limitAddSpecies} landings is allowed per certificate`}.</li>
+            <li>{`A maximum of ${config.maxSpeciesLimit} landings is allowed per certificate`}.</li>
           </ul>
         </div>
         <h1 className="govuk-heading-xl">What are you exporting?</h1>
