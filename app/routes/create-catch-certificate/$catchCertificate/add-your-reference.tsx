@@ -28,7 +28,7 @@ export const meta: MetaFunction = () => ({
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { catchCertificate = '' } = params;
-  const response = await fetch("http://localhost:3001/orchestration/api/v1/userReference", {
+  const response = await fetch(`${process.env.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`, {
     method: 'GET',
     headers: {
       documentnumber: catchCertificate
@@ -43,7 +43,7 @@ export const action = async ({ request, params }: IAction) => {
   const form = await request.formData();
   const userReference = form.get('userReference');
 
-  const response = await fetch("http://localhost:3001/orchestration/api/v1/userReference", {
+  const response = await fetch(`${process.env.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

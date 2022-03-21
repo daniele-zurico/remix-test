@@ -6,10 +6,10 @@ import { ProgressTable, CompleteTable, NotificationBanner, PrimaryButton } from 
 import { Journeys } from "../../../data/constants";
 
 export const loader = async () => {
-  const res = await fetch("http://localhost:3001/orchestration/api/v1/documents/2022/3?type=catchCertificate");
+  const res = await fetch(`${process.env.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/documents/2022/3?type=catchCertificate`);
   const data = await res.json();
 
-  const response = await fetch("http://localhost:3001/orchestration/api/v1/notification");
+  const response = await fetch(`${process.env.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/notification`);
   const notification = await response.json();
 
   return json({ ...data, notification });
