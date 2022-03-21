@@ -6,8 +6,6 @@ export {CookieBanner} from './cookieBanner';
 export {Error} from './error';
 export {PageNotFound} from './pageNotFound';
 export {Help} from './help';
-export {PrimaryButton} from './primaryButton';
-export {SecondaryButton} from './secondaryButton';
 export {MainApp} from './mainApp';
 export {ErrorSummary} from './errorSummary'
 export {NotificationBanner} from './notificationBanner';
