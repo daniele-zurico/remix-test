@@ -1,6 +1,6 @@
-import { ReactElement } from "react";
+import { Link } from "remix";
 
-export const Footer = (): ReactElement => (
+export const Footer = () => (
   <footer className="govuk-footer " role="contentinfo">
     <div className="govuk-width-container ">
       <div className="govuk-footer__meta">
@@ -8,24 +8,27 @@ export const Footer = (): ReactElement => (
           <h2 className="govuk-visually-hidden">Support links</h2>
           <ul className="govuk-footer__inline-list">
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="/accessibility">
+              <Link className="govuk-footer__link" to="/accessibility">
                 Accessibility
-              </a>
+              </Link>
             </li>
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="/cookies">
+              <Link className="govuk-footer__link" to="/cookies">
                 Cookies
-              </a>
+              </Link>
             </li>
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="/privacy-notice">
+              <Link className="govuk-footer__link" to="/privacy-notice">
                 Privacy
-              </a>
+              </Link>
             </li>
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="/service-improvement-plan">
+              <Link
+                className="govuk-footer__link"
+                to="/service-improvement-plan"
+              >
                 Service Improvement
-              </a>
+              </Link>
             </li>
           </ul>
           <svg
@@ -44,23 +47,23 @@ export const Footer = (): ReactElement => (
           </svg>
           <span className="govuk-footer__licence-description">
             All content is available under the
-            <a
+            <Link
               className="govuk-footer__link"
-              href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+              to="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
               rel="license"
             >
               Open Government Licence v3.0
-            </a>
+            </Link>
             , except where otherwise stated
           </span>
         </div>
         <div className="govuk-footer__meta-item">
-          <a
+          <Link
             className="govuk-footer__link govuk-footer__copyright-logo"
-            href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
+            to="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
           >
             © Crown copyright
-          </a>
+          </Link>
         </div>
       </div>
     </div>

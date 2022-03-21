@@ -136,13 +136,13 @@ const UserReferencePage = ({
         />
         <Button
           label="Save as draft"
-          type={BUTTON_TYPE.BUTTON}
+          type={BUTTON_TYPE.SUBMIT}
           className="govuk-button  govuk-!-margin-right-4 govuk-button--secondary"
           data-module="govuk-button"
         />
         <Button
           label="Save and continue"
-          type={BUTTON_TYPE.BUTTON}
+          type={BUTTON_TYPE.SUBMIT}
           className="govuk-button"
           data-module="govuk-button"
         />

@@ -38,7 +38,7 @@ const Dashboard = (): ReactElement => {
       <h1 className="govuk-heading-xl">Catch certificates</h1>
       <Button
         label="Create a new catch certificate"
-        type={BUTTON_TYPE.BUTTON}
+        type={BUTTON_TYPE.SUBMIT}
         className="govuk-button"
         data-module="govuk-button"
       />
