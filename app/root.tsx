@@ -16,7 +16,7 @@ export function links() {
 export async function loader() {
   return json({
     ENV: {
-      LIMIT_ADD_SPECIES: process.env.LIMIT_ADD_SPECIES
+      LIMIT_ADD_SPECIES: process.env.LIMIT_ADD_SPECIES,
     },
   });
 }
