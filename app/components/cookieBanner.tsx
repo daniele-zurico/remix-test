@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { Link } from "remix";
 
 export const CookieBanner: React.FC = (): ReactElement => (
   <div
@@ -27,27 +28,31 @@ export const CookieBanner: React.FC = (): ReactElement => (
       </div>
 
       <div className="govuk-button-group">
-        <button
-          value="accept"
-          type="button"
-          name="cookies"
-          className="govuk-button"
-          data-module="govuk-button"
-        >
-          Accept analytics cookies
-        </button>
-        <button
-          value="reject"
-          type="button"
-          name="cookies"
-          className="govuk-button"
-          data-module="govuk-button"
-        >
-          Reject analytics cookies
-        </button>
-        <a className="govuk-link" href="/">
+        {typeof window !== "undefined" && (
+          <>
+            <button
+              value="accept"
+              type="button"
+              name="cookies"
+              className="govuk-button"
+              data-module="govuk-button"
+            >
+              Accept analytics cookies
+            </button>
+            <button
+              value="reject"
+              type="button"
+              name="cookies"
+              className="govuk-button"
+              data-module="govuk-button"
+            >
+              Reject analytics cookies
+            </button>
+          </>
+        )}
+        <Link className="govuk-link" to="/cookies">
           View cookies
-        </a>
+        </Link>
       </div>
     </div>
   </div>
