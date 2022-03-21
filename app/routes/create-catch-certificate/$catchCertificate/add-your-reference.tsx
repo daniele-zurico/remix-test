@@ -71,7 +71,7 @@ export function CatchBoundary() {
 }
 
 
-const UserReferencePage<IUserReferenceProps> = ({ errors = {}, userReference }: React.PropsWithChildren<IUserReferenceProps>) => {
+const UserReferencePage = ({ errors = {}, userReference }: React.PropsWithChildren<IUserReferenceProps>) => {
   const data: { userReference: string } = useLoaderData<{ userReference: string }>() || { userReference };
   const [userRefernce, setUserReference] = useState<string>(data.userReference);
 
