@@ -1,4 +1,3 @@
-import { ReactElement } from "react";
 import { Form, redirect } from "remix";
 import { IAction } from "../../interfaces/action.interface";
 import { Button, BUTTON_TYPE, FormRadio } from "@capgeminiuk/dcx-react-library";
@@ -9,7 +8,7 @@ export const action = async ({ request }: IAction) => {
   return redirect(journeySelection);
 };
 
-const Home: React.FC = (): ReactElement => (
+const Home = () => (
   <div className="govuk-!-padding-top-6">
     <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">
       What do you want to do?
