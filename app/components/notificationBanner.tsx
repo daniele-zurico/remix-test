@@ -1,6 +1,6 @@
-import { Notification } from '../../data/notification';
+import { INotification } from '../../interfaces/notification.interface';
 
-export const NotificationBanner = ({ title, message }: Notification) => {
+export const NotificationBanner = ({ title, message }: INotification) => {
   return (
     <div style={{ border: 0 }} className='govuk-notification-banner' role="alert" >
       <div className='govuk-notification-banner__header govuk-!-padding-top-4'>
