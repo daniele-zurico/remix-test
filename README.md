@@ -51,3 +51,20 @@ rm -rf app
 # copy your app over
 cp -R ../my-old-remix-app/app app
 ```
+
+### Environment Variables
+
+`touch .env`
+
+Add contents of `.envSample` to `.env`
+
+```
+example:
+LIMIT_ADD_SPECIES=100
+```
+### Start the application
+----------------------
+mmo-cc-orchestration-svc
+git checkout develop OR git pull
+npm i
+npm npm run dev:without-auth

@@ -1,7 +1,8 @@
+import { ReactElement } from "react";
 import { Outlet } from "remix";
 import { Banner } from "./banner";
 
-export const Document = () => (
+export const Document: React.FC = (): ReactElement => (
   <div className="govuk-width-container">
     <main className="govuk-main-wrapper" id="main-content" role="main">
       <Banner />

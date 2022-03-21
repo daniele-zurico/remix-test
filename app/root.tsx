@@ -1,6 +1,5 @@
-import { Links, LiveReload, Meta, Scripts, ScrollRestoration } from "remix";
-import { CookieBanner, Header, Footer, Document } from "./components";
-import type { MetaFunction } from "remix";
+import { MainApp, Document, Error, PageNotFound } from "./components";
+import { MetaFunction, json, useLoaderData } from "remix";
 import styles from "~/styles/all.css";
 
 export const meta: MetaFunction = () => ({
@@ -14,23 +13,36 @@ export function links() {
   return [{ rel: "stylesheet", href: styles }];
 }
 
-export default function App() {
+export async function loader() {
+  return json({
+    ENV: {
+      LIMIT_ADD_SPECIES: process.env.LIMIT_ADD_SPECIES
+    },
+  });
+}
+
+export function ErrorBoundary({ error }: any) {
+  console.error(error);
   return (
-    <html className="govuk-template" lang="en">
-      <head>
-        <Meta />
-        <Links />
-      </head>
-      {/* TODO - add js-enabled inline script document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled') */}
-      <body className="govuk-template__body js-enabled">
-        <CookieBanner />
-        <Header />
-        <Document />
-        <Footer />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </body>
-    </html>
+    <MainApp>
+      <Error />
+    </MainApp>
+  );
+}
+
+export function CatchBoundary() {
+  return (
+    <MainApp>
+      <PageNotFound />
+    </MainApp>
+  );
+}
+
+export default function App() {
+  const data = useLoaderData();
+  return (
+    <MainApp applicationConfig={data.ENV}>
+      <Document />
+    </MainApp>
   );
 }

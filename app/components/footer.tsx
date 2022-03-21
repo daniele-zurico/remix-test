@@ -1,4 +1,6 @@
-export const Footer = () => (
+import { ReactElement } from "react";
+
+export const Footer: React.FC = (): ReactElement => (
   <footer className="govuk-footer " role="contentinfo">
     <div className="govuk-width-container ">
       <div className="govuk-footer__meta">
@@ -6,22 +8,22 @@ export const Footer = () => (
           <h2 className="govuk-visually-hidden">Support links</h2>
           <ul className="govuk-footer__inline-list">
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="#1">
+              <a className="govuk-footer__link" href="/accessibility">
                 Accessibility
               </a>
             </li>
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="#2">
+              <a className="govuk-footer__link" href="/cookies">
                 Cookies
               </a>
             </li>
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="#3">
+              <a className="govuk-footer__link" href="/privacy-notice">
                 Privacy
               </a>
             </li>
             <li className="govuk-footer__inline-list-item">
-              <a className="govuk-footer__link" href="#3">
+              <a className="govuk-footer__link" href="/service-improvement-plan">
                 Service Improvement
               </a>
             </li>

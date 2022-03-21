@@ -1,4 +1,6 @@
-export const CookieBanner = () => (
+import { ReactElement } from "react";
+
+export const CookieBanner: React.FC = (): ReactElement => (
   <div
     className="govuk-cookie-banner "
     data-nosnippet
