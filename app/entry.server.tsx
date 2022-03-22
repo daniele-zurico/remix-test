@@ -3,7 +3,7 @@ import { renderToString } from "react-dom/server";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import type { EntryContext } from "remix";
 import { RemixServer } from "remix";
-import { defaultLocale, supportedLanguages } from './data/constants';
+import { defaultLocale, supportedLanguages } from "./data";
 
 export default async function handleRequest(
   request: Request,

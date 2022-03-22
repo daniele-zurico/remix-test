@@ -2,7 +2,7 @@ import { json, useLoaderData } from "remix";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
 import { IDashboardSDData } from "~/interfaces";
-import { Journeys } from "../../data/constants";
+import { Journeys } from "../../data";
 import CONFIG from "../../config";
 
 export const loader = async () => {

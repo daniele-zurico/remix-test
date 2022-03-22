@@ -8,7 +8,7 @@ import {
 import { useSetupTranslations } from "remix-i18next";
 import { i18n } from "~/i18n.server";
 import { IMainPageProps } from "~/interfaces";
-import { supportedLanguages, defaultLocale } from "./data/constants";
+import { supportedLanguages, defaultLocale } from "./data";
 import { MainApp, Document, Error, PageNotFound } from "./components";
 
 import styles from "~/styles/all.css";
