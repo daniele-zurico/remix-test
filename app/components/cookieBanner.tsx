@@ -1,3 +1,4 @@
+import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { ReactElement } from "react";
 import { Link } from "remix";
 
@@ -30,24 +31,18 @@ export const CookieBanner = (): ReactElement => (
       <div className="govuk-button-group">
         {typeof window !== "undefined" && (
           <>
-            <button
-              value="accept"
-              type="button"
-              name="cookies"
+            <Button
+              type={BUTTON_TYPE.BUTTON}
               className="govuk-button"
               data-module="govuk-button"
-            >
-              Accept analytics cookies
-            </button>
-            <button
-              value="reject"
-              type="button"
-              name="cookies"
+              label="Accept analytics cookies"
+            />
+            <Button
+              type={BUTTON_TYPE.BUTTON}
               className="govuk-button"
               data-module="govuk-button"
-            >
-              Reject analytics cookies
-            </button>
+              label="Reject analytics cookies"
+            />
           </>
         )}
         <Link className="govuk-link" to="/cookies">

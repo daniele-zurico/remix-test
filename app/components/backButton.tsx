@@ -1,7 +1,10 @@
 import { ReactElement } from "react";
+import { Link } from "remix";
 
-export const BackButton = ({ ...props }):ReactElement => {
+export const BackButton = ({ ...props }): ReactElement => {
   return (
-    <a href={props.href} className="govuk-back-link">Back</a>
-  )
-}
+    <Link to={props.href} className="govuk-back-link">
+      Back
+    </Link>
+  );
+};

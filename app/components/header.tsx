@@ -1,10 +1,13 @@
-import { ReactElement } from "react";
+import { Link } from "remix";
 
-export const Header = (): ReactElement => (
-  <header className="govuk-header " role="banner" data-module="govuk-header">
+export const Header = () => (
+  <header className="govuk-header" role="banner" data-module="govuk-header">
     <div className="govuk-header__container govuk-width-container">
       <div className="govuk-header__logo">
-        <a href="/" className="govuk-header__link govuk-header__link--homepage">
+        <Link
+          to="/"
+          className="govuk-header__link govuk-header__link--homepage"
+        >
           <span className="govuk-header__logotype">
             <svg
               aria-hidden="true"
@@ -23,15 +26,15 @@ export const Header = (): ReactElement => (
             </svg>
             <span className="govuk-header__logotype-text">GOV.UK</span>
           </span>
-        </a>
+        </Link>
       </div>
       <div className="govuk-header__content">
-        <a
-          href="/create-catch-certificate/catch-certificates"
+        <Link
+          to="/create-catch-certificate/catch-certificates"
           className="govuk-header__link govuk-header__link--service-name"
         >
           Create a UK catch certificate
-        </a>
+        </Link>
         <nav aria-label="Menu" className="govuk-header__navigation ">
           <button
             type="button"
@@ -44,24 +47,24 @@ export const Header = (): ReactElement => (
 
           <ul id="navigation" className="govuk-header__navigation-list">
             <li className="govuk-header__navigation-item govuk-header__navigation-item--active">
-              <a className="govuk-header__link" href="/">
+              <Link className="govuk-header__link" to="/">
                 Home
-              </a>
+              </Link>
             </li>
             <li className="govuk-header__navigation-item">
-              <a className="govuk-header__link" href="#2">
+              <Link className="govuk-header__link" to="#2">
                 Favourites
-              </a>
+              </Link>
             </li>
             <li className="govuk-header__navigation-item">
-              <a className="govuk-header__link" href="#3">
+              <Link className="govuk-header__link" to="#3">
                 Manage account
-              </a>
+              </Link>
             </li>
             <li className="govuk-header__navigation-item">
-              <a className="govuk-header__link" href="#4">
+              <Link className="govuk-header__link" to="#4">
                 Sign out
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
