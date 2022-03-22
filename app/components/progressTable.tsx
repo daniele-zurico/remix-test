@@ -49,7 +49,7 @@ export const ProgressTable = ({
               </td>
               <td className="govuk-table__cell">{certificate.userReference}</td>
               <td className="govuk-table__cell">{certificate.startedAt}</td>
-              {"status" in certificate && (
+              {("status" in certificate && journey === Journeys.CatchCertificate) && (
                 <td className="govuk-table__cell">
                   <strong className="govuk-tag govuk-tag--grey">
                     {certificate.status}
