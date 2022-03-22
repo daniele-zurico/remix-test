@@ -16,6 +16,7 @@ import { getErrorMessage, getTransformedError } from "../../../../data/lookupErr
 import { BackButton, Help, HintTextInput } from "../../../components";
 import { ErrorSummary } from "~/components/errorSummary";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
+import CONFIG from "../../../../config/config";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -28,7 +29,7 @@ export const meta: MetaFunction = () => ({
 export const loader: LoaderFunction = async ({ params }) => {
   const { catchCertificate = "" } = params;
   const response = await fetch(
-    `${process.env.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`,
+    `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`,
     {
       method: "GET",
       headers: {
@@ -46,7 +47,7 @@ export const action = async ({ request, params }: IAction) => {
   const userReference = form.get("userReference");
 
   const response = await fetch(
-    `${process.env.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`,
+    `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`,
     {
       method: "POST",
       headers: {

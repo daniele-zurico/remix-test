@@ -1,8 +1,4 @@
-import { IError, IErrorTransformed } from "interfaces/errors.interface";
-
-interface ErrorLookup {
-  [key: string]: string
-}
+import { IError, IErrorTransformed, ErrorLookup } from "interfaces/errors.interface";
 
 export const getErrorMessage = (key: string, params: string[] = []): string => {
   const errors: ErrorLookup = {
@@ -15,11 +11,13 @@ export const getErrorMessage = (key: string, params: string[] = []): string => {
 
 export const getTransformedError = (errors: IError[]): IErrorTransformed => {
   const errorTransformed: IErrorTransformed = {};
+  
   errors.forEach((error: IError) => {
     errorTransformed[error.key] = {
       key: error.key,
       message: error.message
     };
   });
+
   return errorTransformed;
 }
