@@ -1,4 +1,3 @@
-import { ReactElement } from "react";
 import type { MetaFunction } from "remix";
 
 export const meta: MetaFunction = () => ({
@@ -8,12 +7,10 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-const CookiePage = (): ReactElement => {
-  return (
-    <div className="govuk-!-padding-top-6">
-      <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">Cookies Policy</h1>
-    </div>
-  )
-}
+const CookiePage = () => (
+  <div className="govuk-!-padding-top-6">
+    <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">Cookies Policy</h1>
+  </div>
+);
 
 export default CookiePage;

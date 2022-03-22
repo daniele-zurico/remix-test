@@ -1,12 +1,20 @@
-import React, { ReactElement } from "react";
-import { IError } from '../interfaces/errors.interface';
+import { Link } from "remix";
+import { IError } from "../interfaces/errors.interface";
 
 interface IErrorSummaryProps {
   errors: IError[];
 }
 
-export const ErrorSummary = ({ errors }: React.PropsWithChildren<IErrorSummaryProps>): ReactElement => (
-  <div className="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-disable-auto-focus="true" data-module="govuk-error-summary">
+export const ErrorSummary = ({
+  errors,
+}: React.PropsWithChildren<IErrorSummaryProps>) => (
+  <div
+    className="govuk-error-summary"
+    aria-labelledby="error-summary-title"
+    role="alert"
+    data-disable-auto-focus="true"
+    data-module="govuk-error-summary"
+  >
     <h2 className="govuk-error-summary__title" id="error-summary-title">
       There is a problem
     </h2>
@@ -14,10 +22,10 @@ export const ErrorSummary = ({ errors }: React.PropsWithChildren<IErrorSummaryPr
       <ul className="govuk-list govuk-error-summary__list">
         {errors.map((error: IError) => (
           <li key={error.key}>
-            <a href={`#${error.key}`}>{error.message}</a>
+            <Link to={`#${error.key}`}>{error.message}</Link>
           </li>
         ))}
       </ul>
     </div>
   </div>
-)
+);

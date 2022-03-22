@@ -1,5 +1,5 @@
 import { Form, redirect, json, LoaderFunction } from "remix";
-import { IAction } from "../interfaces/action.interface";
+import { IAction } from "../interfaces";
 import { i18n } from "~/i18n.server";
 import { useTranslation } from "react-i18next";
 import { Button, BUTTON_TYPE, FormRadio } from "@capgeminiuk/dcx-react-library";
@@ -18,26 +18,24 @@ export const action = async ({ request }: IAction) => {
 };
 
 const Home = () => {
- const { t } = useTranslation("index");
+  const { t } = useTranslation("index");
 
   const [value, setValue] = React.useState(
     "/create-catch-certificate/catch-certificates"
-    );
+  );
   const handleChange = (event: any) => {
     setValue(event.currentTarget.value);
   };
   return (
     <div className="govuk-!-padding-top-6">
-      <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">
-        {t("title")}
-      </h1>
+      <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">{t("title")}</h1>
       <Form method="post">
         <div className="govuk-form-group govuk-!-margin-bottom-6">
           <div className="govuk-fieldset govuk-!-margin-bottom-6">
             <FormRadio
               id="createCatchCertificate"
               value="/create-catch-certificate/catch-certificates"
-              label={t('createCatchCertificateLabel')}
+              label={t("createCatchCertificateLabel")}
               labelClassName="govuk-label govuk-radios__label"
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
@@ -50,18 +48,20 @@ const Home = () => {
             <FormRadio
               id="createProcessingStatement"
               value="/create-processing-statement/processing-statements"
-              label={t('createProcessingStatementLabel')}
+              label={t("createProcessingStatementLabel")}
               labelClassName="govuk-label govuk-radios__label"
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
               name="journeySelection"
-              selected={value === "/create-processing-statement/processing-statements"}
+              selected={
+                value === "/create-processing-statement/processing-statements"
+              }
               onChange={handleChange}
             />
             <FormRadio
               id="createStorageDocument"
               value="/create-storage-document/storage-documents"
-              label={t('createStorageDocumentLabel')}
+              label={t("createStorageDocumentLabel")}
               labelClassName="govuk-label govuk-radios__label"
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
@@ -71,7 +71,7 @@ const Home = () => {
             />
           </div>
           <Button
-            label={t('continueLabel')}
+            label={t("continueLabel")}
             type={BUTTON_TYPE.SUBMIT}
             className="govuk-button"
             data-module="govuk-button"

@@ -13,7 +13,7 @@ export interface ICompletedProcessingStatement {
   status: string;
 };
 
-export interface IDashboardData {
+export interface IDashboardPSData {
   inProgress: IProcessingStatement[];
   completed: ICompletedProcessingStatement[];
   notification: INotification;

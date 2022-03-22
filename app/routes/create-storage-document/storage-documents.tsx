@@ -1,8 +1,7 @@
-import { ReactElement } from "react";
 import { json, useLoaderData } from "remix";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
-import { IDashboardData } from "~/interfaces/storage-document.interface";
+import { IDashboardSDData } from "~/interfaces";
 import { Journeys } from "../../data/constants";
 import CONFIG from "../../config";
 
@@ -20,8 +19,8 @@ export const loader = async () => {
   return json({ ...data, notification });
 };
 
-const Dashboard = (): ReactElement => {
-  const data = useLoaderData<IDashboardData>();
+const Dashboard = () => {
+  const data = useLoaderData<IDashboardSDData>();
   return (
     <>
       <NotificationBanner {...data.notification} />
@@ -36,7 +35,7 @@ const Dashboard = (): ReactElement => {
       <p className="govuk-body">
         A maximum of 50 draft storage documents is allowed at any time.
       </p>
-      <ProgressTable 
+      <ProgressTable
         certificates={data.inProgress}
         journey={Journeys.storageDocument}
       />

@@ -1,7 +1,13 @@
-import { createCookie, json, useLoaderData, LoaderFunction, MetaFunction } from "remix";
+import {
+  createCookie,
+  json,
+  useLoaderData,
+  LoaderFunction,
+  MetaFunction,
+} from "remix";
 import { useSetupTranslations } from "remix-i18next";
-import { i18n } from "~/i18n.server"
-import { IMainPageProps } from "~/interfaces/main.interface";
+import { i18n } from "~/i18n.server";
+import { IMainPageProps } from "~/interfaces";
 import { supportedLanguages, defaultLocale } from "./data/constants";
 import { MainApp, Document, Error, PageNotFound } from "./components";
 
@@ -17,25 +23,33 @@ export const meta: MetaFunction = () => ({
 
 export let loader: LoaderFunction = async ({ request }) => {
   const locale = await i18n.getLocale(request);
-  const lngInQuery = (new URL(request.url)).searchParams.get('lng');
-  const options: ResponseInit = {}
+  const lngInQuery = new URL(request.url).searchParams.get("lng");
+  const options: ResponseInit = {};
   if (lngInQuery) {
     options.headers = {
-      'Set-Cookie': await createCookie('locale').serialize(locale)
-    }
+      "Set-Cookie": await createCookie("locale").serialize(locale),
+    };
   }
 
-  return json({ 
-    locale: await i18n.getLocale(request),
-    i18n: await i18n.getTranslations(request, ["header", "banner", "cookieBanner", "footer"]),
-    languages: supportedLanguages
-  }, options);
+  return json(
+    {
+      locale: await i18n.getLocale(request),
+      i18n: await i18n.getTranslations(request, [
+        "header",
+        "banner",
+        "cookieBanner",
+        "footer",
+      ]),
+      languages: supportedLanguages,
+    },
+    options
+  );
 };
 
 export function links() {
   return [
     { rel: "stylesheet", href: styles },
-    { rel: "stylesheet", href: languageStyles }
+    { rel: "stylesheet", href: languageStyles },
   ];
 }
 
@@ -45,17 +59,17 @@ export function ErrorBoundary({ error }: any) {
 
   return (
     <MainApp locale={defaultLocale}>
-      <Error languages={supportedLanguages} locale={defaultLocale}/>
+      <Error languages={supportedLanguages} locale={defaultLocale} />
     </MainApp>
   );
 }
 
 export function CatchBoundary() {
-  useSetupTranslations(defaultLocale );
+  useSetupTranslations(defaultLocale);
 
   return (
     <MainApp locale={defaultLocale}>
-      <PageNotFound languages={supportedLanguages} locale={defaultLocale }/>
+      <PageNotFound languages={supportedLanguages} locale={defaultLocale} />
     </MainApp>
   );
 }
