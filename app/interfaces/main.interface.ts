@@ -6,3 +6,8 @@ export interface IMainAppProps {
 export interface IMainPageProps extends IMainAppProps {
   languages: ILanguages;
 }
+
+export interface INotification {
+  title: string;
+  message: string;
+};

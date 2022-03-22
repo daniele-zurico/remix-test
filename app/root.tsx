@@ -1,8 +1,8 @@
 import { createCookie, json, useLoaderData, LoaderFunction, MetaFunction } from "remix";
 import { useSetupTranslations } from "remix-i18next";
 import { i18n } from "~/i18n.server"
-import { IMainPageProps } from "../interfaces/main.interface";
-import { supportedLanguages, defaultLocale } from "../data/constants";
+import { IMainPageProps } from "~/interfaces/main.interface";
+import { supportedLanguages, defaultLocale } from "./data/constants";
 import { MainApp, Document, Error, PageNotFound } from "./components";
 
 import styles from "~/styles/all.css";

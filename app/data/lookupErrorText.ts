@@ -1,4 +1,4 @@
-import { IError, IErrorTransformed, ErrorLookup } from "interfaces/errors.interface";
+import { IError, IErrorTransformed, ErrorLookup } from "../interfaces/errors.interface";
 
 export const getErrorMessage = (key: string, params: string[] = []): string => {
   const errors: ErrorLookup = {

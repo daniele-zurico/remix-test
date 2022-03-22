@@ -1,15 +1,16 @@
 import { ReactElement } from "react";
 import { json, useLoaderData } from "remix";
-import { ProcessingStatement, getProcessingStatements } from "./processingStatement";
+import { getProcessingStatements } from "./processingStatement";
 import { ProgressTable } from "~/components";
-import { Journeys } from "../../../data/constants";
+import { IProcessingStatement } from "~/interfaces/processing-statement.interface";
+import { Journeys } from "../../data/constants";
 
 export const loader = async () => {
   return json(getProcessingStatements());
 };
 
 const Dashboard = (): ReactElement => {
-  const certificates = useLoaderData<ProcessingStatement[]>();
+  const certificates = useLoaderData<IProcessingStatement[]>();
   return (
     <ProgressTable
       certificates={certificates}

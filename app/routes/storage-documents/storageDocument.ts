@@ -1,10 +1,6 @@
-export type StorageDocument = {
-  documentNumber: string;
-  userReference: string;
-  startedAt: string;
-};
+import { IStorageDocument } from "~/interfaces/storage-document.interface";
 
-export function getStorageDocuments(): StorageDocument[] {
+export function getStorageDocuments(): IStorageDocument[] {
   return [
     {
       documentNumber: "GBR-2022-SD-E8F37B0E8",
