@@ -22,7 +22,7 @@ const Home = () => {
 
   const [value, setValue] = React.useState(
     "/create-catch-certificate/catch-certificates"
-  );
+    );
   const handleChange = (event: any) => {
     setValue(event.currentTarget.value);
   };
@@ -37,7 +37,7 @@ const Home = () => {
             <FormRadio
               id="createCatchCertificate"
               value="/create-catch-certificate/catch-certificates"
-              label="Create a UK catch certificate (Including links to direct landing documents)"
+              label={t('createCatchCertificateLabel')}
               labelClassName="govuk-label govuk-radios__label"
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
@@ -50,7 +50,7 @@ const Home = () => {
             <FormRadio
               id="createProcessingStatement"
               value="/create-processing-statement/processing-statements"
-              label="Create a UK processing statement"
+              label={t('createProcessingStatementLabel')}
               labelClassName="govuk-label govuk-radios__label"
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
@@ -61,7 +61,7 @@ const Home = () => {
             <FormRadio
               id="createStorageDocument"
               value="/create-storage-document/storage-documents"
-              label="Create a UK storage document"
+              label={t('createStorageDocumentLabel')}
               labelClassName="govuk-label govuk-radios__label"
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
@@ -71,7 +71,7 @@ const Home = () => {
             />
           </div>
           <Button
-            label="Continue"
+            label={t('continueLabel')}
             type={BUTTON_TYPE.SUBMIT}
             className="govuk-button"
             data-module="govuk-button"
