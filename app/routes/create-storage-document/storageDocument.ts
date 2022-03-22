@@ -1,4 +1,4 @@
-import { IStorageDocument } from "~/interfaces/storage-document.interface";
+import { IStorageDocument } from "~/interfaces";
 
 export function getStorageDocuments(): IStorageDocument[] {
   return [

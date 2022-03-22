@@ -1,13 +1,12 @@
-import { ReactElement } from "react"
 import { Link } from "remix";
-import moment from 'moment';
-import { ICompletedCertificate } from '../interfaces/catch-certificate.interface';
+import moment from "moment";
+import { ICompletedCertificate } from "../interfaces/catch-certificate.interface";
 
 interface CompleteTableProps {
-  certificates: ICompletedCertificate[]
-};
+  certificates: ICompletedCertificate[];
+}
 
-export const CompleteTable = ({ certificates }: CompleteTableProps): ReactElement => {
+export const CompleteTable = ({ certificates }: CompleteTableProps) => {
   return (
     <table className="govuk-table">
       <thead className="govuk-table__head">
@@ -33,32 +32,25 @@ export const CompleteTable = ({ certificates }: CompleteTableProps): ReactElemen
               {documentNumber}
             </td>
             <td className="govuk-table__cell">{userReference}</td>
-            <td className="govuk-table__cell">{moment(createdAt).format('DD MMM YYYY')}</td>
             <td className="govuk-table__cell">
-              <Link
-                to={`/`}
-                className="govuk-link"
-              >
+              {moment(createdAt).format("DD MMM YYYY")}
+            </td>
+            <td className="govuk-table__cell">
+              <Link to={`/`} className="govuk-link">
                 View
               </Link>
               <br />
-              <Link
-                to="/"
-                className="govuk-link"
-              >
-               Void
+              <Link to="/" className="govuk-link">
+                Void
               </Link>
               <br />
-              <Link
-                to="/"
-                className="govuk-link"
-              >
-               Copy
+              <Link to="/" className="govuk-link">
+                Copy
               </Link>
             </td>
           </tr>
         ))}
       </tbody>
     </table>
-  )
-}
+  );
+};

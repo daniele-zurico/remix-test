@@ -1,9 +1,8 @@
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
-import { ReactElement } from "react";
 import { Link } from "remix";
 import { useTranslation } from "react-i18next";
 
-export const CookieBanner = (): ReactElement => {
+export const CookieBanner = () => {
   const { t } = useTranslation("cookieBanner");
 
   return (
@@ -17,20 +16,16 @@ export const CookieBanner = (): ReactElement => {
         <div className="govuk-grid-row">
           <div className="govuk-grid-column-two-thirds">
             <h2 className="govuk-cookie-banner__heading govuk-heading-m">
-              {t('title')}
+              {t("title")}
             </h2>
-  
+
             <div className="govuk-cookie-banner__content">
-              <p className="govuk-body">
-                {t('text_1')}
-              </p>
-              <p className="govuk-body">
-                {t('text_2')}
-              </p>
+              <p className="govuk-body">{t("text_1")}</p>
+              <p className="govuk-body">{t("text_2")}</p>
             </div>
           </div>
         </div>
-  
+
         <div className="govuk-button-group">
           {typeof window !== "undefined" && (
             <>
@@ -38,21 +33,21 @@ export const CookieBanner = (): ReactElement => {
                 type={BUTTON_TYPE.BUTTON}
                 className="govuk-button"
                 data-module="govuk-button"
-                label={t('acceptButtonLabel')}
+                label={t("acceptButtonLabel")}
               />
               <Button
                 type={BUTTON_TYPE.BUTTON}
                 className="govuk-button"
                 data-module="govuk-button"
-                label={t('rejectButtonLabel')}
+                label={t("rejectButtonLabel")}
               />
             </>
           )}
           <Link className="govuk-link" to="/cookies">
-            {t('link')}
+            {t("link")}
           </Link>
         </div>
       </div>
     </div>
-  )
+  );
 };

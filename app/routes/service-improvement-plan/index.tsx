@@ -1,6 +1,5 @@
-import { ReactElement } from "react";
 import type { MetaFunction } from "remix";
-import { BackButton } from "../../components/backButton";
+import { BackButton } from "../../components";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -9,13 +8,13 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-const ServiceImprovementPage = (): ReactElement => {
-  return (
-    <div className="govuk-!-padding-top-6">
-      <BackButton href='/'/>
-      <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">How we're improving the service</h1>
-    </div>
-  )
-}
+const ServiceImprovementPage = () => (
+  <div className="govuk-!-padding-top-6">
+    <BackButton href="/" />
+    <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">
+      How we're improving the service
+    </h1>
+  </div>
+);
 
 export default ServiceImprovementPage;

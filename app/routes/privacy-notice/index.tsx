@@ -1,6 +1,5 @@
-import { ReactElement } from "react";
 import type { MetaFunction } from "remix";
-import { BackButton } from "../../components/backButton";
+import { BackButton } from "../../components";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -9,13 +8,11 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-const PrivacyPage = (): ReactElement => {
-  return (
-    <div className="govuk-!-padding-top-6">
-      <BackButton href='/'/>
-      <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">Privacy notice</h1>
-    </div>
-  )
-}
+const PrivacyPage = () => (
+  <div className="govuk-!-padding-top-6">
+    <BackButton href="/" />
+    <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">Privacy notice</h1>
+  </div>
+);
 
 export default PrivacyPage;

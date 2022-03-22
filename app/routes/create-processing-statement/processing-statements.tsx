@@ -1,8 +1,7 @@
-import { ReactElement } from "react";
 import { json, useLoaderData } from "remix";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
-import { IDashboardData } from "~/interfaces/processing-statement.interface";
+import { IDashboardPSData } from "~/interfaces";
 import { Journeys } from "~/data/constants";
 import CONFIG from "~/config";
 
@@ -20,8 +19,8 @@ export const loader = async () => {
   return json({ ...data, notification });
 };
 
-const Dashboard = (): ReactElement => {
-  const data = useLoaderData<IDashboardData>();
+const Dashboard = () => {
+  const data = useLoaderData<IDashboardPSData>();
   return (
     <>
       <NotificationBanner {...data.notification} />

@@ -13,7 +13,7 @@ export interface ICompletedStorageDocument {
   status: string;
 };
 
-export interface IDashboardData {
+export interface IDashboardSDData {
   inProgress: IStorageDocument[];
   completed: ICompletedStorageDocument[];
   notification: INotification;
