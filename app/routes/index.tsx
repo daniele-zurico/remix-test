@@ -49,24 +49,24 @@ const Home = () => {
             />
             <FormRadio
               id="createProcessingStatement"
-              value="/processing-statements"
+              value="/create-processing-statement/processing-statements"
               label="Create a UK processing statement"
               labelClassName="govuk-label govuk-radios__label"
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
               name="journeySelection"
-              selected={value === "/processing-statements"}
+              selected={value === "/create-processing-statement/processing-statements"}
               onChange={handleChange}
             />
             <FormRadio
               id="createStorageDocument"
-              value="/storage-documents"
+              value="/create-storage-document/storage-documents"
               label="Create a UK storage document"
               labelClassName="govuk-label govuk-radios__label"
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
               name="journeySelection"
-              selected={value === "/storage-documents"}
+              selected={value === "/create-storage-document/storage-documents"}
               onChange={handleChange}
             />
           </div>
