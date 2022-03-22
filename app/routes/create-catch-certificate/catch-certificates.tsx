@@ -4,15 +4,16 @@ import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { IDashboardData } from "../../../interfaces/catch-certificate.interface";
 import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
 import { Journeys } from "../../../data/constants";
+import CONFIG from "../../../config/config";
 
 export const loader = async () => {
   const res = await fetch(
-    `${process.env.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/documents/2022/3?type=catchCertificate`
+    `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/documents/2022/3?type=catchCertificate`
   );
   const data = await res.json();
 
   const response = await fetch(
-    `${process.env.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/notification`
+    `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/notification`
   );
   const notification = await response.json();
 
