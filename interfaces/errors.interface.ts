@@ -6,3 +6,6 @@ export interface IError {
 export interface IErrorTransformed {
   [key: string] : IError
 }
+export interface ErrorLookup {
+  [key: string]: string
+}
