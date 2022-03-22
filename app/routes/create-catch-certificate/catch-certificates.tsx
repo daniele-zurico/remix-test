@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import { json, useLoaderData } from "remix";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
+<<<<<<< HEAD
 import { IDashboardData } from "~/interfaces/catch-certificate.interface";
 import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
 <<<<<<< HEAD
@@ -9,6 +10,12 @@ import CONFIG from "~/config";
 =======
 import { Journeys } from "../../../data/constants";
 import CONFIG from "../../../config/config";
+>>>>>>> adding refactor to environment vars to come for CONFIG
+=======
+import { IDashboardData } from "../../interfaces/catch-certificate.interface";
+import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
+import { Journeys } from "../../data/constants";
+import CONFIG from "../../config";
 >>>>>>> adding refactor to environment vars to come for CONFIG
 
 export const loader = async () => {
