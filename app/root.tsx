@@ -27,6 +27,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   return json({ 
     locale: await i18n.getLocale(request),
+    i18n: await i18n.getTranslations(request, ["header", "banner", "cookieBanner", "footer"]),
     languages: supportedLanguages
   }, options);
 };
