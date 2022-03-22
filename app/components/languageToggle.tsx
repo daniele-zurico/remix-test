@@ -1,4 +1,4 @@
-import { ILanguages } from "interfaces/language.interface";
+import { ILanguages } from "../interfaces/language.interface";
 import { ReactElement } from "react";
 
 type ILanguageToggleProps = {

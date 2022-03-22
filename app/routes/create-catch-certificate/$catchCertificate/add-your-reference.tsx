@@ -9,14 +9,14 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 import { isEmpty } from "lodash";
-import { IAction } from "../../../../interfaces/action.interface";
-import { IError } from "../../../../interfaces/errors.interface";
-import { IUserReferenceProps } from "interfaces/catch-certificate.interface";
-import { getErrorMessage, getTransformedError } from "../../../../data/lookupErrorText";
+import { IAction } from "../../../interfaces/action.interface";
+import { IError } from "../../../interfaces/errors.interface";
+import { IUserReferenceProps } from "../../../interfaces/catch-certificate.interface";
+import { getErrorMessage, getTransformedError } from "../../../data/lookupErrorText";
 import { BackButton, Help, HintTextInput } from "../../../components";
 import { ErrorSummary } from "~/components/errorSummary";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
-import CONFIG from "../../../../config/config";
+import CONFIG from "../../../config";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",

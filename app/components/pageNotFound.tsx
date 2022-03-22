@@ -1,6 +1,6 @@
 import { Link, MetaFunction } from "remix";
 import { Banner, LanguageToggle } from "./";
-import { IMainPageProps } from "interfaces/main.interface";
+import { IMainPageProps } from "../interfaces/main.interface";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",

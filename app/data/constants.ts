@@ -1,4 +1,4 @@
-import { ILanguages } from "interfaces/language.interface";
+import { ILanguages } from "../interfaces/language.interface";
 
 export enum Journeys {
   CatchCertificate = "catchcertificate",

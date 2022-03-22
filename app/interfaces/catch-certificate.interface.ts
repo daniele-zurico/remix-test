@@ -1,4 +1,4 @@
-import { INotification } from "./notification.interface";
+import { INotification } from "./main.interface";
 import { IErrorTransformed } from "./errors.interface";
 
 export type ICatchCertificate = {
