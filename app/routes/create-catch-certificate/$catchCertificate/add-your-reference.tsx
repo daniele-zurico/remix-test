@@ -16,15 +16,7 @@ import { getErrorMessage, getTransformedError } from "../../../data/lookupErrorT
 import { BackButton, Help, HintTextInput } from "../../../components";
 import { ErrorSummary } from "~/components/errorSummary";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import CONFIG from "../../../config";
-=======
-import CONFIG from "../../../../config/config";
->>>>>>> adding refactor to environment vars to come for CONFIG
-=======
-import CONFIG from "../../../config";
->>>>>>> adding refactor to environment vars to come for CONFIG
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
