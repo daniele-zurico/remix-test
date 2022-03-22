@@ -9,23 +9,14 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 import { isEmpty } from "lodash";
-import { IAction } from "../../../../interfaces/action.interface";
-import {
-  IError,
-  IErrorTransformed,
-} from "../../../../interfaces/errors.interface";
-import {
-  getErrorMessage,
-  getTransformedError,
-} from "../../../../data/lookupErrorText";
+import { IAction } from "../../../interfaces/action.interface";
+import { IError } from "../../../interfaces/errors.interface";
+import { IUserReferenceProps } from "../../../interfaces/catch-certificate.interface";
+import { getErrorMessage, getTransformedError } from "../../../data/lookupErrorText";
 import { BackButton, Help, HintTextInput } from "../../../components";
 import { ErrorSummary } from "~/components/errorSummary";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
-
-interface IUserReferenceProps {
-  userReference?: string;
-  errors?: IErrorTransformed;
-}
+import CONFIG from "../../../config";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -38,7 +29,7 @@ export const meta: MetaFunction = () => ({
 export const loader: LoaderFunction = async ({ params }) => {
   const { catchCertificate = "" } = params;
   const response = await fetch(
-    `${process.env.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`,
+    `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`,
     {
       method: "GET",
       headers: {
@@ -56,7 +47,7 @@ export const action = async ({ request, params }: IAction) => {
   const userReference = form.get("userReference");
 
   const response = await fetch(
-    `${process.env.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`,
+    `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`,
     {
       method: "POST",
       headers: {

@@ -1,4 +1,4 @@
-import { IError } from "interfaces/errors.interface";
+import { IError } from "../interfaces/errors.interface";
 import { ReactElement } from "react";
 
 interface HintTextInputProps {

@@ -1,7 +1,15 @@
-import { Form, redirect } from "remix";
-import { IAction } from "../../interfaces/action.interface";
+import { Form, redirect, json, LoaderFunction } from "remix";
+import { IAction } from "../interfaces/action.interface";
+import { i18n } from "~/i18n.server";
+import { useTranslation } from "react-i18next";
 import { Button, BUTTON_TYPE, FormRadio } from "@capgeminiuk/dcx-react-library";
 import React from "react";
+
+export let loader: LoaderFunction = async ({ request }) => {
+  return json({
+    i18n: await i18n.getTranslations(request, ["common", "index"]),
+  });
+};
 
 export const action = async ({ request }: IAction) => {
   const form = await request.formData();
@@ -10,6 +18,8 @@ export const action = async ({ request }: IAction) => {
 };
 
 const Home = () => {
+ const { t } = useTranslation("index");
+
   const [value, setValue] = React.useState(
     "/create-catch-certificate/catch-certificates"
   );
@@ -19,7 +29,7 @@ const Home = () => {
   return (
     <div className="govuk-!-padding-top-6">
       <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">
-        What do you want to do?
+        {t("title")}
       </h1>
       <Form method="post">
         <div className="govuk-form-group govuk-!-margin-bottom-6">
@@ -39,24 +49,24 @@ const Home = () => {
             />
             <FormRadio
               id="createProcessingStatement"
-              value="/processing-statements"
+              value="/create-processing-statement/processing-statements"
               label="Create a UK processing statement"
               labelClassName="govuk-label govuk-radios__label"
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
               name="journeySelection"
-              selected={value === "/processing-statements"}
+              selected={value === "/create-processing-statement/processing-statements"}
               onChange={handleChange}
             />
             <FormRadio
               id="createStorageDocument"
-              value="/storage-documents"
+              value="/create-storage-document/storage-documents"
               label="Create a UK storage document"
               labelClassName="govuk-label govuk-radios__label"
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
               name="journeySelection"
-              selected={value === "/storage-documents"}
+              selected={value === "/create-storage-document/storage-documents"}
               onChange={handleChange}
             />
           </div>

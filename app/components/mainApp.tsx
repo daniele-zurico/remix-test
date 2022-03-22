@@ -1,14 +1,11 @@
 import React, { ReactElement } from "react";
 import { Links, LiveReload, Meta, Scripts, ScrollRestoration } from "remix";
 import { CookieBanner, Header, Footer } from "./";
+import { IMainAppProps } from "../interfaces/main.interface";
 
-interface IMainAppProps {
-  applicationConfig?: any
-}
-
-export const MainApp = ({ children, applicationConfig } : React.PropsWithChildren<IMainAppProps>): ReactElement => {
+export const MainApp = ({ children, locale }: React.PropsWithChildren<IMainAppProps>): ReactElement => {
   return (
-    <html className="govuk-template" lang="en">
+    <html className="govuk-template" lang={locale}>
       <head>
         <Meta />
         <Links />

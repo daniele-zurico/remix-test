@@ -1,11 +1,10 @@
 import { Link } from "remix";
-import { CatchCertificate } from "~/routes/create-catch-certificate/catchCertificate";
-import { ProcessingStatement } from "~/routes/processing-statements/processingStatement";
-import { StorageDocument } from "~/routes/storage-documents/storageDocument";
-import { Journeys } from "../../data/constants";
-
+import { ICatchCertificate } from "../interfaces/catch-certificate.interface"
+import { IProcessingStatement } from "../interfaces/processing-statement.interface";
+import { IStorageDocument }  from "../interfaces/storage-document.interface";
+import { Journeys } from "../data/constants";
 interface ProgressTableProps {
-  certificates: CatchCertificate[] | ProcessingStatement[] | StorageDocument[];
+  certificates: ICatchCertificate[] | IProcessingStatement[] | IStorageDocument[];
   journey: Journeys;
 }
 
@@ -40,9 +39,9 @@ export const ProgressTable = ({
         {certificates.map(
           (
             certificate:
-              | CatchCertificate
-              | ProcessingStatement
-              | StorageDocument
+              | ICatchCertificate
+              | IProcessingStatement
+              | IStorageDocument
           ) => (
             <tr key={certificate.documentNumber} className="govuk-table__row">
               <td scope="row" className="govuk-table__cell">
@@ -50,7 +49,7 @@ export const ProgressTable = ({
               </td>
               <td className="govuk-table__cell">{certificate.userReference}</td>
               <td className="govuk-table__cell">{certificate.startedAt}</td>
-              {"status" in certificate && (
+              {("status" in certificate && journey === Journeys.CatchCertificate) && (
                 <td className="govuk-table__cell">
                   <strong className="govuk-tag govuk-tag--grey">
                     {certificate.status}
