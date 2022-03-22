@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { IError } from '../../interfaces/errors.interface';
+import { IError } from '../interfaces/errors.interface';
 
 interface IErrorSummaryProps {
   errors: IError[];

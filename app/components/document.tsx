@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { Outlet } from "remix";
-import { IMainPageProps } from "interfaces/main.interface";
+import { IMainPageProps } from "../interfaces/main.interface";
 import { Banner, LanguageToggle } from "./";
 
 export const Document = ({ languages, locale }: IMainPageProps): ReactElement => (

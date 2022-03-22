@@ -1,4 +1,4 @@
-import { INotification } from '../../interfaces/notification.interface';
+import { INotification } from '../interfaces/main.interface';
 
 export const NotificationBanner = ({ title, message }: INotification) => {
   return (

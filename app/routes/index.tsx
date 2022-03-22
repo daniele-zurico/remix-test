@@ -1,5 +1,5 @@
 import { Form, redirect, json, LoaderFunction } from "remix";
-import { IAction } from "../../interfaces/action.interface";
+import { IAction } from "../interfaces/action.interface";
 import { i18n } from "~/i18n.server";
 import { useTranslation } from "react-i18next";
 import { Button, BUTTON_TYPE, FormRadio } from "@capgeminiuk/dcx-react-library";

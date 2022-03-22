@@ -1,7 +1,7 @@
 import { json, LoaderFunction, useLoaderData } from "remix";
 import { Tab, TabGroup } from "@capgeminiuk/dcx-react-library";
 import { BackButton } from "../../../components";
-import CONFIG from "../../../../config/config";
+import CONFIG from "../../../config";
 
 export const loader: LoaderFunction = async ({ params }) => {
   return json({

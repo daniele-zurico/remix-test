@@ -1,10 +1,10 @@
 import { ReactElement } from "react"
 import { Link } from "remix";
 import moment from 'moment';
-import { CompletedCertificate } from '../routes/create-catch-certificate/catchCertificate';
+import { ICompletedCertificate } from '../interfaces/catch-certificate.interface';
 
 interface CompleteTableProps {
-  certificates: CompletedCertificate[]
+  certificates: ICompletedCertificate[]
 };
 
 export const CompleteTable = ({ certificates }: CompleteTableProps): ReactElement => {

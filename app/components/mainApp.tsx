@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Links, LiveReload, Meta, Scripts, ScrollRestoration } from "remix";
 import { CookieBanner, Header, Footer } from "./";
-import { IMainAppProps } from "../../interfaces/main.interface";
+import { IMainAppProps } from "../interfaces/main.interface";
 
 export const MainApp = ({ children, locale }: React.PropsWithChildren<IMainAppProps>): ReactElement => {
   return (
