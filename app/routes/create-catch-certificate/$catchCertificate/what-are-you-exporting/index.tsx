@@ -5,6 +5,7 @@ import {
   Details,
   ProductTable,
   Help,
+  Select
 } from "~/components";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { DataFunctionArgs } from "@remix-run/server-runtime";
@@ -15,7 +16,7 @@ export const loader: LoaderFunction = async ({ params }: DataFunctionArgs) => {
 };
 
 const AddSpeciesPage = () => {
-  const { documentNumber, config, products, species, favourites } = useLoaderData();
+  const { documentNumber, config, products, species, favourites, states, presentations, commodityCodes } = useLoaderData();
   return (
     <>
       <BackButton
@@ -67,6 +68,9 @@ const AddSpeciesPage = () => {
                 Call 0330 159 1989 if the commodity code you need is not shown.
               </p>
             </Details>
+            <Select label="State" options={[{ label: "Select...", value: '' }, ...states]}/>
+            <Select label="Presentation" options={[{ label: "Select...", value: '' }, ...presentations]}/>
+            <Select label="Commodity Code" options={[{ label: "Select...", value: '' }, ...commodityCodes]}/>
             <div className="govuk-checkboxes__item govuk-!-margin-bottom-4">
               <input
                 className="govuk-checkboxes__input"
