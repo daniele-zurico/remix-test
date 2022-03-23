@@ -1,15 +1,9 @@
+import { IAccessibleAutocomplteProps, ISpecies } from '~/types/catchCertificate';
+
 let Autocomplete = {};
 
 if (typeof window !== "undefined") {
   Autocomplete = require("accessible-autocomplete/react").default;
-}
-
-interface IAccessibleAutocomplteProps {
-  id: string;
-  name: string;
-  defaultValue?: string;
-  defaultSelectMessage?: string;
-  nojsValues: string[];
 }
 
 export const AccessibleAutocomplete = ({
@@ -28,9 +22,9 @@ export const AccessibleAutocomplete = ({
     <option key="-1" value="">
       {defaultSelectMessage}
     </option>
-    {nojsValues.map((v: string, index: number) => (
-      <option key={index} value={v}>
-        {v}
+    {nojsValues.map((v: ISpecies, index: number) => (
+      <option key={index} value={`${v.faoName} (${v.faoCode})`}>
+        {`${v.faoName} (${v.faoCode})`}
       </option>
     ))}
   </select>

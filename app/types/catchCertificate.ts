@@ -1,6 +1,14 @@
 import { INotification } from "./main";
 import { IErrorTransformed } from "./errors";
 
+export interface IAccessibleAutocomplteProps {
+  id: string;
+  name: string;
+  defaultValue?: string;
+  defaultSelectMessage?: string;
+  nojsValues: ISpecies[];
+}
+
 export type ICatchCertificate = {
   documentNumber: string;
   userReference?: string;
@@ -39,3 +47,9 @@ export interface IProduct {
   commodityCode: string;
   commodityCodeDescription: string;
 };
+
+export interface ISpecies {
+  faoCode: string;
+  faoName: string;
+  scientificName: string;
+}

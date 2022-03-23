@@ -8,14 +8,14 @@ import {
 } from "~/components";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { DataFunctionArgs } from "@remix-run/server-runtime";
-import { getAddedSpeciesPerUser } from "./whatAreYouExporting";
+import { getAddSpeciesLoaderData } from "./whatAreYouExporting";
 
 export const loader: LoaderFunction = async ({ params }: DataFunctionArgs) => {
-  return json(await getAddedSpeciesPerUser(params.catchCertificate));
+  return json(await getAddSpeciesLoaderData(params.catchCertificate));
 };
 
 const AddSpeciesPage = () => {
-  const { documentNumber, config, products } = useLoaderData();
+  const { documentNumber, config, products, species, favourites } = useLoaderData();
   return (
     <>
       <BackButton
@@ -60,7 +60,7 @@ const AddSpeciesPage = () => {
               name="species"
               defaultSelectMessage=""
               defaultValue=""
-              nojsValues={["a", "b"]}
+              nojsValues={species}
             />
             <Details summary="I cannot find the commodity code">
               <p>
@@ -111,7 +111,7 @@ const AddSpeciesPage = () => {
               name="favourites"
               defaultSelectMessage=""
               defaultValue=""
-              nojsValues={["a", "b"]}
+              nojsValues={favourites}
             />
             <Details summary="What are product favourites?">
               <p>
