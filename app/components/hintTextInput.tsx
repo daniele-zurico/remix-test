@@ -1,5 +1,4 @@
 import { IError } from "../interfaces/errors.interface";
-import { ReactElement } from "react";
 
 interface HintTextInputProps {
   id: string;
@@ -19,7 +18,7 @@ export const HintTextInput = ({
   value,
   onChange,
   error,
-}: HintTextInputProps): ReactElement => (
+}: HintTextInputProps) => (
   <>
     <div
       className={`govuk-form-group ${
