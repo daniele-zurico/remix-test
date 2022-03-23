@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => ({
 
 const PrivacyPage = () => (
   <div className="govuk-!-padding-top-6">
-    <BackButton href="/" />
+    <BackButton to="/" />
     <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">Privacy notice</h1>
   </div>
 );

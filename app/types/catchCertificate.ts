@@ -1,5 +1,5 @@
-import { INotification } from "./main.interface";
-import { IErrorTransformed } from "./errors.interface";
+import { INotification } from "./main";
+import { IErrorTransformed } from "./errors";
 
 export type ICatchCertificate = {
   documentNumber: string;

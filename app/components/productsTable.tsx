@@ -1,5 +1,5 @@
 import { Button } from "@capgeminiuk/dcx-react-library";
-import { IProduct } from "../interfaces/catch-certificate.interface";
+import { IProduct } from "../types/catchCertificate";
 
 interface ProductProps {
   products: IProduct[];
@@ -16,7 +16,10 @@ export const ProductTable = ({ products }: ProductProps) => {
           <th scope="col" className="govuk-table__header">
             Commodity code
           </th>
-          <th scope="col" className="govuk-table__header govuk-!-text-align-right">
+          <th
+            scope="col"
+            className="govuk-table__header govuk-!-text-align-right"
+          >
             Action
           </th>
         </tr>

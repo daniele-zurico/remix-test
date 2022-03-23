@@ -1,6 +1,6 @@
 import { Outlet } from "remix";
-import { IMainPageProps } from "../interfaces/main.interface";
-import { Banner, LanguageToggle } from "./";
+import { IMainPageProps } from "../types/main";
+import { Banner, LanguageToggle } from ".";
 
 export const Document = ({ languages, locale }: IMainPageProps) => (
   <div className="govuk-width-container">

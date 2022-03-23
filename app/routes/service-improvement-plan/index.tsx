@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => ({
 
 const ServiceImprovementPage = () => (
   <div className="govuk-!-padding-top-6">
-    <BackButton href="/" />
+    <BackButton to="/" />
     <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">
       How we're improving the service
     </h1>

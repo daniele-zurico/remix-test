@@ -1,4 +1,4 @@
-import { IError } from "../interfaces/errors.interface";
+import { IError } from "../types/errors";
 
 interface HintTextInputProps {
   id: string;
@@ -6,7 +6,7 @@ interface HintTextInputProps {
   hint: string;
   id_hint: string;
   value: string;
-  onChange: React.ChangeEventHandler;
+  onChange?: React.ChangeEventHandler;
   error?: IError;
 }
 

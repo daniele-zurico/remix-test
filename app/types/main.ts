@@ -1,4 +1,4 @@
-import { ILanguages } from "./language.interface";
+import { ILanguages } from "./language";
 
 export interface IMainAppProps {
   locale: 'en' | 'cy'

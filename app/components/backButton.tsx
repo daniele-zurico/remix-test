@@ -1,7 +1,11 @@
 import { Link } from "remix";
 
-export const BackButton = ({ ...props }) => (
-  <Link to={props.href} className="govuk-back-link">
+type BackButtonProps = {
+  to: string;
+};
+
+export const BackButton = ({ to }: BackButtonProps) => (
+  <Link to={to} className="govuk-back-link">
     Back
   </Link>
 );

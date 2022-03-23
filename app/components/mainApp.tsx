@@ -1,7 +1,7 @@
 import React from "react";
 import { Links, LiveReload, Meta, Scripts, ScrollRestoration } from "remix";
-import { CookieBanner, Header, Footer } from "./";
-import { IMainAppProps } from "../interfaces/main.interface";
+import { CookieBanner, Header, Footer } from ".";
+import { IMainAppProps } from "../types/main";
 
 export const MainApp = ({
   children,

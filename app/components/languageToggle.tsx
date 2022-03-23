@@ -1,5 +1,5 @@
 import { Link } from "remix";
-import { ILanguages } from "../interfaces/language.interface";
+import { ILanguages } from "../types/language";
 
 type ILanguageToggleProps = {
   languages: ILanguages;

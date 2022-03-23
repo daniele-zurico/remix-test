@@ -9,16 +9,16 @@
 }
 @media (min-width: 40.0625em) {
   .govuk-language-select {
-      font-size: 16px;
-      font-size: 1rem;
-      line-height: 1.25;
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.25;
   }
 }
 @media print {
   .govuk-language-select {
-      font-size: 14pt;
-      line-height: 1.2;
-      font-family: sans-serif;
+    font-size: 14pt;
+    line-height: 1.2;
+    font-family: sans-serif;
   }
 }
 .govuk-language-select:focus {
@@ -35,7 +35,7 @@
 @media print {
   .govuk-language-select:link,
   .govuk-language-select:visited {
-      color: #000;
+    color: #000;
   }
 }
 .govuk-language-select:hover {
@@ -48,7 +48,7 @@
 @media print {
   .govuk-language-select:active,
   .govuk-language-select:focus {
-      color: #000;
+    color: #000;
   }
 }
 .govuk-language-select:after {

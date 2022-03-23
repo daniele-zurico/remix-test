@@ -1,5 +1,5 @@
 import { Link } from "remix";
-import { IError } from "../interfaces/errors.interface";
+import { IError } from "../types/errors";
 
 interface IErrorSummaryProps {
   errors: IError[];
