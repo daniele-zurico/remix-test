@@ -1,9 +1,12 @@
 import { isEmpty } from "lodash";
-import { IProduct } from "~/types";
+import { IProduct, ISpecies } from "~/types";
 import CONFIG from "~/config";
 
 const ADDED_SPECIES_URL = 
 `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/fish/added`;
+
+const SPECIES_URL =
+`${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/species?uk=?`;
 
 type Config = {
   config: { maxSpeciesLimit?: string; }
@@ -55,3 +58,31 @@ export const getAddedSpeciesPerUser = async (catchCertificate?: string): Promise
     documentNumber: catchCertificate
   }
 };
+
+export const getSpecies = async (): Promise<ISpecies[]> => {
+  const response = await fetch(SPECIES_URL);
+  const species = await response.json();
+
+  return species;
+}
+
+export const getFavourites = (userPrincipal?: string): ISpecies[] => {
+  return [{
+    faoCode: 'COD',
+    faoName: 'Atlantic cod',
+    scientificName: 'Fresh or chilled cod ""Gadus morhua""'
+  }]
+}
+
+export const getAddSpeciesLoaderData = async (catchCertificate?: string): Promise<any> => {
+  const [ getAddedSpeciesPerUserData, species ] = await Promise.all([
+    getAddedSpeciesPerUser(catchCertificate),
+    getSpecies()
+  ])
+
+  return {
+    ...getAddedSpeciesPerUserData,
+    species,
+    favourites: getFavourites()
+  }
+}
