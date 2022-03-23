@@ -25,11 +25,7 @@ export const getUserReference = async(catchCertificate?: string): Promise<UserRe
   return {userReference};
 };
 
-export const addUserReference = async(catchCertificate: string, userReference?: FormDataEntryValue|null):Promise<string> => {
-
-  if(!userReference) {
-    throw new Error("userReference is required");
-  }
+export const addUserReference = async(catchCertificate: string, userReference: FormDataEntryValue = ''):Promise<string> => {
 
   const response = await fetch(USER_REFERENCE_URL,
     {
@@ -45,9 +41,10 @@ export const addUserReference = async(catchCertificate: string, userReference?: 
   return onAddUserReferenceResponse(catchCertificate, response, userReference); 
 };
 
-const onAddUserReferenceResponse = async(catchCertificate: string, response: Response, userReference: FormDataEntryValue): Promise<string> => {
+const onAddUserReferenceResponse = async(catchCertificate: string, response: Response, userReference?: FormDataEntryValue): Promise<string> => {
   switch(response.status) {
     case 200:
+    case 204:
       return `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`;
     case 400:
       const data = await response.json();
