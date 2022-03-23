@@ -22,9 +22,9 @@ export const AccessibleAutocomplete = ({
     <option key="-1" value="">
       {defaultSelectMessage}
     </option>
-    {nojsValues.map((v: ISpecies, index: number) => (
-      <option key={index} value={`${v.faoName} (${v.faoCode})`}>
-        {`${v.faoName} (${v.faoCode})`}
+    {nojsValues.map(({ faoName, faoCode }: ISpecies, index: number) => (
+      <option key={index} value={`${faoName} (${faoCode})`}>
+        {`${faoName} (${faoCode})`}
       </option>
     ))}
   </select>
