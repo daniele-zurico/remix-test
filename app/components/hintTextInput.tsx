@@ -1,5 +1,4 @@
 import { IError } from "../interfaces/errors.interface";
-import { ReactElement } from "react";
 
 interface HintTextInputProps {
   id: string;
@@ -11,8 +10,20 @@ interface HintTextInputProps {
   error?: IError;
 }
 
-export const HintTextInput = ({ id, label, id_hint, hint, value, onChange, error }: HintTextInputProps): ReactElement => (
-  <div className={`govuk-form-group ${error === undefined ? '' : 'govuk-form-group--error'}`.trim()}>
+export const HintTextInput = ({
+  id,
+  label,
+  id_hint,
+  hint,
+  value,
+  onChange,
+  error,
+}: HintTextInputProps) => (
+  <div
+    className={`govuk-form-group ${
+      error === undefined ? "" : "govuk-form-group--error"
+    }`.trim()}
+  >
     <label className="govuk-label" htmlFor={id}>
       {label}
     </label>
@@ -24,6 +35,16 @@ export const HintTextInput = ({ id, label, id_hint, hint, value, onChange, error
         <span className="govuk-visually-hidden">Error:</span> {error.message}
       </p>
     )}
-    <input className={`govuk-input govuk-!-width-two-thirds ${error === undefined ? '' : 'govuk-input--error'}`.trim()} id={id} name={id} type="text" aria-describedby={id_hint} value={value} onChange={onChange}/>
+    <input
+      className={`govuk-input govuk-!-width-two-thirds ${
+        error === undefined ? "" : "govuk-input--error"
+      }`.trim()}
+      id={id}
+      name={id}
+      type="text"
+      aria-describedby={id_hint}
+      value={value}
+      onChange={onChange}
+    />
   </div>
 );
