@@ -13,6 +13,7 @@ import { MainApp, Document, Error, PageNotFound } from "./components";
 
 import styles from "~/styles/all.css";
 import languageStyles from "~/styles/language.css";
+import autocompleteStyles from "~/styles/autocomplete.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -50,6 +51,7 @@ export function links() {
   return [
     { rel: "stylesheet", href: styles },
     { rel: "stylesheet", href: languageStyles },
+    { rel: "stylesheet", href: autocompleteStyles },
   ];
 }
 

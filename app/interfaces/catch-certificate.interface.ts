@@ -27,3 +27,8 @@ export interface IUserReferenceProps {
   userReference?: string;
   errors?: IErrorTransformed;
 };
+
+export interface IProduct {
+  product: string;
+  commodityCode: string;
+};
