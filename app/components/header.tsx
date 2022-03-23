@@ -1,7 +1,12 @@
 import { Link } from "remix";
 import { useTranslation } from "react-i18next";
 
-export const Header = () => {
+type headerProps = {
+  title?: string;
+  titleTo?: string;
+};
+
+export const Header = ({ title = "journeyTitle_catchcertificate", titleTo = "/create-catch-certificate/catch-certificates" }: headerProps) => {
   const { t } = useTranslation("header");
 
   return (
@@ -34,10 +39,10 @@ export const Header = () => {
         </div>
         <div className="govuk-header__content">
           <Link
-            to="/create-catch-certificate/catch-certificates"
+            to={titleTo}
             className="govuk-header__link govuk-header__link--service-name"
           >
-            {t('journeyTitle')}
+            {t(title)}
           </Link>
           <nav aria-label="Menu" className="govuk-header__navigation ">
             <button
