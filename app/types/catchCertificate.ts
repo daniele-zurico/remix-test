@@ -55,13 +55,16 @@ export interface ISpecies {
 }
 
 export interface IStates {
-
+  label: string;
+  value: string;
 }
 
 export interface IPresentation {
-
+  label: string;
+  value: string;
 }
 
 export interface ICommodityCodes {
-
+  label: string;
+  value: string;
 }

@@ -1,5 +1,5 @@
 import { isEmpty } from "lodash";
-import { IProduct, ISpecies } from "~/types";
+import { ICommodityCodes, IPresentation, IProduct, ISpecies, IStates } from "~/types";
 import CONFIG from "~/config";
 
 const ADDED_SPECIES_URL = 
@@ -69,27 +69,27 @@ export const getAddedSpeciesPerUser = async (catchCertificate?: string): Promise
 };
 
 export const getSpecies = async (): Promise<ISpecies[]> => {
-  const response = await fetch(SPECIES_URL);
+  const response: Response = await fetch(SPECIES_URL);
   const species = await response.json();
 
   return species;
 }
 
-export const getStates = async (): Promise<{ label: string, value: string}[]> => {
-  const response = await fetch(STATES_URL);
+export const getStates = async (): Promise<IStates[]> => {
+  const response: Response = await fetch(STATES_URL);
   const states = await response.json();
 
   return states;
 }
 
-export const getPresentations = async (): Promise<ISpecies[]> => {
-  const response = await fetch(PRESENTATIONS_URL);
+export const getPresentations = async (): Promise<IPresentation[]> => {
+  const response: Response = await fetch(PRESENTATIONS_URL);
   const presentations = await response.json();
 
   return presentations;
 }
 
-export const getCommodityCodes = async (): Promise<{}[]> => {
+export const getCommodityCodes = async (): Promise<ICommodityCodes[]> => {
   return [];
 }
 
