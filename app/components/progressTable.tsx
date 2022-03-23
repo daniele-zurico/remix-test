@@ -60,7 +60,7 @@ export const ProgressTable = ({
             )}
             <td className="govuk-table__cell">
               <Link
-                to={`/create-catch-certificate/${certificate.documentNumber}/add-your-reference`}
+                to={journey === Journeys.CatchCertificate ? `/create-catch-certificate/${certificate.documentNumber}/add-your-reference` : '/'}
                 className="govuk-link"
               >
                 Continue
