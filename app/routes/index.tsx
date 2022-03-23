@@ -3,7 +3,6 @@ import { IAction } from "../types";
 import { i18n } from "~/i18n.server";
 import { useTranslation } from "react-i18next";
 import { Button, BUTTON_TYPE, FormRadio } from "@capgeminiuk/dcx-react-library";
-import React from "react";
 
 export let loader: LoaderFunction = async ({ request }) => {
   return json({
@@ -20,12 +19,6 @@ export const action = async ({ request }: IAction) => {
 const Home = () => {
   const { t } = useTranslation("index");
 
-  const [value, setValue] = React.useState(
-    "/create-catch-certificate/catch-certificates"
-  );
-  const handleChange = (event: any) => {
-    setValue(event.currentTarget.value);
-  };
   return (
     <div className="govuk-!-padding-top-6">
       <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">{t("title")}</h1>
@@ -40,10 +33,7 @@ const Home = () => {
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
               name="journeySelection"
-              selected={
-                value === "/create-catch-certificate/catch-certificates"
-              }
-              onChange={handleChange}
+              selected={true}
             />
             <FormRadio
               id="createProcessingStatement"
@@ -53,10 +43,6 @@ const Home = () => {
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
               name="journeySelection"
-              selected={
-                value === "/create-processing-statement/processing-statements"
-              }
-              onChange={handleChange}
             />
             <FormRadio
               id="createStorageDocument"
@@ -66,8 +52,6 @@ const Home = () => {
               inputClassName="govuk-radios__input"
               itemClassName="govuk-radios__item"
               name="journeySelection"
-              selected={value === "/create-storage-document/storage-documents"}
-              onChange={handleChange}
             />
           </div>
           <Button
