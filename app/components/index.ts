@@ -13,4 +13,7 @@ export {LanguageToggle} from './languageToggle';
 export {BackButton} from './backButton';
 export {ProgressTable} from './progressTable';
 export {CompleteTable} from './completeTable';
+export {ProductTable} from './productsTable';
 export {HintTextInput} from './hintTextInput';
+export {AccessibleAutocomplete} from './autocomplete';
+export {Details} from './detail';

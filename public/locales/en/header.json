@@ -3,5 +3,6 @@
   "homeLink": "Home",
   "favouritesLink": "Favourites",
   "manageAccountLink": "Manage account",
-  "signOutLink": "Sign out"
+  "signOutLink": "Sign out",
+  "menuLink": "Menu"
 }
