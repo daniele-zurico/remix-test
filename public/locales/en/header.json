@@ -1,5 +1,7 @@
 {
-  "journeyTitle": "Create a UK catch certificate",
+  "journeyTitle_catchcertificate": "Create a UK catch certificate",
+  "journeyTitle_processingstatement": "Create a UK processing statement",
+  "journeyTitle_storagedocument": "Create a UK storage document",
   "homeLink": "Home",
   "favouritesLink": "Favourites",
   "manageAccountLink": "Manage account",

@@ -6,3 +6,8 @@ export interface ILanguage {
 export interface ILanguages {
   [key: string]: ILanguage,
 };
+
+export type ILanguageToggleProps = {
+  languages: ILanguages;
+  locale: "en" | "cy";
+};
