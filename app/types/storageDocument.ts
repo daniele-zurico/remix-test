@@ -1,4 +1,4 @@
-import { INotification } from "./main.interface";
+import { INotification } from "./main";
 
 export type IStorageDocument = {
   documentNumber: string;

@@ -1,0 +1,9 @@
+#accept-cookies,
+#reject-cookies {
+  display: none;
+}
+
+.js-enabled #accept-cookies,
+.js-enabled #reject-cookies {
+  display: block;
+}

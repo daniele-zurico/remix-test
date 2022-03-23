@@ -1,8 +1,8 @@
 import { Link } from "remix";
-import { ICatchCertificate } from "../interfaces/catch-certificate.interface";
-import { IProcessingStatement } from "../interfaces/processing-statement.interface";
-import { IStorageDocument } from "../interfaces/storage-document.interface";
-import { Journeys } from "../data/constants";
+import { ICatchCertificate } from "../types/catchCertificate";
+import { IProcessingStatement } from "../types/processingStatement";
+import { IStorageDocument } from "../types/storageDocument";
+import { Journeys } from "../types/journeys";
 interface ProgressTableProps {
   certificates:
     | ICatchCertificate[]

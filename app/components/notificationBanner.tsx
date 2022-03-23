@@ -1,4 +1,4 @@
-import { INotification } from "../interfaces/main.interface";
+import { INotification } from "../types/main";
 
 export const NotificationBanner = ({ title, message }: INotification) => (
   <div style={{ border: 0 }} className="govuk-notification-banner" role="alert">

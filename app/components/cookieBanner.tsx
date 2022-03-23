@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 
 export const CookieBanner = () => {
   const { t } = useTranslation("cookieBanner");
-
   return (
     <div
       className="govuk-cookie-banner "
@@ -27,22 +26,20 @@ export const CookieBanner = () => {
         </div>
 
         <div className="govuk-button-group">
-          {typeof window !== "undefined" && (
-            <>
-              <Button
-                type={BUTTON_TYPE.BUTTON}
-                className="govuk-button"
-                data-module="govuk-button"
-                label={t("acceptButtonLabel")}
-              />
-              <Button
-                type={BUTTON_TYPE.BUTTON}
-                className="govuk-button"
-                data-module="govuk-button"
-                label={t("rejectButtonLabel")}
-              />
-            </>
-          )}
+          <Button
+            type={BUTTON_TYPE.BUTTON}
+            className="govuk-button"
+            data-module="govuk-button"
+            label={t("acceptButtonLabel")}
+            id="accept-cookies"
+          />
+          <Button
+            type={BUTTON_TYPE.BUTTON}
+            className="govuk-button"
+            data-module="govuk-button"
+            label={t("rejectButtonLabel")}
+            id="reject-cookies"
+          />
           <Link className="govuk-link" to="/cookies">
             {t("link")}
           </Link>

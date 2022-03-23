@@ -1,6 +1,6 @@
 import { RemixI18Next, FileSystemBackend } from "remix-i18next";
 import { createCookie } from '@remix-run/server-runtime'
-import { defaultLocale, supportedLanguages } from './data';
+import { defaultLocale, supportedLanguages } from "./config";
 
 const backend = new FileSystemBackend("./public/locales");
 

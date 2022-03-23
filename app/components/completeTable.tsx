@@ -1,6 +1,6 @@
 import { Link } from "remix";
 import moment from "moment";
-import { ICompletedCertificate } from "../interfaces/catch-certificate.interface";
+import { ICompletedCertificate } from "../types/catchCertificate";
 
 interface CompleteTableProps {
   certificates: ICompletedCertificate[];

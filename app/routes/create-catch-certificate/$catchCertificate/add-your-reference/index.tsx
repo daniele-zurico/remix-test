@@ -9,16 +9,14 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 import { isEmpty } from "lodash";
-import { IAction, IUserReferenceProps, IError } from "../../../interfaces";
-import {
-  getErrorMessage,
-  getTransformedError,
-} from "../../../data/lookupErrorText";
-import { BackButton, Help, HintTextInput } from "../../../components";
+import { IAction, IUserReferenceProps, IError } from "../../../../types";
+
+import { BackButton, Help, HintTextInput } from "../../../../components";
 import { ErrorSummary } from "~/components/errorSummary";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
-import CONFIG from "../../../config";
-
+import { addUserReference, getUserReference } from "./addYourReference";
+import { DataFunctionArgs } from "@remix-run/server-runtime";
+import { getErrorMessage, getTransformedError } from "~/helpers";
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title:
@@ -27,48 +25,17 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-export const loader: LoaderFunction = async ({ params }) => {
-  const { catchCertificate = "" } = params;
-  const response = await fetch(
-    `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`,
-    {
-      method: "GET",
-      headers: {
-        documentnumber: catchCertificate,
-      },
-    }
-  );
-  const userReference: string = await response.text();
-  return json({ userReference });
+export const loader: LoaderFunction = async ({ params }: DataFunctionArgs) => {
+  return json(await getUserReference(params.catchCertificate));
 };
 
-export const action = async ({ request, params }: IAction) => {
-  const { catchCertificate = "" } = params;
+export const action = async ({
+  request,
+  params,
+}: IAction): Promise<Response> => {
   const form = await request.formData();
-  const userReference = form.get("userReference");
-
-  const response = await fetch(
-    `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        documentnumber: catchCertificate,
-      },
-      body: JSON.stringify({ userReference: userReference }),
-    }
-  );
-
-  if (response.status === 400) {
-    const data = await response.json();
-    throw json(
-      { userReferenceError: data["userReference"], userReference },
-      400
-    );
-  }
-
   return redirect(
-    `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`
+    await addUserReference(params.catchCertificate, form.get("userReference"))
   );
 };
 
@@ -112,7 +79,7 @@ const UserReferencePage = ({
           errors={Object.keys(errors).flatMap((key: string) => errors[key])}
         />
       )}
-      <BackButton href="/create-catch-certificate/catch-certificates" />
+      <BackButton to="/create-catch-certificate/catch-certificates" />
       <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">
         Add your reference for this export
       </h1>
@@ -123,7 +90,6 @@ const UserReferencePage = ({
           label="Your reference (optional)"
           id_hint="userReferenceHint"
           value={userRefernce}
-          onChange={onChangeUserReference}
           error={errors.userReference}
         />
         <Button

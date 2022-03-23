@@ -7,13 +7,14 @@ import {
 } from "remix";
 import { useSetupTranslations } from "remix-i18next";
 import { i18n } from "~/i18n.server";
-import { IMainPageProps } from "~/interfaces";
-import { supportedLanguages, defaultLocale } from "./data";
+import { IMainPageProps } from "~/types";
 import { MainApp, Document, Error, PageNotFound } from "./components";
 
 import styles from "~/styles/all.css";
 import languageStyles from "~/styles/language.css";
 import autocompleteStyles from "~/styles/autocomplete.css";
+import jsDisable from "~/styles/js-disabled.css";
+import { supportedLanguages, defaultLocale } from "./config";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -52,6 +53,7 @@ export function links() {
     { rel: "stylesheet", href: styles },
     { rel: "stylesheet", href: languageStyles },
     { rel: "stylesheet", href: autocompleteStyles },
+    { rel: "stylesheet", href: jsDisable },
   ];
 }
 

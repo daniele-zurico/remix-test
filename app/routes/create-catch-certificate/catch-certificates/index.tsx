@@ -1,9 +1,9 @@
 import { ReactElement } from "react";
 import { json, LoaderFunction, useLoaderData } from "remix";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
-import { IDashboardData } from "~/interfaces";
+import { IDashboardData } from "~/types";
 import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
-import { Journeys } from "~/data/constants";
+import { Journeys } from "~/types/journeys";
 import { getCatchCertificates } from "./catchCertificates";
 
 export const loader: LoaderFunction = async () => {
