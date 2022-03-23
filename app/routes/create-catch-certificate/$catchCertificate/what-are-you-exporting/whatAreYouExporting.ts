@@ -1,16 +1,57 @@
+import { isEmpty } from "lodash";
+import { IProduct } from "~/types";
 import CONFIG from "~/config";
 
+const ADDED_SPECIES_URL = 
+`${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/fish/added`;
 
-export const getAddedSpeciesPerUser = async (catchCertificate?: string) => {
+type Config = {
+  config: { maxSpeciesLimit?: string; }
+}
+
+export const getAddedSpeciesPerUser = async (catchCertificate?: string): Promise<Config & { products: IProduct[], documentNumber: string }> => {
   if(!catchCertificate) {
     throw new Error("catchCertificate is required");
   }
+
+  const response = await fetch(ADDED_SPECIES_URL,
+    {
+      method: "GET",
+      headers: {
+        documentnumber: catchCertificate,
+      },
+    }
+  );
+
+  const addedSpeciesPerUser: { species: any[] } = await response.json() || { species: [] };
+
+  if (!isEmpty(addedSpeciesPerUser.species)) {
+    const products: IProduct[] = addedSpeciesPerUser.species.map((_: any) => ({
+      id: _.id,
+      species: _.species,
+      speciesCode: _.speciesCode,
+      state: _.state,
+      stateLabel: _.stateLabel,
+      presentation: _.presentation,
+      presentationLabel: _.presentationLabel,
+      commodityCode: _.commodity_code,
+      commodityCodeDescription: _.commodity_code_description,
+    }));
+
+    return {
+      config: {
+        maxSpeciesLimit: CONFIG.LIMIT_ADD_SPECIES
+      },
+      products,
+      documentNumber: catchCertificate
+    };
+  }
+
   return {
-    documentNumber: catchCertificate,
     config: {
       maxSpeciesLimit: CONFIG.LIMIT_ADD_SPECIES
-    }
-  };
+    },
+    products: [],
+    documentNumber: catchCertificate
+  }
 };
-
-//{"species":[{"id":"GBR-2022-CC-A883F4F43-af26a64b-0363-408c-ad9d-88a1900f9777","species":"Atlantic cod (COD)","speciesCode":"COD","scientificName":"Gadus morhua","commodity_code":"03044410","commodity_code_description":"Fresh or chilled fillets of cod \"Gadus morhua, Gadus ogac, Gadus macrocephalus\" and of Boreogadus saida","user_id":null,"factor":2.6,"caughtBy":[{"numberOfSubmissions":0,"id":"GBR-2022-CC-A883F4F43-1647423660","vessel":"AUTUMN TIDE","pln":"SD407","homePort":"NORTH SHIELDS","flag":"GBR","cfr":"GBRC19976","imoNumber":null,"licenceNumber":"27544","licenceValidTo":"2382-12-31","date":"2022-03-16","faoArea":"FAO27","weight":10}],"state":"FRE","stateLabel":"Fresh","presentation":"FIL","presentationLabel":"Filleted"}]}

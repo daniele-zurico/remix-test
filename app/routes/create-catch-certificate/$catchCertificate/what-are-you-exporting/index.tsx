@@ -14,8 +14,8 @@ export const loader: LoaderFunction = async ({ params }: DataFunctionArgs) => {
   return json(await getAddedSpeciesPerUser(params.catchCertificate));
 };
 
-const $catchCertificate = () => {
-  const { documentNumber, config } = useLoaderData();
+const AddSpeciesPage = () => {
+  const { documentNumber, config, products } = useLoaderData();
   return (
     <>
       <BackButton
@@ -146,12 +146,7 @@ const $catchCertificate = () => {
         </div>
         <h2 className="govuk-heading-l">Your products</h2>
         <ProductTable
-          products={[
-            {
-              product: "Product 1",
-              commodityCode: "Commodity Code 1",
-            },
-          ]}
+          products={products}
         />
         <Button
           label="Save as draft"
@@ -171,4 +166,4 @@ const $catchCertificate = () => {
   );
 };
 
-export default $catchCertificate;
+export default AddSpeciesPage;
