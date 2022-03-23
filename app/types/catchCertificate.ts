@@ -53,3 +53,15 @@ export interface ISpecies {
   faoName: string;
   scientificName: string;
 }
+
+export interface IStates {
+
+}
+
+export interface IPresentation {
+
+}
+
+export interface ICommodityCodes {
+
+}

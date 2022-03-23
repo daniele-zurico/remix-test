@@ -8,6 +8,15 @@ const ADDED_SPECIES_URL =
 const SPECIES_URL =
 `${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/species?uk=?`;
 
+const STATES_URL =
+`${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/states`;
+
+const PRESENTATIONS_URL =
+`${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/presentations`;
+
+const FAVOURITES_URL =
+`${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/favourites`;
+
 type Config = {
   config: { maxSpeciesLimit?: string; }
 }
@@ -66,23 +75,51 @@ export const getSpecies = async (): Promise<ISpecies[]> => {
   return species;
 }
 
-export const getFavourites = (userPrincipal?: string): ISpecies[] => {
-  return [{
-    faoCode: 'COD',
-    faoName: 'Atlantic cod',
-    scientificName: 'Fresh or chilled cod ""Gadus morhua""'
-  }]
+export const getStates = async (): Promise<{ label: string, value: string}[]> => {
+  const response = await fetch(STATES_URL);
+  const states = await response.json();
+
+  return states;
+}
+
+export const getPresentations = async (): Promise<ISpecies[]> => {
+  const response = await fetch(PRESENTATIONS_URL);
+  const presentations = await response.json();
+
+  return presentations;
+}
+
+export const getCommodityCodes = async (): Promise<{}[]> => {
+  return [];
+}
+
+export const getFavourites = async (): Promise<ISpecies[]> => {
+  const response = await fetch(FAVOURITES_URL);
+  const favourites = await response.json();
+
+  return favourites.map((favourite: any) => ({
+    faoCode: favourite.speciesCode,
+    faoName: favourite.species,
+    scientificName: favourite.scientificName
+  }))
 }
 
 export const getAddSpeciesLoaderData = async (catchCertificate?: string): Promise<any> => {
-  const [ getAddedSpeciesPerUserData, species ] = await Promise.all([
+  const [ getAddedSpeciesPerUserData, species, favourites, states, presentations, commodityCodes ] = await Promise.all([
     getAddedSpeciesPerUser(catchCertificate),
-    getSpecies()
+    getSpecies(),
+    getFavourites(),
+    getStates(),
+    getPresentations(),
+    getCommodityCodes()
   ])
 
   return {
     ...getAddedSpeciesPerUserData,
     species,
-    favourites: getFavourites()
+    favourites,
+    states,
+    presentations,
+    commodityCodes
   }
 }
