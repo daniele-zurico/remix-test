@@ -1,6 +1,5 @@
 import CONFIG from "~/config";
-import { ICatchCertificate } from "~/interfaces/catch-certificate.interface";
-
+import { ICatchCertificate } from "~/interfaces";
 
 const CC_URL = `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/documents/2022/3?type=catchCertificate`
 const NOTIFICATION_URL = `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/notification`;
