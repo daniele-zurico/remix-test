@@ -29,6 +29,13 @@ export interface IUserReferenceProps {
 };
 
 export interface IProduct {
-  product: string;
+  id: string;
+  species: string;
+  speciesCode: string;
+  state: string;
+  stateLabel: string;
+  presentation: string;
+  presentationLabel: string;
   commodityCode: string;
+  commodityCodeDescription: string;
 };

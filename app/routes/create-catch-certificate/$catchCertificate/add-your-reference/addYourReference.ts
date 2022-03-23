@@ -4,7 +4,11 @@ import CONFIG  from "~/config";
 const USER_REFERENCE_URL = 
 `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`;
 
-export const getUserReference = async(catchCertificate?: string): Promise<{userReference: string}>  => {
+type UserReference = {
+  userReference: string;
+}
+
+export const getUserReference = async(catchCertificate?: string): Promise<UserReference>  => {
   if(!catchCertificate) {
     throw new Error("catchCertificate is required");
   }
