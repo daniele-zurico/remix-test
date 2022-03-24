@@ -1,4 +1,7 @@
-import { IAccessibleAutocomplteProps, ISpecies } from '~/types/catchCertificate';
+import {
+  IAccessibleAutocomplteProps,
+  ISpecies,
+} from "~/types/catchCertificate";
 
 let Autocomplete = {};
 
@@ -15,7 +18,7 @@ export const AccessibleAutocomplete = ({
 }: IAccessibleAutocomplteProps) => (
   <select
     defaultValue={defaultValue}
-    className="autocomplete__input autocomplete__input--default"
+    className="autocomplete__input autocomplete__input--default govuk-!-width-two-thirds"
     id={id}
     name={name}
   >

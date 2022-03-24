@@ -71,14 +71,12 @@ export const getAddedSpeciesPerUser = async (catchCertificate?: string): Promise
 export const getSpecies = async (): Promise<ISpecies[]> => {
   const response: Response = await fetch(SPECIES_URL);
   const species = await response.json();
-
   return species;
 }
 
 export const getStates = async (): Promise<IStates[]> => {
   const response: Response = await fetch(STATES_URL);
   const states = await response.json();
-
   return states;
 }
 

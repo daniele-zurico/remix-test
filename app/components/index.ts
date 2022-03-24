@@ -11,6 +11,4 @@ export {LanguageToggle} from './languageToggle';
 export {BackButton} from './backButton';
 export {ProgressTable} from './progressTable';
 export {CompleteTable} from './completeTable';
-export {ProductTable} from './productsTable';
 export {AccessibleAutocomplete} from './autocomplete';
-export {Select} from './select';

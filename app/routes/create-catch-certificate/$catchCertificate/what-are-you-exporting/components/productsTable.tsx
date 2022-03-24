@@ -1,5 +1,5 @@
 import { Button } from "@capgeminiuk/dcx-react-library";
-import { IProduct } from "../types/catchCertificate";
+import { IProduct } from "../../../../../types/catchCertificate";
 
 interface ProductProps {
   products: IProduct[];
