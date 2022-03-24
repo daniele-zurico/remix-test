@@ -77,7 +77,6 @@ export const getSpecies = async (): Promise<ISpecies[]> => {
 export const getStates = async (): Promise<IStates[]> => {
   const response: Response = await fetch(STATES_URL);
   const states = await response.json();
-  console.log(states);
   return states;
 }
 
