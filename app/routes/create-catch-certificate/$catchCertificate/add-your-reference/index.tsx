@@ -63,8 +63,8 @@ export const action: ActionFunction = async ({
 };
 
 const UserReferencePage = () => {
-  const { errors = {} } = useActionData() || {};
-
+  const { errors = {}, userReference } = useActionData() || {};
+  const data = useLoaderData<IUserReference>();
   return (
     <div className="govuk-!-padding-top-6">
       {!isEmpty(errors) && (
@@ -85,7 +85,7 @@ const UserReferencePage = () => {
           name="userReference"
           inputProps={{ id: "userReference" }}
           type="text"
-          value=""
+          value={userReference || data.userReference}
           hint={{
             position: "above",
             text: "Enter a reference to help you identify this catch certificate within the service. This reference is for your own use and will not appear on the final certificate. For example, you could choose a reference number from your organisation.",
