@@ -14,5 +14,4 @@ export {CompleteTable} from './completeTable';
 export {ProductTable} from './productsTable';
 export {HintTextInput} from './hintTextInput';
 export {AccessibleAutocomplete} from './autocomplete';
-export {Details} from './detail';
 export {Select} from './select';
