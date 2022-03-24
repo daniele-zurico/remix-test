@@ -13,7 +13,12 @@ import { IAction, IUserReference, IError } from "../../../../types";
 
 import { BackButton, Help, HintTextInput } from "../../../../components";
 import { ErrorSummary } from "~/components/errorSummary";
-import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
+import {
+  Button,
+  BUTTON_TYPE,
+  ErrorPosition,
+  FormInput,
+} from "@capgeminiuk/dcx-react-library";
 import { addUserReference, getUserReference } from "./addYourReference";
 import { DataFunctionArgs } from "@remix-run/server-runtime";
 import { getTransformedError } from "~/helpers";
@@ -35,30 +40,29 @@ export const action = async ({
 }: IAction): Promise<Response> => {
   const form = await request.formData();
   const { catchCertificate } = params;
-  const userReference: IUserReference = await addUserReference(catchCertificate, form.get("userReference") as string);
+  const userReference: IUserReference = await addUserReference(
+    catchCertificate,
+    form.get("userReference") as string
+  );
   const errors: IError[] = userReference.errors || [];
 
   if (errors.length > 0) {
-    return json({
-      errors: getTransformedError(errors),
-      userReference: userReference.userReference
-    }, { status: 400 });
+    return json(
+      {
+        errors: getTransformedError(errors),
+        userReference: userReference.userReference,
+      },
+      { status: 400 }
+    );
   }
 
-  return redirect(`/create-catch-certificate/${catchCertificate}/what-are-you-exporting`);
+  return redirect(
+    `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`
+  );
 };
 
 const UserReferencePage = () => {
-  const data:IUserReference = useLoaderData<IUserReference>() || {};
-  const { errors = {}, userReference } = useActionData() || {};
-  const [userRefernce, setUserReference] = useState<string | undefined>(userReference || data.userReference);
-
-  const onChangeUserReference: React.FormEventHandler = (
-    event: React.FormEvent<HTMLInputElement>
-  ) => {
-    event.preventDefault();
-    setUserReference(event.currentTarget.value);
-  };
+  const { errors = {} } = useActionData() || {};
 
   return (
     <div className="govuk-!-padding-top-6">
@@ -72,14 +76,25 @@ const UserReferencePage = () => {
         Add your reference for this export
       </h1>
       <Form method="post">
-        <HintTextInput
-          hint="Enter a reference to help you identify this catch certificate within the service. This reference is for your own use and will not appear on the final certificate. For example, you could choose a reference number from your organisation."
-          id="userReference"
+        <FormInput
           label="Your reference (optional)"
-          id_hint="userReferenceHint"
-          value={userRefernce}
-          error={errors.userReference}
-          onChange={onChangeUserReference}
+          containerClassName="govuk-form-group"
+          inputClassName="govuk-input govuk-!-width-two-thirds"
+          labelClassName="govuk-label"
+          name="userReference"
+          inputProps={{ id: "userReference" }}
+          type="text"
+          value=""
+          hint={{
+            position: "above",
+            text: "Enter a reference to help you identify this catch certificate within the service. This reference is for your own use and will not appear on the final certificate. For example, you could choose a reference number from your organisation.",
+            id: "userReferenceHint",
+            className: "govuk-hint govuk-!-width-two-thirds",
+          }}
+          errorProps={{ className: "govuk-error-message" }}
+          staticErrorMessage={errors?.userReference?.message}
+          errorPosition={ErrorPosition.AFTER_LABEL}
+          containerClassNameError="govuk-form-group--error"
         />
         <Button
           label="Save as draft"
