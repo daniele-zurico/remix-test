@@ -35,7 +35,7 @@ export const action = async ({
 }: IAction): Promise<Response> => {
   const form = await request.formData();
   return redirect(
-    await addUserReference(params.catchCertificate, form.get("userReference"))
+    await addUserReference(params.catchCertificate, form.get("userReference") as string)
   );
 };
 
@@ -91,6 +91,7 @@ const UserReferencePage = ({
           id_hint="userReferenceHint"
           value={userRefernce}
           error={errors.userReference}
+          onChange={onChangeUserReference}
         />
         <Button
           label="Save as draft"

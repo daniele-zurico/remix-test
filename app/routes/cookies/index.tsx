@@ -1,3 +1,8 @@
+import { useLoaderData, json, LoaderFunction } from "remix";
+import { i18n } from "~/i18n.server";
+import { Banner, Header, LanguageToggle } from "~/components";
+import { supportedLanguages } from "~/config";
+import { ILanguageToggleProps } from "~/types";
 import type { MetaFunction } from "remix";
 
 export const meta: MetaFunction = () => ({
@@ -7,10 +12,30 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-const CookiePage = () => (
-  <div className="govuk-!-padding-top-6">
-    <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">Cookies Policy</h1>
-  </div>
-);
+export let loader: LoaderFunction = async ({ request }) => {
+  return json({
+    i18n: await i18n.getTranslations(request, ["common", "index"]),
+    locale: await i18n.getLocale(request),
+    languages: supportedLanguages
+  });
+};
+
+const CookiePage = () => {
+  const { languages, locale } = useLoaderData<ILanguageToggleProps>();
+  return (
+    <>
+      <Header />
+      <div className="govuk-width-container">
+        <main className="govuk-main-wrapper" id="main-content" role="main">
+          <Banner />
+          <LanguageToggle languages={languages} locale={locale} />
+          <div className="govuk-!-padding-top-6">
+            <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">Cookies Policy</h1>
+          </div>
+        </main>
+      </div>
+    </>
+  )
+};
 
 export default CookiePage;

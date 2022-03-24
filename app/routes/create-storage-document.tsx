@@ -1,14 +1,12 @@
-import type { MetaFunction } from "remix";
-import { useLoaderData, json, LoaderFunction } from "remix";
+import { useLoaderData, json, LoaderFunction, Outlet, MetaFunction } from "remix";
 import { i18n } from "~/i18n.server";
 import { Banner, Header, LanguageToggle } from "~/components";
 import { supportedLanguages } from "~/config";
 import { ILanguageToggleProps } from "~/types";
-import { BackButton } from "../../components";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "GOV.UK - Privacy notice",
+  title: "Storage document - Create a UK Storage document - GOV.UK",
   viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
   themeColor: "#0b0c0c",
 });
@@ -21,24 +19,21 @@ export let loader: LoaderFunction = async ({ request }) => {
   });
 };
 
-const PrivacyPage = () => {
+const Dashboard = () => {
   const { languages, locale } = useLoaderData<ILanguageToggleProps>();
 
   return (
     <>
-      <Header />
+      <Header title="journeyTitle_storagedocument" titleTo="/create-storage-document/storage-documents"/>  
       <div className="govuk-width-container">
         <main className="govuk-main-wrapper" id="main-content" role="main">
           <Banner />
           <LanguageToggle languages={languages} locale={locale} />
-          <div className="govuk-!-padding-top-6">
-            <BackButton to="/" />
-            <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">Privacy notice</h1>
-          </div>
+          <Outlet />
         </main>
       </div>
     </>
-  )
-};
+  );
+}
 
-export default PrivacyPage;
+export default Dashboard;
