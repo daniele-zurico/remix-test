@@ -4,9 +4,14 @@ import {
   BackButton,
   ProductTable,
   Help,
-  Select
+  Select,
 } from "~/components";
-import { Button, BUTTON_TYPE, Details } from "@capgeminiuk/dcx-react-library";
+import {
+  Button,
+  BUTTON_TYPE,
+  Details,
+  FormCheckbox,
+} from "@capgeminiuk/dcx-react-library";
 import { DataFunctionArgs } from "@remix-run/server-runtime";
 import { getAddSpeciesLoaderData } from "./whatAreYouExporting";
 
@@ -15,7 +20,16 @@ export const loader: LoaderFunction = async ({ params }: DataFunctionArgs) => {
 };
 
 const AddSpeciesPage = () => {
-  const { documentNumber, config, products, species, favourites, states, presentations, commodityCodes } = useLoaderData();
+  const {
+    documentNumber,
+    config,
+    products,
+    species,
+    favourites,
+    states,
+    presentations,
+    commodityCodes,
+  } = useLoaderData();
   return (
     <>
       <BackButton
@@ -73,23 +87,28 @@ const AddSpeciesPage = () => {
                 Call 0330 159 1989 if the commodity code you need is not shown.
               </p>
             </Details>
-            <Select label="State" options={[{ label: "Select...", value: '' }, ...states]}/>
-            <Select label="Presentation" options={[{ label: "Select...", value: '' }, ...presentations]}/>
-            <Select label="Commodity Code" options={[{ label: "Select...", value: '' }, ...commodityCodes]}/>
+            <Select
+              label="State"
+              options={[{ label: "Select...", value: "" }, ...states]}
+            />
+            <Select
+              label="Presentation"
+              options={[{ label: "Select...", value: "" }, ...presentations]}
+            />
+            <Select
+              label="Commodity Code"
+              options={[{ label: "Select...", value: "" }, ...commodityCodes]}
+            />
             <div className="govuk-checkboxes__item govuk-!-margin-bottom-4">
-              <input
-                className="govuk-checkboxes__input"
+              <FormCheckbox
+                type="checkbox"
+                inputClassName="govuk-checkboxes__input"
+                labelClassName="govuk-label govuk-checkboxes__label"
                 id="add-to-favourites"
                 name="add-to-favourites"
-                type="checkbox"
                 value="yes"
+                label="Add to product favourites"
               />
-              <label
-                className="govuk-label govuk-checkboxes__label"
-                htmlFor="add-to-favourites"
-              >
-                Add to product favourites
-              </label>
             </div>
             <Button
               label="Cancel"
@@ -130,27 +149,27 @@ const AddSpeciesPage = () => {
               detailsTextClassName="govuk-details__text"
             >
               <>
-              <p>
-                Product favourites are essential to enable the uploading of
-                products and can also be used to speed up the process of adding
-                products manually.
-              </p>
-              <p>
-                You can{" "}
-                <a
-                  href="/"
-                  aria-label="Opens link for information on fish export service"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  manage your product favourites
-                  <span className="govuk-visually-hidden">
-                    (opens in new tab)
-                  </span>
-                </a>{" "}
-                at any time through the favourites link in the main navigation
-                at the top of the page.
-              </p>
+                <p>
+                  Product favourites are essential to enable the uploading of
+                  products and can also be used to speed up the process of
+                  adding products manually.
+                </p>
+                <p>
+                  You can{" "}
+                  <a
+                    href="/"
+                    aria-label="Opens link for information on fish export service"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    manage your product favourites
+                    <span className="govuk-visually-hidden">
+                      (opens in new tab)
+                    </span>
+                  </a>{" "}
+                  at any time through the favourites link in the main navigation
+                  at the top of the page.
+                </p>
               </>
             </Details>
             <Button
@@ -162,9 +181,7 @@ const AddSpeciesPage = () => {
           </div>
         </div>
         <h2 className="govuk-heading-l">Your products</h2>
-        <ProductTable
-          products={products}
-        />
+        <ProductTable products={products} />
         <Button
           label="Save as draft"
           type={BUTTON_TYPE.SUBMIT}
