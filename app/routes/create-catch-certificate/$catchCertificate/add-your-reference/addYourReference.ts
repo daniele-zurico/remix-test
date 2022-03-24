@@ -4,7 +4,7 @@ import CONFIG  from "~/config";
 const USER_REFERENCE_URL = 
 `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`;
 
-type UserReference = {
+export type UserReference = {
   userReference: string;
 }
 
