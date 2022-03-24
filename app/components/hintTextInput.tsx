@@ -5,7 +5,7 @@ interface HintTextInputProps {
   label: string;
   hint: string;
   id_hint: string;
-  value: string;
+  value?: string;
   onChange?: React.ChangeEventHandler;
   error?: IError;
 }

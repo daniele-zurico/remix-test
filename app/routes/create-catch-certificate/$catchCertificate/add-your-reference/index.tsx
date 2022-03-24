@@ -5,18 +5,18 @@ import {
   json,
   LoaderFunction,
   useLoaderData,
-  useCatch,
+  useActionData,
 } from "remix";
 import type { MetaFunction } from "remix";
 import { isEmpty } from "lodash";
-import { IAction, IUserReferenceProps, IError } from "../../../../types";
+import { IAction, IUserReference, IError } from "../../../../types";
 
 import { BackButton, Help, HintTextInput } from "../../../../components";
 import { ErrorSummary } from "~/components/errorSummary";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { addUserReference, getUserReference } from "./addYourReference";
 import { DataFunctionArgs } from "@remix-run/server-runtime";
-import { getErrorMessage, getTransformedError } from "~/helpers";
+import { getTransformedError } from "~/helpers";
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title:
@@ -34,36 +34,24 @@ export const action = async ({
   params,
 }: IAction): Promise<Response> => {
   const form = await request.formData();
-  return redirect(
-    await addUserReference(params.catchCertificate, form.get("userReference") as string)
-  );
+  const { catchCertificate } = params;
+  const userReference: IUserReference = await addUserReference(catchCertificate, form.get("userReference") as string);
+  const errors: IError[] = userReference.errors || [];
+
+  if (errors.length > 0) {
+    return json({
+      errors: getTransformedError(errors),
+      userReference: userReference.userReference
+    }, { status: 400 });
+  }
+
+  return redirect(`/create-catch-certificate/${catchCertificate}/what-are-you-exporting`);
 };
 
-export function CatchBoundary() {
-  const caught = useCatch();
-  const lookupErrorMessage: IError[] = [
-    {
-      key: "userReference",
-      message: getErrorMessage(caught.data.userReferenceError),
-    },
-  ];
-  const errorUserReference: string = caught.data.userReference;
-  return (
-    <UserReferencePage
-      errors={getTransformedError(lookupErrorMessage)}
-      userReference={errorUserReference}
-    />
-  );
-}
-
-const UserReferencePage = ({
-  errors = {},
-  userReference,
-}: React.PropsWithChildren<IUserReferenceProps>) => {
-  const data: { userReference: string } = useLoaderData<{
-    userReference: string;
-  }>() || { userReference };
-  const [userRefernce, setUserReference] = useState<string>(data.userReference);
+const UserReferencePage = () => {
+  const data:IUserReference = useLoaderData<IUserReference>() || {};
+  const { errors = {}, userReference } = useActionData() || {};
+  const [userRefernce, setUserReference] = useState<string | undefined>(userReference || data.userReference);
 
   const onChangeUserReference: React.FormEventHandler = (
     event: React.FormEvent<HTMLInputElement>
