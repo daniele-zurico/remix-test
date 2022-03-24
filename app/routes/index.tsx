@@ -1,9 +1,8 @@
-import { Form, redirect, json, LoaderFunction, useLoaderData, Outlet } from "remix";
-import { IAction, ILanguageToggleProps } from "~/types";
+import { Form, redirect, json, LoaderFunction } from "remix";
+import { IAction } from "~/types";
 import { i18n } from "~/i18n.server";
 import { useTranslation } from "react-i18next";
 import { Button, BUTTON_TYPE, FormRadio } from "@capgeminiuk/dcx-react-library";
-import { Banner, Header, LanguageToggle } from "~/components";
 import { supportedLanguages } from "~/config";
 
 export let loader: LoaderFunction = async ({ request }) => {
@@ -21,63 +20,52 @@ export const action = async ({ request }: IAction) => {
 };
 
 const Home = () => {
-  const { languages, locale } = useLoaderData<ILanguageToggleProps>();
   const { t } = useTranslation("index");
 
   return (
-    <>
-      <Header />
-      <div className="govuk-width-container">
-        <main className="govuk-main-wrapper" id="main-content" role="main">
-          <Banner />
-          <LanguageToggle languages={languages} locale={locale} />
-          <Outlet />
-          <div className="govuk-!-padding-top-6">
-            <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">{t("title")}</h1>
-            <Form method="post">
-              <div className="govuk-form-group govuk-!-margin-bottom-6">
-                <div className="govuk-fieldset govuk-!-margin-bottom-6">
-                  <FormRadio
-                    id="createCatchCertificate"
-                    value="/create-catch-certificate/catch-certificates"
-                    label={t("createCatchCertificateLabel")}
-                    labelClassName="govuk-label govuk-radios__label"
-                    inputClassName="govuk-radios__input"
-                    itemClassName="govuk-radios__item"
-                    name="journeySelection"
-                    selected={true}
-                  />
-                  <FormRadio
-                    id="createProcessingStatement"
-                    value="/create-processing-statement/processing-statements"
-                    label={t("createProcessingStatementLabel")}
-                    labelClassName="govuk-label govuk-radios__label"
-                    inputClassName="govuk-radios__input"
-                    itemClassName="govuk-radios__item"
-                    name="journeySelection"
-                  />
-                  <FormRadio
-                    id="createStorageDocument"
-                    value="/create-storage-document/storage-documents"
-                    label={t("createStorageDocumentLabel")}
-                    labelClassName="govuk-label govuk-radios__label"
-                    inputClassName="govuk-radios__input"
-                    itemClassName="govuk-radios__item"
-                    name="journeySelection"
-                  />
-                </div>
-                <Button
-                  label={t("continueLabel")}
-                  type={BUTTON_TYPE.SUBMIT}
-                  className="govuk-button"
-                  data-module="govuk-button"
-                />
-              </div>
-            </Form>
+    <div className="govuk-!-padding-top-6">
+      <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">{t("title")}</h1>
+      <Form method="post">
+        <div className="govuk-form-group govuk-!-margin-bottom-6">
+          <div className="govuk-fieldset govuk-!-margin-bottom-6">
+            <FormRadio
+              id="createCatchCertificate"
+              value="/create-catch-certificate/catch-certificates"
+              label={t("createCatchCertificateLabel")}
+              labelClassName="govuk-label govuk-radios__label"
+              inputClassName="govuk-radios__input"
+              itemClassName="govuk-radios__item"
+              name="journeySelection"
+              selected={true}
+            />
+            <FormRadio
+              id="createProcessingStatement"
+              value="/create-processing-statement/processing-statements"
+              label={t("createProcessingStatementLabel")}
+              labelClassName="govuk-label govuk-radios__label"
+              inputClassName="govuk-radios__input"
+              itemClassName="govuk-radios__item"
+              name="journeySelection"
+            />
+            <FormRadio
+              id="createStorageDocument"
+              value="/create-storage-document/storage-documents"
+              label={t("createStorageDocumentLabel")}
+              labelClassName="govuk-label govuk-radios__label"
+              inputClassName="govuk-radios__input"
+              itemClassName="govuk-radios__item"
+              name="journeySelection"
+            />
           </div>
-        </main>
-      </div>
-    </>
+          <Button
+            label={t("continueLabel")}
+            type={BUTTON_TYPE.SUBMIT}
+            className="govuk-button"
+            data-module="govuk-button"
+          />
+        </div>
+      </Form>
+    </div>
   );
 };
 
