@@ -1,4 +1,3 @@
-export * from './action';
 export * from './catchCertificate';
 export * from './errors';
 export * from './language';

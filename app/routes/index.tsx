@@ -1,5 +1,4 @@
-import { Form, redirect, json, LoaderFunction } from "remix";
-import { IAction } from "~/types";
+import { Form, redirect, json, LoaderFunction, ActionFunction } from "remix";
 import { i18n } from "~/i18n.server";
 import { useTranslation } from "react-i18next";
 import { Button, BUTTON_TYPE, FormRadio } from "@capgeminiuk/dcx-react-library";
@@ -13,7 +12,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   });
 };
 
-export const action = async ({ request }: IAction) => {
+export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
   const journeySelection = form.get("journeySelection")?.toString() || "/";
   return redirect(journeySelection);
