@@ -4,12 +4,13 @@ import {
   redirect,
   json,
   LoaderFunction,
+  ActionFunction,
   useLoaderData,
   useActionData,
 } from "remix";
 import type { MetaFunction } from "remix";
 import { isEmpty } from "lodash";
-import { IAction, IUserReference, IError } from "../../../../types";
+import { IUserReference, IError } from "../../../../types";
 
 import { BackButton, Help, HintTextInput } from "../../../../components";
 import { ErrorSummary } from "~/components/errorSummary";
@@ -34,10 +35,10 @@ export const loader: LoaderFunction = async ({ params }: DataFunctionArgs) => {
   return json(await getUserReference(params.catchCertificate));
 };
 
-export const action = async ({
+export const action: ActionFunction = async ({
   request,
   params,
-}: IAction): Promise<Response> => {
+}): Promise<Response> => {
   const form = await request.formData();
   const { catchCertificate } = params;
   const userReference: IUserReference = await addUserReference(

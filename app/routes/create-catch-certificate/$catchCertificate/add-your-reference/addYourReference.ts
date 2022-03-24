@@ -22,7 +22,10 @@ export const getUserReference = async(catchCertificate?: string): Promise<IUserR
   return {userReference};
 };
 
-export const addUserReference = async(catchCertificate: string, userReference: FormDataEntryValue = ''):Promise<IUserReference> => {
+export const addUserReference = async(catchCertificate: string | undefined, userReference: FormDataEntryValue = ''):Promise<IUserReference> => {
+  if(!catchCertificate) {
+    throw new Error("catchCertificate is required");
+  }
 
   const response = await fetch(USER_REFERENCE_URL,
     {
