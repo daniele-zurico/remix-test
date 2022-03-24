@@ -1,14 +1,11 @@
-import { json } from "remix";
+import { IUserReference } from "~/types";
+import { getErrorMessage } from "~/helpers";
 import CONFIG  from "~/config";
 
 const USER_REFERENCE_URL = 
 `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/userReference`;
 
-export type UserReference = {
-  userReference: string;
-}
-
-export const getUserReference = async(catchCertificate?: string): Promise<UserReference>  => {
+export const getUserReference = async(catchCertificate?: string): Promise<IUserReference>  => {
   if(!catchCertificate) {
     throw new Error("catchCertificate is required");
   }
@@ -25,7 +22,7 @@ export const getUserReference = async(catchCertificate?: string): Promise<UserRe
   return {userReference};
 };
 
-export const addUserReference = async(catchCertificate: string, userReference: FormDataEntryValue = ''):Promise<string> => {
+export const addUserReference = async(catchCertificate: string, userReference: FormDataEntryValue = ''):Promise<IUserReference> => {
 
   const response = await fetch(USER_REFERENCE_URL,
     {
@@ -38,20 +35,26 @@ export const addUserReference = async(catchCertificate: string, userReference: F
     }
   );
   
-  return onAddUserReferenceResponse(catchCertificate, response, userReference); 
+  return onAddUserReferenceResponse(response, userReference); 
 };
 
-const onAddUserReferenceResponse = async(catchCertificate: string, response: Response, userReference?: FormDataEntryValue): Promise<string> => {
+const onAddUserReferenceResponse = async(response: Response, userReference?: FormDataEntryValue): Promise<IUserReference> => {
   switch(response.status) {
     case 200:
     case 204:
-      return `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`;
+      return {
+        userReference: userReference as string,
+        errors: []
+      };
     case 400:
       const data = await response.json();
-      throw json(
-        { userReferenceError: data["userReference"], userReference },
-        response.status
-      );
+      return {
+        userReference: userReference as string,
+        errors: [{
+          key: 'userReference',
+          message: getErrorMessage(data.userReference)
+        }]
+      }
     default:
       throw new Error(`Unexpected error: ${response.status}`);
   }

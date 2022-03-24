@@ -1,5 +1,5 @@
 import { INotification } from "./main";
-import { IErrorTransformed } from "./errors";
+import { IError } from "./errors";
 
 export interface IAccessibleAutocomplteProps {
   id: string;
@@ -31,9 +31,9 @@ export interface IDashboardData {
   notification: INotification;
 };
 
-export interface IUserReferenceProps {
+export interface IUserReference {
   userReference?: string;
-  errors?: IErrorTransformed;
+  errors?: IError[];
 };
 
 export interface IProduct {
