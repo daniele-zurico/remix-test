@@ -6,20 +6,28 @@ import {
   BUTTON_TYPE,
 } from "@capgeminiuk/dcx-react-library";
 import { AccessibleAutocomplete } from "~/components";
-import { ICommodityCodes, IPresentation, ISpecies, IStates } from "~/types";
+import { ILabelAndValue, ISpecies } from "~/types";
 
 type ProductTabsProps = {
   species: ISpecies[];
-  states: IStates[];
-  presentations: IPresentation[];
-  commodityCodes: ICommodityCodes[];
+  states: ILabelAndValue[];
+  presentations: ILabelAndValue[];
+  commodityCodes: ILabelAndValue[];
+  onChange: (event: any) => void;
+  faoCode?: string;
+  stateCode?: string;
+  presentationCode?: string;
 };
 
 export const ProductsTab = ({
   species,
   states,
+  faoCode,
+  stateCode,
+  presentationCode,
   presentations,
   commodityCodes,
+  onChange
 }: ProductTabsProps) => (
   <>
     <h2 className="govuk-heading-l">Add products</h2>
@@ -33,9 +41,11 @@ export const ProductsTab = ({
     <AccessibleAutocomplete
       id="species"
       name="species"
+      value={faoCode}
       defaultSelectMessage=""
       defaultValue=""
       nojsValues={species}
+      onChange={onChange}
     />
     <Details
       summary="I cannot find the commodity code"
@@ -53,6 +63,8 @@ export const ProductsTab = ({
         label="State"
         nullOption="Select..."
         options={states}
+        name="state"
+        value={stateCode}
       />
     </div>
     <div className="govuk-form-group">
@@ -62,6 +74,8 @@ export const ProductsTab = ({
         label="Presentation"
         nullOption="Select..."
         options={presentations}
+        name="presentation"
+        value={presentationCode}
       />
     </div>
     <div className="govuk-form-group">
@@ -71,6 +85,7 @@ export const ProductsTab = ({
         label="Commodity Code"
         nullOption="Select..."
         options={commodityCodes}
+        name="commodityCode"
       />
     </div>
     <div className="govuk-checkboxes__item govuk-!-margin-bottom-4">
@@ -86,7 +101,7 @@ export const ProductsTab = ({
     </div>
     <Button
       label="Cancel"
-      type={BUTTON_TYPE.SUBMIT}
+      type={BUTTON_TYPE.RESET}
       className="govuk-button  govuk-!-margin-right-4 govuk-button--secondary"
       data-module="govuk-button"
     />

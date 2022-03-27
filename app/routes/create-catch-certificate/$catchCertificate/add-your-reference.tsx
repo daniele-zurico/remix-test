@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Form,
   redirect,
@@ -7,20 +6,18 @@ import {
   ActionFunction,
   useLoaderData,
   useActionData,
+  MetaFunction
 } from "remix";
-import type { MetaFunction } from "remix";
 import { isEmpty } from "lodash";
-import { IUserReference, IError } from "../../../../types";
-
-import { BackButton, Help, HintTextInput } from "../../../../components";
-import { ErrorSummary } from "~/components/errorSummary";
+import { IUserReference, IError } from "~/types";
+import { BackButton, ErrorSummary, Help } from "~/components";
 import {
   Button,
   BUTTON_TYPE,
   ErrorPosition,
   FormInput,
 } from "@capgeminiuk/dcx-react-library";
-import { addUserReference, getUserReference } from "./addYourReference";
+import { addUserReference, getUserReference } from "./add-your-reference/addYourReference";
 import { DataFunctionArgs } from "@remix-run/server-runtime";
 import { getTransformedError } from "~/helpers";
 export const meta: MetaFunction = () => ({
