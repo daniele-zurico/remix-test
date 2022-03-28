@@ -1,21 +1,21 @@
 import { isEmpty } from "lodash";
-import { ICommodityCodes, IPresentation, IProduct, ISpecies, IStates } from "~/types";
+import { ICommodityCode, IProduct, ISearchState, ISpecies, ISpecieStateLookupResult, ICodeAndDescription, ILabelAndValue } from "~/types";
 import CONFIG from "~/config";
 
 const ADDED_SPECIES_URL = 
 `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/fish/added`;
 
 const SPECIES_URL =
-`${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/species?uk=?`;
-
-const STATES_URL =
-`${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/states`;
-
-const PRESENTATIONS_URL =
-`${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/presentations`;
+`${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/species`;
 
 const FAVOURITES_URL =
 `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/favourites`;
+
+const SPECIES_STATE_LOOK_UP =
+`${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/speciesStateLookup`;
+
+const COMMODITY_CODE_LOOK_UP =
+`${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/commodities/search`;
 
 type Config = {
   config: { maxSpeciesLimit?: string; }
@@ -69,26 +69,50 @@ export const getAddedSpeciesPerUser = async (catchCertificate?: string): Promise
 };
 
 export const getSpecies = async (): Promise<ISpecies[]> => {
-  const response: Response = await fetch(SPECIES_URL);
+  const response: Response = await fetch(`${SPECIES_URL}?uk=Y`);
   const species = await response.json();
-  return species;
+  return species.filter((_species: ISpecies) => 
+    !isEmpty(_species.faoCode) &&
+    !isEmpty(_species.faoName) &&
+    !isEmpty(_species.scientificName)
+  );
 }
 
-export const getStates = async (): Promise<IStates[]> => {
-  const response: Response = await fetch(STATES_URL);
-  const states = await response.json();
-  return states;
+export const searchStateLookup = async (fao: string | null, state?: string): Promise<ISearchState> => {
+  if (!fao) {
+    return { states: [], presentations: [] }
+  }
+
+  const response: Response = await fetch(`${SPECIES_STATE_LOOK_UP}?faoCode=${fao}`);
+  const lookupResults: ISpecieStateLookupResult[] = await response.json();
+
+  return {
+    states: lookupResults.map((res: ISpecieStateLookupResult) => ({
+      label: res.state.description,
+      value: res.state.code
+    })),
+    presentations: (lookupResults.find((res: ISpecieStateLookupResult) => {
+      console.log(res.state.code, 'Vs', state);
+      return res.state.code === state
+    }) || { presentations: []})
+      .presentations.map((presentation: ICodeAndDescription) => ({
+        label: presentation.description,
+        value: presentation.code
+      }))
+  };
 }
 
-export const getPresentations = async (): Promise<IPresentation[]> => {
-  const response: Response = await fetch(PRESENTATIONS_URL);
-  const presentations = await response.json();
+export const getCommodityCodes = async (faoCode: string, stateCode: string, presentationCode: string): Promise<ILabelAndValue[]> => {
+  if (!faoCode || !stateCode || !presentationCode) {
+    return []
+  };
 
-  return presentations;
-}
-
-export const getCommodityCodes = async (): Promise<ICommodityCodes[]> => {
-  return [];
+  const response: Response = await fetch(`${COMMODITY_CODE_LOOK_UP}?speciesCode=${faoCode}&state=${stateCode}&presentation=${presentationCode}`);
+  const commodityCodes: ICommodityCode[] = await response.json();
+  return commodityCodes.map((commodityCode: ICommodityCode) => ({
+    label: `${commodityCode.code} - ${commodityCode.description}`,
+    value: commodityCode.code
+  }));
 }
 
 export const getFavourites = async (): Promise<ISpecies[]> => {
@@ -102,22 +126,23 @@ export const getFavourites = async (): Promise<ISpecies[]> => {
   }))
 }
 
-export const getAddSpeciesLoaderData = async (catchCertificate?: string): Promise<any> => {
-  const [ getAddedSpeciesPerUserData, species, favourites, states, presentations, commodityCodes ] = await Promise.all([
+export const getAddSpeciesLoaderData = async (catchCertificate: string, faoCode: string, stateCode: string, presentationCode: string): Promise<any> => {
+  const [ getAddedSpeciesPerUserData, species, favourites, stateLookup, commodityCodes ] = await Promise.all([
     getAddedSpeciesPerUser(catchCertificate),
     getSpecies(),
     getFavourites(),
-    getStates(),
-    getPresentations(),
-    getCommodityCodes()
+    searchStateLookup(faoCode, stateCode),
+    getCommodityCodes(faoCode, stateCode, presentationCode)
   ])
 
   return {
     ...getAddedSpeciesPerUserData,
     species,
     favourites,
-    states,
-    presentations,
-    commodityCodes
+    stateLookup,
+    commodityCodes,
+    faoCode,
+    stateCode,
+    presentationCode
   }
 }

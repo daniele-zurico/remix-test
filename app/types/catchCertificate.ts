@@ -4,9 +4,11 @@ import { IError } from "./errors";
 export interface IAccessibleAutocomplteProps {
   id: string;
   name: string;
+  value?: string;
   defaultValue?: string;
   defaultSelectMessage?: string;
   nojsValues: ISpecies[];
+  onChange: (event: any) => void;
 }
 
 export type ICatchCertificate = {
@@ -54,17 +56,29 @@ export interface ISpecies {
   scientificName: string;
 }
 
-export interface IStates {
+export interface ILabelAndValue {
   label: string;
   value: string;
 }
 
-export interface IPresentation {
-  label: string;
-  value: string;
+export interface ICodeAndDescription {
+  code: string,
+  description: string
+}
+export interface ISpecieStateLookupResult {
+  presentations: ICodeAndDescription[],
+  state: ICodeAndDescription
 }
 
-export interface ICommodityCodes {
-  label: string;
-  value: string;
+export interface ICommodityCode {
+  code: string,
+  description: string,
+  faoName: string,
+  stateLabel: string,
+  presentationLabel: string
+}
+
+export interface ISearchState {
+  states: ILabelAndValue[]; 
+  presentations: ILabelAndValue[]
 }

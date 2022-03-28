@@ -4,7 +4,7 @@ import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { IDashboardData } from "~/types";
 import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
 import { Journeys } from "~/types/journeys";
-import { getCatchCertificates } from "./catchCertificates";
+import { getCatchCertificates } from "~/routes/create-catch-certificate/catch-certificates/catchCertificates";
 
 export const loader: LoaderFunction = async () => {
   return json(await getCatchCertificates());

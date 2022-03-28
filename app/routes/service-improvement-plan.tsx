@@ -1,5 +1,5 @@
 import type { MetaFunction } from "remix";
-import { BackButton } from "../../components";
+import { BackButton } from "~/components";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
