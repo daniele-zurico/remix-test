@@ -36,8 +36,8 @@ export const action: ActionFunction = async ({
   request,
   params,
 }): Promise<Response> => {
-  const form = await request.formData();
   const { catchCertificate } = params;
+  const form = await request.formData();
   const userReference: IUserReference = await addUserReference(
     catchCertificate,
     form.get("userReference") as string

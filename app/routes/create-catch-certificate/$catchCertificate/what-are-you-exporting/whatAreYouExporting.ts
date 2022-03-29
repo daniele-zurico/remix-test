@@ -1,9 +1,13 @@
 import { isEmpty } from "lodash";
-import { ICommodityCode, IProduct, ISearchState, ISpecies, ISpecieStateLookupResult, ICodeAndDescription, ILabelAndValue } from "~/types";
+import { ICommodityCode, IProduct, ISearchState, ISpecies, ISpecieStateLookupResult, ICodeAndDescription, ILabelAndValue, IError } from "~/types";
+import { getErrorMessage } from "~/helpers";
 import CONFIG from "~/config";
 
 const ADDED_SPECIES_URL = 
 `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/fish/added`;
+
+const ADD_SPECIES_URL = 
+`${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/fish/add`;
 
 const SPECIES_URL =
 `${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/species`;
@@ -92,7 +96,6 @@ export const searchStateLookup = async (fao: string | null, state?: string): Pro
       value: res.state.code
     })),
     presentations: (lookupResults.find((res: ISpecieStateLookupResult) => {
-      console.log(res.state.code, 'Vs', state);
       return res.state.code === state
     }) || { presentations: []})
       .presentations.map((presentation: ICodeAndDescription) => ({
@@ -144,5 +147,46 @@ export const getAddSpeciesLoaderData = async (catchCertificate: string, faoCode:
     faoCode,
     stateCode,
     presentationCode
+  }
+}
+
+export const addSpecies = async (catchCertificate: string | undefined, requestBody: any): Promise<any> => {
+  if(!catchCertificate) {
+    throw new Error("catchCertificate is required");
+  }
+
+  const response = await fetch(ADD_SPECIES_URL,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        documentnumber: catchCertificate,
+      },
+      body: JSON.stringify({ ...requestBody }),
+    }
+  );
+
+  return onAddSpeciesResponse(response, requestBody);
+}
+
+const onAddSpeciesResponse = async (response: Response, requestBody: any): Promise<{data: any, errors: IError[]}> => {
+  switch(response.status) {
+    case 200:
+    case 204:
+      return {
+        data: requestBody,
+        errors: []
+      };
+    case 400:
+      const data = await response.json();
+      return {
+        data: requestBody,
+        errors: Object.keys(data).map(error => ({
+          key: error,
+          message: getErrorMessage(data[error])
+        }))
+      };
+    default:
+      throw new Error(`Unexpected error: ${response.status}`);
   }
 }
