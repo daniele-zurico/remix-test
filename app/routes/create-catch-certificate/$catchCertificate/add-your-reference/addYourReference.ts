@@ -1,5 +1,6 @@
 import { IUserReference } from "~/types";
 import { getErrorMessage } from "~/helpers";
+import { callApi } from "~/communication";
 import CONFIG  from "~/config";
 
 const USER_REFERENCE_URL = 
@@ -10,14 +11,7 @@ export const getUserReference = async(catchCertificate?: string): Promise<IUserR
     throw new Error("catchCertificate is required");
   }
 
-  const response = await fetch(USER_REFERENCE_URL,
-    {
-      method: "GET",
-      headers: {
-        documentnumber: catchCertificate,
-      },
-    }
-  );
+  const response: Response = await callApi(USER_REFERENCE_URL, { documentnumber: catchCertificate });
   const userReference: string = await response.text();
   return {userReference};
 };
@@ -27,16 +21,10 @@ export const addUserReference = async(catchCertificate: string | undefined, user
     throw new Error("catchCertificate is required");
   }
 
-  const response = await fetch(USER_REFERENCE_URL,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        documentnumber: catchCertificate,
-      },
-      body: JSON.stringify({ userReference }),
-    }
-  );
+  const response: Response = await callApi(USER_REFERENCE_URL, {
+    "Content-Type": "application/json",
+    documentnumber: catchCertificate,
+  }, 'POST' , { userReference });
   
   return onAddUserReferenceResponse(response, userReference); 
 };

@@ -1,3 +1,4 @@
+import { callApi } from "~/communication";
 import CONFIG from "~/config";
 import { IDashboardSDData } from "~/types";
 
@@ -5,10 +6,10 @@ const STORAGE_NOTE_SURL = `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/documents/
 const NOTIFICATION_URL = `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/notification`;
 
 export const getStorageDocuments = async(): Promise<IDashboardSDData> => {
-  const res = await fetch(STORAGE_NOTE_SURL);
+  const res: Response = await callApi(STORAGE_NOTE_SURL);
   const data = await res.json();
 
-  const response = await fetch(NOTIFICATION_URL);
+  const response: Response = await callApi(NOTIFICATION_URL);
   const notification = await response.json();
 
   return { ...data, notification };

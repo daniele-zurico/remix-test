@@ -1,6 +1,7 @@
 import { isEmpty } from "lodash";
 import { ICommodityCode, IProduct, ISearchState, ISpecies, ISpecieStateLookupResult, ICodeAndDescription, ILabelAndValue, IError } from "~/types";
 import { getErrorMessage } from "~/helpers";
+import { callApi } from "~/communication";
 import CONFIG from "~/config";
 
 const ADDED_SPECIES_URL = 
@@ -30,14 +31,7 @@ export const getAddedSpeciesPerUser = async (catchCertificate?: string): Promise
     throw new Error("catchCertificate is required");
   }
 
-  const response = await fetch(ADDED_SPECIES_URL,
-    {
-      method: "GET",
-      headers: {
-        documentnumber: catchCertificate,
-      },
-    }
-  );
+  const response: Response = await callApi(ADDED_SPECIES_URL, { documentnumber: catchCertificate });
 
   const addedSpeciesPerUser: { species: any[] } = await response.json() || { species: [] };
 
@@ -73,7 +67,7 @@ export const getAddedSpeciesPerUser = async (catchCertificate?: string): Promise
 };
 
 export const getSpecies = async (): Promise<ISpecies[]> => {
-  const response: Response = await fetch(`${SPECIES_URL}?uk=Y`);
+  const response: Response = await callApi(`${SPECIES_URL}?uk=Y`);
   const species = await response.json();
   return species.filter((_species: ISpecies) => 
     !isEmpty(_species.faoCode) &&
@@ -87,7 +81,7 @@ export const searchStateLookup = async (fao: string | null, state?: string): Pro
     return { states: [], presentations: [] }
   }
 
-  const response: Response = await fetch(`${SPECIES_STATE_LOOK_UP}?faoCode=${fao}`);
+  const response: Response = await callApi(`${SPECIES_STATE_LOOK_UP}?faoCode=${fao}`);
   const lookupResults: ISpecieStateLookupResult[] = await response.json();
 
   return {
@@ -110,7 +104,7 @@ export const getCommodityCodes = async (faoCode: string, stateCode: string, pres
     return []
   };
 
-  const response: Response = await fetch(`${COMMODITY_CODE_LOOK_UP}?speciesCode=${faoCode}&state=${stateCode}&presentation=${presentationCode}`);
+  const response: Response = await callApi(`${COMMODITY_CODE_LOOK_UP}?speciesCode=${faoCode}&state=${stateCode}&presentation=${presentationCode}`);
   const commodityCodes: ICommodityCode[] = await response.json();
   return commodityCodes.map((commodityCode: ICommodityCode) => ({
     label: `${commodityCode.code} - ${commodityCode.description}`,
@@ -119,7 +113,7 @@ export const getCommodityCodes = async (faoCode: string, stateCode: string, pres
 }
 
 export const getFavourites = async (): Promise<ISpecies[]> => {
-  const response = await fetch(FAVOURITES_URL);
+  const response: Response = await callApi(FAVOURITES_URL);
   const favourites = await response.json();
 
   return favourites.map((favourite: any) => ({
@@ -155,16 +149,10 @@ export const addSpecies = async (catchCertificate: string | undefined, requestBo
     throw new Error("catchCertificate is required");
   }
 
-  const response = await fetch(ADD_SPECIES_URL,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        documentnumber: catchCertificate,
-      },
-      body: JSON.stringify({ ...requestBody }),
-    }
-  );
+  const response: Response = await callApi(ADD_SPECIES_URL, {
+    "Content-Type": "application/json",
+    documentnumber: catchCertificate,
+  }, 'POST', requestBody);
 
   return onAddSpeciesResponse(response, requestBody);
 }
