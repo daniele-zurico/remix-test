@@ -3,11 +3,11 @@ import { DataFunctionArgs } from "@remix-run/server-runtime";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { json, redirect, useActionData, useLoaderData, ActionFunction, LoaderFunction, Form } from "remix";
 import { BackButton, ErrorSummary, Help } from "~/components";
-import { getTransformedError } from "~/helpers";
 import { IError } from "~/types";
 import { getAddSpeciesLoaderData, addSpecies } from "./what-are-you-exporting/whatAreYouExporting";
 import { ProductsTab, FavouritesTab, ProductTable } from "./what-are-you-exporting/components";
 import { ChangeEvent } from "react";
+import { apiCallFailed } from "~/communication";
 
 export const loader: LoaderFunction = async ({ params, request }: DataFunctionArgs) => {
   const url = new URL(request.url);
@@ -45,12 +45,7 @@ export const action: ActionFunction = async ({ request, params }): Promise<Respo
   const errors: IError[] = response.errors || [];
 
   if (errors.length > 0) {
-    return json(
-      {
-        errors: getTransformedError(errors)
-      },
-      { status: 400 }
-    );
+    return apiCallFailed(errors);
   }
 
   return redirect("/");

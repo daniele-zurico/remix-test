@@ -19,7 +19,7 @@ import {
 } from "@capgeminiuk/dcx-react-library";
 import { addUserReference, getUserReference } from "./add-your-reference/addYourReference";
 import { DataFunctionArgs } from "@remix-run/server-runtime";
-import { getTransformedError } from "~/helpers";
+import { apiCallFailed } from "~/communication";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -46,13 +46,7 @@ export const action: ActionFunction = async ({
   const errors: IError[] = userReference.errors || [];
 
   if (errors.length > 0) {
-    return json(
-      {
-        errors: getTransformedError(errors),
-        userReference: userReference.userReference,
-      },
-      { status: 400 }
-    );
+    return apiCallFailed(errors, { userReference: userReference.userReference });
   }
 
   return redirect(
