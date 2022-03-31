@@ -34,7 +34,7 @@ export const ProductsTab = ({
   errors,
   onChange
 }: ProductTabsProps) => (
-  <>
+  <div id='add-products'>
     <h2 className="govuk-heading-l">Add products</h2>
     <AccessibleAutocomplete
       id="species"
@@ -114,7 +114,7 @@ export const ProductsTab = ({
         nullOption="Select..."
         options={commodityCodes}
         value={commodityCode}
-        name="commodityCode"
+        name="commodity_code"
         onChange={onChange}
       />
     </div>
@@ -131,15 +131,19 @@ export const ProductsTab = ({
     </div>
     <Button
       label="Cancel"
-      type={BUTTON_TYPE.RESET}
+      type={BUTTON_TYPE.SUBMIT}
       className="govuk-button  govuk-!-margin-right-4 govuk-button--secondary"
       data-module="govuk-button"
+      name="_action"
+      value="cancel"
     />
     <Button
       label="Add product"
       type={BUTTON_TYPE.SUBMIT}
       className="govuk-button"
       data-module="govuk-button"
+      name="_action"
+      value="addProduct"
     />
-  </>
+  </div>
 );
