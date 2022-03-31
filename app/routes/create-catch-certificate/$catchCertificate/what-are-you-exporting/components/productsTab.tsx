@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash";
 import {
   Details,
   FormSelect,
@@ -6,17 +7,19 @@ import {
   BUTTON_TYPE,
 } from "@capgeminiuk/dcx-react-library";
 import { AccessibleAutocomplete } from "~/components";
-import { ILabelAndValue, ISpecies } from "~/types";
+import { IErrorTransformed, ILabelAndValue, ISpecies } from "~/types";
 
 type ProductTabsProps = {
   species: ISpecies[];
   states: ILabelAndValue[];
   presentations: ILabelAndValue[];
   commodityCodes: ILabelAndValue[];
-  onChange: (event: any) => void;
+  onChange?: (event: any) => void;
   faoCode?: string;
   stateCode?: string;
   presentationCode?: string;
+  commodityCode?: string;
+  errors?: IErrorTransformed;
 };
 
 export const ProductsTab = ({
@@ -27,17 +30,12 @@ export const ProductsTab = ({
   presentationCode,
   presentations,
   commodityCodes,
+  commodityCode,
+  errors,
   onChange
 }: ProductTabsProps) => (
   <>
     <h2 className="govuk-heading-l">Add products</h2>
-    <label
-      className="govuk-label govuk-!-font-weight-bold"
-      htmlFor="my-autocomplete"
-    >
-      Common name or FAO code
-    </label>
-    <div className="govuk-hint">For example, Lobster or LBE</div>
     <AccessibleAutocomplete
       id="species"
       name="species"
@@ -46,6 +44,7 @@ export const ProductsTab = ({
       defaultValue=""
       nojsValues={species}
       onChange={onChange}
+      error={errors?.species?.message}
     />
     <Details
       summary="I cannot find the commodity code"
@@ -56,36 +55,67 @@ export const ProductsTab = ({
     >
       <p>Call 0330 159 1989 if the commodity code you need is not shown.</p>
     </Details>
-    <div className="govuk-form-group">
+    <div className={`govuk-form-group${!isEmpty(errors?.state) ? ' govuk-form-group--error' : ''}`}>
       <FormSelect
+        id="state"
         labelClassName="govuk-label govuk-!-font-weight-bold"
-        selectClassName="govuk-select govuk-!-width-two-thirds"
+        selectClassName={`govuk-select${!isEmpty(errors?.state) ? ' govuk-select--error' : ''} govuk-!-width-two-thirds`}
+        error={{
+          text: errors?.state?.message || '',
+          className: 'govuk-error-message',
+          visuallyHiddenText: {
+            text: 'Error:',
+            className: 'govuk-visually-hidden'
+          }
+        }}
         label="State"
         nullOption="Select..."
         options={states}
         name="state"
         value={stateCode}
+        onChange={onChange}
       />
     </div>
-    <div className="govuk-form-group">
+    <div className={`govuk-form-group${!isEmpty(errors?.presentation) ? ' govuk-form-group--error' : ''}`}>
       <FormSelect
+        id="presentation"
         labelClassName="govuk-label govuk-!-font-weight-bold"
-        selectClassName="govuk-select govuk-!-width-two-thirds"
+        selectClassName={`govuk-select${!isEmpty(errors?.presentation) ? ' govuk-select--error' : ''} govuk-!-width-two-thirds`}
+        error={{
+          text: errors?.presentation?.message || '',
+          className: 'govuk-error-message',
+          visuallyHiddenText: {
+            text: 'Error:',
+            className: 'govuk-visually-hidden'
+          }
+        }}
         label="Presentation"
         nullOption="Select..."
         options={presentations}
         name="presentation"
         value={presentationCode}
+        onChange={onChange}
       />
     </div>
-    <div className="govuk-form-group">
+    <div className={`govuk-form-group${!isEmpty(errors?.commodity_code) ? ' govuk-form-group--error' : ''}`}>
       <FormSelect
+        id="commodity_code"
         labelClassName="govuk-label govuk-!-font-weight-bold"
-        selectClassName="govuk-select govuk-!-width-two-thirds"
+        selectClassName={`govuk-select${!isEmpty(errors?.commodity_code) ? ' govuk-select--error' : ''} govuk-!-width-two-thirds`}
+        error={{
+          text: errors?.commodity_code?.message || '',
+          className: 'govuk-error-message',
+          visuallyHiddenText: {
+            text: 'Error:',
+            className: 'govuk-visually-hidden'
+          }
+        }}
         label="Commodity Code"
         nullOption="Select..."
         options={commodityCodes}
+        value={commodityCode}
         name="commodityCode"
+        onChange={onChange}
       />
     </div>
     <div className="govuk-checkboxes__item govuk-!-margin-bottom-4">

@@ -1,9 +1,14 @@
-import { json, LoaderFunction, useLoaderData, useFetcher } from "remix";
-import { BackButton, Help } from "~/components";
-import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
+import { isEmpty } from "lodash";
 import { DataFunctionArgs } from "@remix-run/server-runtime";
-import { getAddSpeciesLoaderData } from "./what-are-you-exporting/whatAreYouExporting";
+import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
+import { json, redirect, useActionData, useLoaderData, Form } from "remix";
+import type { ActionFunction, LoaderFunction } from "remix";
+import { BackButton, ErrorSummary, Help } from "~/components";
+import { IError } from "~/types";
+import { getAddSpeciesLoaderData, addSpecies } from "./what-are-you-exporting/whatAreYouExporting";
 import { ProductsTab, FavouritesTab, ProductTable } from "./what-are-you-exporting/components";
+import { ChangeEvent } from "react";
+import { apiCallFailed } from "~/utils";
 
 export const loader: LoaderFunction = async ({ params, request }: DataFunctionArgs) => {
   const url = new URL(request.url);
@@ -14,7 +19,41 @@ export const loader: LoaderFunction = async ({ params, request }: DataFunctionAr
   return json(await getAddSpeciesLoaderData(catchCertificate, species, state, presenttion));
 };
 
+export const action: ActionFunction = async ({ request, params }): Promise<Response> => {
+  const { catchCertificate } = params;
+  const form = await request.formData();
+  const species: string = form.get("species") as string || '';
+  const state: string = form.get("state") as string || '';
+  const presentation: string = form.get("presentation") as string || '';
+  const commodityCode: string = form.get("commodityCode") as string || '';
+
+  const resquestBody: any = {
+    "addToFavourites": false,
+    "btn_submit":"",
+    "presentation": presentation,
+    "presentationLabel":"",
+    "redirect": `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`,
+    "species":"",
+    "speciesCode": species,
+    "state": state,
+    "stateLabel":"",
+    "scientificName":"",
+    "commodity_code": commodityCode,
+    "commodity_code_description":""
+  }
+  
+  const response = await addSpecies(catchCertificate, resquestBody);
+  const errors: IError[] = response.errors || [];
+
+  if (errors.length > 0) {
+    return apiCallFailed(errors);
+  }
+
+  return redirect("/");
+}
+
 const AddSpeciesPage = () => {
+  const { errors = {} } = useActionData() || {};
   const {
     documentNumber,
     config,
@@ -28,15 +67,20 @@ const AddSpeciesPage = () => {
     presentationCode
   } = useLoaderData();
 
-  console.log('STATES' ,JSON.stringify(stateLookup.states));
+  const onChangeHandler = (event: ChangeEvent) => {
+    // TO DO
+    console.log(event.currentTarget.id, 'is Changing');
+  }
 
-  const data = useFetcher();
   return (
     <>
-      <BackButton
-        to={`/create-catch-certificate/${documentNumber}/add-your-reference`}
-      />
+      <BackButton to={`/create-catch-certificate/${documentNumber}/add-your-reference`} />
       <div className="govuk-!-padding-top-6">
+        {!isEmpty(errors) && (
+          <ErrorSummary
+            errors={Object.keys(errors).flatMap((key: string) => errors[key])}
+          />
+        )}
         <div className="govuk-inset-text govuk-!-margin-top-0">
           <p>Please Note:</p>
           <ul>
@@ -48,6 +92,10 @@ const AddSpeciesPage = () => {
           </ul>
         </div>
         <h1 className="govuk-heading-xl">What are you exporting?</h1>
+        <Form
+          method="post"
+          action={`/create-catch-certificate/${documentNumber}/what-are-you-exporting`}
+        >
         <div className="govuk-tabs" data-module="govuk-tabs">
           <ul className="govuk-tabs__list">
             <li className="govuk-tabs__list-item govuk-tabs__list-item--selected">
@@ -62,21 +110,17 @@ const AddSpeciesPage = () => {
             </li>
           </ul>
           <div className="govuk-tabs__panel" id="add-products">
-            <data.Form method="get" action={`/create-catch-certificate/${documentNumber}/what-are-you-exporting`}>
-              <ProductsTab
-                species={species}
-                states={stateLookup.states}
-                presentations={stateLookup.presentations}
-                commodityCodes={commodityCodes}
-                onChange={(event: any) => {
-                  console.log('CALLING ON CHANGE');
-                  data.submit(event.target.form);
-                }}
-                faoCode={faoCode}
-                stateCode={stateCode}
-                presentationCode={presentationCode}
-              />
-            </data.Form>
+            <ProductsTab
+              species={species}
+              states={stateLookup.states}
+              presentations={stateLookup.presentations}
+              commodityCodes={commodityCodes}
+              faoCode={faoCode}
+              stateCode={stateCode}
+              presentationCode={presentationCode}
+              errors={errors}
+              onChange={onChangeHandler}
+            />
           </div>
           <div
             className="govuk-tabs__panel govuk-tabs__panel--hidden"
@@ -99,6 +143,7 @@ const AddSpeciesPage = () => {
           className="govuk-button"
           data-module="govuk-button"
         />
+        </Form>
       </div>
       <Help />
     </>

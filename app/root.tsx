@@ -2,10 +2,9 @@ import {
   createCookie,
   json,
   useLoaderData,
-  LoaderFunction,
-  MetaFunction,
   Links, LiveReload, Meta, Scripts, ScrollRestoration, Outlet 
 } from "remix";
+import type { LoaderFunction, MetaFunction } from "remix";
 import { useSetupTranslations } from "remix-i18next";
 import { i18n } from "~/i18n.server";
 import { Banner, Header, Error, PageNotFound, CookieBanner, Footer, LanguageToggle } from "~/components";

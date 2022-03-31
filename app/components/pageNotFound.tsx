@@ -1,4 +1,5 @@
-import { Link, MetaFunction } from "remix";
+import { Link } from "remix";
+import type { MetaFunction } from "remix";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 
 export const meta: MetaFunction = () => ({

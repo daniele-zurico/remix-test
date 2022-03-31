@@ -1,9 +1,14 @@
 import { isEmpty } from "lodash";
-import { ICommodityCode, IProduct, ISearchState, ISpecies, ISpecieStateLookupResult, ICodeAndDescription, ILabelAndValue } from "~/types";
+import { ICommodityCode, IProduct, ISearchState, ISpecies, ISpecieStateLookupResult, ICodeAndDescription, ILabelAndValue, IError } from "~/types";
+import { getErrorMessage } from "~/helpers";
+import { get, post } from "~/utils";
 import CONFIG from "~/config";
 
 const ADDED_SPECIES_URL = 
 `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/fish/added`;
+
+const ADD_SPECIES_URL = 
+`${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/fish/add`;
 
 const SPECIES_URL =
 `${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/species`;
@@ -26,14 +31,7 @@ export const getAddedSpeciesPerUser = async (catchCertificate?: string): Promise
     throw new Error("catchCertificate is required");
   }
 
-  const response = await fetch(ADDED_SPECIES_URL,
-    {
-      method: "GET",
-      headers: {
-        documentnumber: catchCertificate,
-      },
-    }
-  );
+  const response: Response = await get(ADDED_SPECIES_URL, { documentnumber: catchCertificate });
 
   const addedSpeciesPerUser: { species: any[] } = await response.json() || { species: [] };
 
@@ -69,7 +67,7 @@ export const getAddedSpeciesPerUser = async (catchCertificate?: string): Promise
 };
 
 export const getSpecies = async (): Promise<ISpecies[]> => {
-  const response: Response = await fetch(`${SPECIES_URL}?uk=Y`);
+  const response: Response = await get(`${SPECIES_URL}?uk=Y`);
   const species = await response.json();
   return species.filter((_species: ISpecies) => 
     !isEmpty(_species.faoCode) &&
@@ -83,7 +81,7 @@ export const searchStateLookup = async (fao: string | null, state?: string): Pro
     return { states: [], presentations: [] }
   }
 
-  const response: Response = await fetch(`${SPECIES_STATE_LOOK_UP}?faoCode=${fao}`);
+  const response: Response = await get(`${SPECIES_STATE_LOOK_UP}?faoCode=${fao}`);
   const lookupResults: ISpecieStateLookupResult[] = await response.json();
 
   return {
@@ -92,7 +90,6 @@ export const searchStateLookup = async (fao: string | null, state?: string): Pro
       value: res.state.code
     })),
     presentations: (lookupResults.find((res: ISpecieStateLookupResult) => {
-      console.log(res.state.code, 'Vs', state);
       return res.state.code === state
     }) || { presentations: []})
       .presentations.map((presentation: ICodeAndDescription) => ({
@@ -107,7 +104,7 @@ export const getCommodityCodes = async (faoCode: string, stateCode: string, pres
     return []
   };
 
-  const response: Response = await fetch(`${COMMODITY_CODE_LOOK_UP}?speciesCode=${faoCode}&state=${stateCode}&presentation=${presentationCode}`);
+  const response: Response = await get(`${COMMODITY_CODE_LOOK_UP}?speciesCode=${faoCode}&state=${stateCode}&presentation=${presentationCode}`);
   const commodityCodes: ICommodityCode[] = await response.json();
   return commodityCodes.map((commodityCode: ICommodityCode) => ({
     label: `${commodityCode.code} - ${commodityCode.description}`,
@@ -116,7 +113,7 @@ export const getCommodityCodes = async (faoCode: string, stateCode: string, pres
 }
 
 export const getFavourites = async (): Promise<ISpecies[]> => {
-  const response = await fetch(FAVOURITES_URL);
+  const response: Response = await get(FAVOURITES_URL);
   const favourites = await response.json();
 
   return favourites.map((favourite: any) => ({
@@ -144,5 +141,40 @@ export const getAddSpeciesLoaderData = async (catchCertificate: string, faoCode:
     faoCode,
     stateCode,
     presentationCode
+  }
+}
+
+export const addSpecies = async (catchCertificate: string | undefined, requestBody: any): Promise<any> => {
+  if(!catchCertificate) {
+    throw new Error("catchCertificate is required");
+  }
+
+  const response: Response = await post(ADD_SPECIES_URL, {
+    "Content-Type": "application/json",
+    documentnumber: catchCertificate,
+  }, requestBody);
+
+  return onAddSpeciesResponse(response, requestBody);
+}
+
+const onAddSpeciesResponse = async (response: Response, requestBody: any): Promise<{data: any, errors: IError[]}> => {
+  switch(response.status) {
+    case 200:
+    case 204:
+      return {
+        data: requestBody,
+        errors: []
+      };
+    case 400:
+      const data = await response.json();
+      return {
+        data: requestBody,
+        errors: Object.keys(data).map(error => ({
+          key: error,
+          message: getErrorMessage(data[error])
+        }))
+      };
+    default:
+      throw new Error(`Unexpected error: ${response.status}`);
   }
 }

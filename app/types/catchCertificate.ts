@@ -8,7 +8,8 @@ export interface IAccessibleAutocomplteProps {
   defaultValue?: string;
   defaultSelectMessage?: string;
   nojsValues: ISpecies[];
-  onChange: (event: any) => void;
+  onChange?: (event: any) => void;
+  error?: string;
 }
 
 export type ICatchCertificate = {

@@ -2,12 +2,10 @@ import {
   Form,
   redirect,
   json,
-  LoaderFunction,
-  ActionFunction,
   useLoaderData,
-  useActionData,
-  MetaFunction
+  useActionData
 } from "remix";
+import type { ActionFunction, LoaderFunction, MetaFunction } from "remix";
 import { isEmpty } from "lodash";
 import { IUserReference, IError } from "~/types";
 import { BackButton, ErrorSummary, Help } from "~/components";
@@ -19,7 +17,8 @@ import {
 } from "@capgeminiuk/dcx-react-library";
 import { addUserReference, getUserReference } from "./add-your-reference/addYourReference";
 import { DataFunctionArgs } from "@remix-run/server-runtime";
-import { getTransformedError } from "~/helpers";
+import { apiCallFailed } from "~/utils";
+
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title:
@@ -36,8 +35,8 @@ export const action: ActionFunction = async ({
   request,
   params,
 }): Promise<Response> => {
-  const form = await request.formData();
   const { catchCertificate } = params;
+  const form = await request.formData();
   const userReference: IUserReference = await addUserReference(
     catchCertificate,
     form.get("userReference") as string
@@ -45,13 +44,7 @@ export const action: ActionFunction = async ({
   const errors: IError[] = userReference.errors || [];
 
   if (errors.length > 0) {
-    return json(
-      {
-        errors: getTransformedError(errors),
-        userReference: userReference.userReference,
-      },
-      { status: 400 }
-    );
+    return apiCallFailed(errors, { userReference: userReference.userReference });
   }
 
   return redirect(

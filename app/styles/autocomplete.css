@@ -10,7 +10,7 @@
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  margin-bottom: 20px; /* BUG: Safari 10 on macOS seems to add an implicit margin. */
+  margin-bottom: 0; /* BUG: Safari 10 on macOS seems to add an implicit margin. */
   width: 60%;
 }
 
@@ -27,10 +27,22 @@
 .autocomplete__input--default {
   padding: 5px;
 }
+
+.autocomplete__input:focus,
+.autocomplete__input:focus-visible,
 .autocomplete__input--focused {
   outline: 3px solid #fd0;
   outline-offset: 0;
   box-shadow: inset 0 0 0 2px;
+}
+
+.autocomplete__input--error {
+  border-color: #d4351c;
+}
+
+.autocomplete__input--error:focus,
+.autocomplete__input--error:focus-visible {
+  border-color: #0b0c0c;
 }
 
 .autocomplete__input--show-all-values {
