@@ -21,26 +21,25 @@ export const loader: LoaderFunction = async ({ params, request }: DataFunctionAr
 
 export const action: ActionFunction = async ({ request, params }): Promise<Response> => {
   const { catchCertificate } = params;
+  const _redirect = `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`
   const form = await request.formData();
-  const species: string = form.get("species") as string || '';
-  const state: string = form.get("state") as string || '';
-  const presentation: string = form.get("presentation") as string || '';
-  const commodityCode: string = form.get("commodityCode") as string || '';
+  const { _action, ...values } = Object.fromEntries(form);
+
+  if (_action === 'cancel') {
+    return redirect(`${_redirect}#add-products`);
+  }
 
   const resquestBody: any = {
-    "addToFavourites": false,
-    "btn_submit":"",
-    "presentation": presentation,
-    "presentationLabel":"",
-    "redirect": `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`,
-    "species":"",
-    "speciesCode": species,
-    "state": state,
-    "stateLabel":"",
-    "scientificName":"",
-    "commodity_code": commodityCode,
-    "commodity_code_description":""
-  }
+    addToFavourites: false,
+    btn_submit:"",
+    presentationLabel:"",
+    redirect: _redirect,
+    species:"",
+    stateLabel:"",
+    scientificName:"",
+    commodity_code_description:"",
+    ...values
+  };
   
   const response = await addSpecies(catchCertificate, resquestBody);
   const errors: IError[] = response.errors || [];
@@ -49,6 +48,7 @@ export const action: ActionFunction = async ({ request, params }): Promise<Respo
     return apiCallFailed(errors);
   }
 
+  // go to the next page but using "/" for now
   return redirect("/");
 }
 
@@ -68,8 +68,7 @@ const AddSpeciesPage = () => {
   } = useLoaderData();
 
   const onChangeHandler = (event: ChangeEvent) => {
-    // TO DO
-    console.log(event.currentTarget.id, 'is Changing');
+    // TO DO -- LOAD the new states and presentations
   }
 
   return (
