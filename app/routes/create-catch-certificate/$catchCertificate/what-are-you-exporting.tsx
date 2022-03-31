@@ -1,13 +1,14 @@
 import { isEmpty } from "lodash";
 import { DataFunctionArgs } from "@remix-run/server-runtime";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
-import { json, redirect, useActionData, useLoaderData, ActionFunction, LoaderFunction, Form } from "remix";
+import { json, redirect, useActionData, useLoaderData, Form } from "remix";
+import type { ActionFunction, LoaderFunction } from "remix";
 import { BackButton, ErrorSummary, Help } from "~/components";
 import { IError } from "~/types";
 import { getAddSpeciesLoaderData, addSpecies } from "./what-are-you-exporting/whatAreYouExporting";
 import { ProductsTab, FavouritesTab, ProductTable } from "./what-are-you-exporting/components";
 import { ChangeEvent } from "react";
-import { apiCallFailed } from "~/communication";
+import { apiCallFailed } from "~/utils";
 
 export const loader: LoaderFunction = async ({ params, request }: DataFunctionArgs) => {
   const url = new URL(request.url);

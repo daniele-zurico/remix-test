@@ -1,4 +1,5 @@
-import { Form, redirect, json, LoaderFunction, ActionFunction } from "remix";
+import { Form, redirect, json } from "remix";
+import type { ActionFunction, LoaderFunction } from "remix";
 import { i18n } from "~/i18n.server";
 import { useTranslation } from "react-i18next";
 import { Button, BUTTON_TYPE, FormRadio } from "@capgeminiuk/dcx-react-library";

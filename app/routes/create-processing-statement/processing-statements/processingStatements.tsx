@@ -1,4 +1,4 @@
-import { apiCall } from "~/communication";
+import { get } from "~/utils";
 import { IDashboardPSData } from "~/types";
 import CONFIG from "~/config";
 
@@ -6,10 +6,10 @@ const STORAGE_NOTE_SURL = `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/documents/
 const NOTIFICATION_URL = `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/notification`;
 
 export const getProcessingStatments = async (): Promise<IDashboardPSData> => {
-  const res: Response = await apiCall(STORAGE_NOTE_SURL);
+  const res: Response = await get(STORAGE_NOTE_SURL);
   const data = await res.json();
 
-  const response: Response = await apiCall(NOTIFICATION_URL);
+  const response: Response = await get(NOTIFICATION_URL);
   const notification = await response.json();
 
   return { ...data, notification };

@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
-import { json, LoaderFunction, useLoaderData } from "remix";
+import { json, useLoaderData } from "remix";
+import type { LoaderFunction } from "remix";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { IDashboardData } from "~/types";
 import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";

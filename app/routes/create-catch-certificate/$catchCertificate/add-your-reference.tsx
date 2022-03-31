@@ -2,12 +2,10 @@ import {
   Form,
   redirect,
   json,
-  LoaderFunction,
-  ActionFunction,
   useLoaderData,
-  useActionData,
-  MetaFunction
+  useActionData
 } from "remix";
+import type { ActionFunction, LoaderFunction, MetaFunction } from "remix";
 import { isEmpty } from "lodash";
 import { IUserReference, IError } from "~/types";
 import { BackButton, ErrorSummary, Help } from "~/components";
@@ -19,7 +17,7 @@ import {
 } from "@capgeminiuk/dcx-react-library";
 import { addUserReference, getUserReference } from "./add-your-reference/addYourReference";
 import { DataFunctionArgs } from "@remix-run/server-runtime";
-import { apiCallFailed } from "~/communication";
+import { apiCallFailed } from "~/utils";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
