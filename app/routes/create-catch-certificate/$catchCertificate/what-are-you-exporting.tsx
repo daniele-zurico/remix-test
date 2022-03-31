@@ -69,7 +69,6 @@ const AddSpeciesPage = () => {
 
   const onChangeHandler = (event: ChangeEvent) => {
     // TO DO -- LOAD the new states and presentations
-    console.log(event.currentTarget.id, 'is Changing');
   }
 
   return (
