@@ -11,7 +11,6 @@ export const AccessibleAutocomplete = ({
   defaultValue,
   defaultSelectMessage,
   nojsValues,
-  onChange,
   error
 }: IAccessibleAutocomplteProps) => (
   <div className={`govuk-form-group ${!isEmpty(error) ? 'govuk-form-group--error' : ''}`.trim()}>
@@ -32,7 +31,6 @@ export const AccessibleAutocomplete = ({
         id={id}
         name={name}
         value={value}
-        onChange={onChange}
       >
         <option key="-1" value="">
           {defaultSelectMessage}

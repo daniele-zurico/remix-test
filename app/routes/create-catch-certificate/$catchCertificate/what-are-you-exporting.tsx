@@ -5,10 +5,9 @@ import { json, redirect, useActionData, useLoaderData, Form } from "remix";
 import type { ActionFunction, LoaderFunction } from "remix";
 import { BackButton, ErrorSummary, Help } from "~/components";
 import { IError } from "~/types";
-import { getAddSpeciesLoaderData, addSpecies } from "./what-are-you-exporting/whatAreYouExporting";
-import { ProductsTab, FavouritesTab, ProductTable } from "./what-are-you-exporting/components";
-import { ChangeEvent } from "react";
 import { apiCallFailed } from "~/utils";
+import { getAddSpeciesLoaderData, addSpecies, validateValues, getCommodityCodeDescription } from "./what-are-you-exporting/whatAreYouExporting";
+import { ProductsTab, FavouritesTab, ProductTable } from "./what-are-you-exporting/components";
 
 export const loader: LoaderFunction = async ({ params, request }: DataFunctionArgs) => {
   const url = new URL(request.url);
@@ -20,40 +19,64 @@ export const loader: LoaderFunction = async ({ params, request }: DataFunctionAr
 };
 
 export const action: ActionFunction = async ({ request, params }): Promise<Response> => {
-  const { catchCertificate } = params;
-  const _redirect = `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`
   const form = await request.formData();
-  const { _action, ...values } = Object.fromEntries(form);
-
+  const { catchCertificate } = params;
+  const { _action, faoName, ...values } = Object.fromEntries(form);
+  const _redirect = `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`;
+  
   if (_action === 'cancel') {
     return redirect(`${_redirect}#add-products`);
   }
 
-  const resquestBody: any = {
+  if (_action === 'addSpecies') {
+    const errors: IError[] = validateValues(['species'], values);
+    if (errors.length > 0) {
+      return apiCallFailed(errors, values);
+    }
+
+    return redirect(`${_redirect}?species=${values.species}#add-state`);
+  }
+
+  if (_action === 'addState') {
+    const errors: IError[] = validateValues(['species', 'state'], values);
+    if (errors.length > 0) {
+      return apiCallFailed(errors, values);
+    }
+
+    return redirect(`${_redirect}?species=${values.species}&state=${values.state}#add-presentation`)
+  }
+
+  if (_action === 'addPresentation') {
+    const errors: IError[] = validateValues(['species', 'state', 'presentation'], values);
+    if (errors.length > 0) {
+      return apiCallFailed(errors, values);
+    }
+
+    return redirect(`${_redirect}?species=${values.species}&state=${values.state}&presentation=${values.presentation}#add-commodity-code`)
+  }
+
+  const requestBody: any = {
     addToFavourites: false,
-    btn_submit:"",
-    presentationLabel:"",
+    btn_submit:"", // TODO - this FE may not need this
+    commodity_code_description: await getCommodityCodeDescription(values.species as string, values.state as string, values.presentation as string, values.commodity_code as string),
     redirect: _redirect,
-    species:"",
-    stateLabel:"",
-    scientificName:"",
-    commodity_code_description:"",
-    ...values
+    speciesCode: values.species,
+    ...values,
+    species: `${faoName} (${values.species})`
   };
   
-  const response = await addSpecies(catchCertificate, resquestBody);
+  const response = await addSpecies(catchCertificate, requestBody);
   const errors: IError[] = response.errors || [];
 
   if (errors.length > 0) {
-    return apiCallFailed(errors);
+    return apiCallFailed(errors, values);
   }
 
-  // go to the next page but using "/" for now
-  return redirect("/");
+  return redirect(`/create-catch-certificate/${catchCertificate}/what-are-you-exporting`);
 }
 
 const AddSpeciesPage = () => {
-  const { errors = {} } = useActionData() || {};
+  const { errors = {}, species: _faoCode} = useActionData() || {};
   const {
     documentNumber,
     config,
@@ -62,14 +85,14 @@ const AddSpeciesPage = () => {
     favourites,
     stateLookup,
     commodityCodes,
+    faoName,
     faoCode,
+    scientificName,
     stateCode,
+    stateLabel,
+    presentationLabel,
     presentationCode
   } = useLoaderData();
-
-  const onChangeHandler = (event: ChangeEvent) => {
-    // TO DO -- LOAD the new states and presentations
-  }
 
   return (
     <>
@@ -114,11 +137,10 @@ const AddSpeciesPage = () => {
               states={stateLookup.states}
               presentations={stateLookup.presentations}
               commodityCodes={commodityCodes}
-              faoCode={faoCode}
+              faoCode={_faoCode || faoCode}
               stateCode={stateCode}
               presentationCode={presentationCode}
               errors={errors}
-              onChange={onChangeHandler}
             />
           </div>
           <div
@@ -133,7 +155,7 @@ const AddSpeciesPage = () => {
         <Button
           label="Save as draft"
           type={BUTTON_TYPE.SUBMIT}
-          className="govuk-button  govuk-!-margin-right-4 govuk-button--secondary"
+          className="govuk-button govuk-!-margin-right-4 govuk-button--secondary"
           data-module="govuk-button"
         />
         <Button
@@ -142,6 +164,10 @@ const AddSpeciesPage = () => {
           className="govuk-button"
           data-module="govuk-button"
         />
+        <input type="hidden" id="faoName" name="faoName" value={faoName} />
+        <input type="hidden" id="scientificName" name="scientificName" value={scientificName} />
+        <input type="hidden" id="stateLabel" name="stateLabel" value={stateLabel} />
+        <input type="hidden" id="presentationLabel" name="presentationLabel" value={presentationLabel} />
         </Form>
       </div>
       <Help />
