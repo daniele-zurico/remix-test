@@ -21,6 +21,12 @@ const SPECIES_STATE_LOOK_UP =
 const COMMODITY_CODE_LOOK_UP =
 `${CONFIG.MMO_ECC_REFERENCE_SVC_URL}/v1/commodities/search`;
 
+const validationErrorMessage : { [key: string]: string } = {
+  species: 'error.species.any.empty',
+  state: 'error.state.any.required',
+  presentation: 'error.presentation.any.required'
+};
+
 type Config = {
   config: { maxSpeciesLimit?: string; }
 }
@@ -107,8 +113,14 @@ export const getCommodityCodes = async (faoCode: string, stateCode: string, pres
   const commodityCodes: ICommodityCode[] = await response.json();
   return commodityCodes.map((commodityCode: ICommodityCode) => ({
     label: `${commodityCode.code} - ${commodityCode.description}`,
-    value: commodityCode.code
+    value: commodityCode.code,
+    description: commodityCode.description
   }));
+}
+
+export const getCommodityCodeDescription = async (faoCode: string, stateCode: string, presentationCode: string, commodityCode: string): Promise<string | undefined> => {
+  const commodityCodes = await getCommodityCodes(faoCode, stateCode, presentationCode) || [];
+  return commodityCodes.find((cachedCommodityCode: ILabelAndValue) => cachedCommodityCode.value === commodityCode)?.description;
 }
 
 export const getFavourites = async (): Promise<ISpecies[]> => {
@@ -129,7 +141,7 @@ export const getAddSpeciesLoaderData = async (catchCertificate: string, faoCode:
     getFavourites(),
     searchStateLookup(faoCode, stateCode),
     getCommodityCodes(faoCode, stateCode, presentationCode)
-  ])
+  ]);
 
   return {
     ...getAddedSpeciesPerUserData,
@@ -137,10 +149,37 @@ export const getAddSpeciesLoaderData = async (catchCertificate: string, faoCode:
     favourites,
     stateLookup,
     commodityCodes,
-    faoCode,
+    ...findSpeciesName(faoCode, species),
     stateCode,
-    presentationCode
+    stateLabel: findStateLabel(stateCode, stateLookup),
+    presentationCode,
+    presentationLabel: findPresentationLabel(presentationCode, stateLookup),
   }
+}
+
+const findSpeciesName = (faoCode: string, species: ISpecies[]): ISpecies | undefined => {
+  if (!faoCode || !species.length) {
+    return undefined;
+  }
+
+  return species.find((species: ISpecies) => species.faoCode === faoCode)
+}
+
+
+const findStateLabel = (code: string, lookup: ISearchState): string | undefined  => {
+  if (!code || !lookup?.states) {
+    return undefined;
+  }
+
+  return lookup?.states.find((state: ILabelAndValue) => state.value === code)?.label
+}
+
+const findPresentationLabel = (presentationCode: string, lookup: ISearchState): string | undefined  => {
+  if (!presentationCode || !lookup?.presentations) {
+    return undefined;
+  }
+
+  return lookup?.presentations.find((presentation: ILabelAndValue) => presentation.value === presentationCode)?.label;
 }
 
 export const addSpecies = async (catchCertificate: string | undefined, requestBody: any): Promise<any> => {
@@ -176,4 +215,21 @@ const onAddSpeciesResponse = async (response: Response, requestBody: any): Promi
     default:
       throw new Error(`Unexpected error: ${response.status}`);
   }
+}
+
+export const validateValues = (validate: string[], values: any): IError[] => {
+  const errors: IError[] = [];
+
+  if (validate?.length > 0) {
+    validate.forEach((key: string)  => {
+      if (!values[key]) {
+        errors.push({
+          key,
+          message: getErrorMessage(validationErrorMessage[key])
+        })
+      }
+    })
+  }
+
+  return errors;
 }

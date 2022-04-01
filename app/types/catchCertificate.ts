@@ -8,7 +8,6 @@ export interface IAccessibleAutocomplteProps {
   defaultValue?: string;
   defaultSelectMessage?: string;
   nojsValues: ISpecies[];
-  onChange?: (event: any) => void;
   error?: string;
 }
 
@@ -60,6 +59,7 @@ export interface ISpecies {
 export interface ILabelAndValue {
   label: string;
   value: string;
+  description?: string;
 }
 
 export interface ICodeAndDescription {

@@ -14,7 +14,6 @@ type ProductTabsProps = {
   states: ILabelAndValue[];
   presentations: ILabelAndValue[];
   commodityCodes: ILabelAndValue[];
-  onChange?: (event: any) => void;
   faoCode?: string;
   stateCode?: string;
   presentationCode?: string;
@@ -31,8 +30,7 @@ export const ProductsTab = ({
   presentations,
   commodityCodes,
   commodityCode,
-  errors,
-  onChange
+  errors
 }: ProductTabsProps) => (
   <div id='add-products'>
     <h2 className="govuk-heading-l">Add products</h2>
@@ -43,19 +41,34 @@ export const ProductsTab = ({
       defaultSelectMessage=""
       defaultValue=""
       nojsValues={species}
-      onChange={onChange}
       error={errors?.species?.message}
     />
     <Details
-      summary="I cannot find the commodity code"
+      summary="I cannot find the species"
       detailsClassName="govuk-details"
       summaryClassName="govuk-details__summary"
       summaryTextClassName="govuk-details__summary-text"
       detailsTextClassName="govuk-details__text"
     >
-      <p>Call 0330 159 1989 if the commodity code you need is not shown.</p>
+      <>
+        <p>For best results, search for the common English name or the FAO code (if known) as species nicknames are not supported.</p>
+        <p>Some species are exempt{" "}
+          <a className="govuk-link" rel="noopener noreferrer" href='https://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2011:057:0010:0018:EN:PDF' target="_blank" aria-label="Link opens in a new window">
+            Species exempt from Catch Certificate (europa.eu) <span className="govuk-visually-hidden">(opens in new tab)</span>
+          </a>
+          <p>If you cannot find the species and it is not exempt, call 0330 159 1989.</p>
+        </p>
+      </>
     </Details>
-    <div className={`govuk-form-group${!isEmpty(errors?.state) ? ' govuk-form-group--error' : ''}`}>
+    <Button
+      label="Add species"
+      type={BUTTON_TYPE.SUBMIT}
+      className="govuk-button govuk-!-margin-right-4 govuk-button--primary"
+      data-module="govuk-button"
+      name="_action"
+      value="addSpecies"
+    />
+    <div id="add-state" className={`govuk-form-group${!isEmpty(errors?.state) ? ' govuk-form-group--error' : ''}`}>
       <FormSelect
         id="state"
         labelClassName="govuk-label govuk-!-font-weight-bold"
@@ -73,10 +86,17 @@ export const ProductsTab = ({
         options={states}
         name="state"
         value={stateCode}
-        onChange={onChange}
       />
     </div>
-    <div className={`govuk-form-group${!isEmpty(errors?.presentation) ? ' govuk-form-group--error' : ''}`}>
+    <Button
+      label="Add state"
+      type={BUTTON_TYPE.SUBMIT}
+      className="govuk-button govuk-button--primary"
+      data-module="govuk-button"
+      name="_action"
+      value="addState"
+    />
+    <div id="add-presentation" className={`govuk-form-group${!isEmpty(errors?.presentation) ? ' govuk-form-group--error' : ''}`}>
       <FormSelect
         id="presentation"
         labelClassName="govuk-label govuk-!-font-weight-bold"
@@ -94,10 +114,17 @@ export const ProductsTab = ({
         options={presentations}
         name="presentation"
         value={presentationCode}
-        onChange={onChange}
       />
     </div>
-    <div className={`govuk-form-group${!isEmpty(errors?.commodity_code) ? ' govuk-form-group--error' : ''}`}>
+    <Button
+      label="Add presentation"
+      type={BUTTON_TYPE.SUBMIT}
+      className="govuk-button govuk-button--primary"
+      data-module="govuk-button"
+      name="_action"
+      value="addPresentation"
+    />
+    <div id="add-commodity-code" className={`govuk-form-group${!isEmpty(errors?.commodity_code) ? ' govuk-form-group--error' : ''}`}>
       <FormSelect
         id="commodity_code"
         labelClassName="govuk-label govuk-!-font-weight-bold"
@@ -115,16 +142,24 @@ export const ProductsTab = ({
         options={commodityCodes}
         value={commodityCode}
         name="commodity_code"
-        onChange={onChange}
       />
     </div>
+    <Details
+      summary="I cannot find the commodity code"
+      detailsClassName="govuk-details"
+      summaryClassName="govuk-details__summary"
+      summaryTextClassName="govuk-details__summary-text"
+      detailsTextClassName="govuk-details__text"
+    >
+      <p>Call 0330 159 1989 if the commodity code you need is not shown.</p>
+    </Details>
     <div className="govuk-checkboxes__item govuk-!-margin-bottom-4">
       <FormCheckbox
         type="checkbox"
         inputClassName="govuk-checkboxes__input"
         labelClassName="govuk-label govuk-checkboxes__label"
-        id="add-to-favourites"
-        name="add-to-favourites"
+        id="addToFavourites"
+        name="addToFavourites"
         value="yes"
         label="Add to product favourites"
       />
