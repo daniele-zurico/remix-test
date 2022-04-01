@@ -66,8 +66,7 @@ export const action: ActionFunction = async ({
   }
 
   const requestBody: any = {
-    addToFavourites: false,
-    btn_submit:"", // TODO - this FE may not need this
+    addToFavourites: false, // TODO - adding product to favourites
     commodity_code_description: await getCommodityCodeDescription(values.species as string, values.state as string, values.presentation as string, values.commodity_code as string),
     redirect: _redirect,
     speciesCode: values.species,
