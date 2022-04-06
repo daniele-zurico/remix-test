@@ -7,8 +7,9 @@ import {
   Scripts,
   ScrollRestoration,
   Outlet,
+  LoaderFunction,
+  MetaFunction,
 } from "remix";
-import type { LoaderFunction, MetaFunction } from "remix";
 import { useSetupTranslations } from "remix-i18next";
 import {
   Banner,
@@ -17,6 +18,7 @@ import {
   PageNotFound,
   Footer,
   LanguageToggle,
+  CookieBanner,
 } from "~/composite-components";
 import { IMainAppProps } from "~/types";
 import { supportedLanguages } from "~/config";
@@ -26,7 +28,6 @@ import languageStyles from "~/styles/language.css";
 import autocompleteStyles from "~/styles/autocomplete.css";
 import jsDisable from "~/styles/js-disabled.css";
 import { getTranslations } from "./models";
-import { CookieBanner } from "./composite-components";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
