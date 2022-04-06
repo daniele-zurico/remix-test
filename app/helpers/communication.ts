@@ -31,5 +31,5 @@ export const apiCallFailed: (errors: IError[], data?: any) => Response = (errors
       errors: getTransformedError(errors),
       ...data,
     },
-    { status: 500 },
+    { status: 400 },
   );
