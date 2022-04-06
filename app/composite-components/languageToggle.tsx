@@ -1,5 +1,5 @@
 import { Link } from "remix";
-import { ILanguageToggleProps } from "../types/language";
+import { ILanguageToggleProps } from "~/types";
 
 export const LanguageToggle = ({ languages, locale }: ILanguageToggleProps) => (
   <nav className="govuk-language-select" aria-label="Language switcher">

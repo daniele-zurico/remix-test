@@ -1,19 +1,23 @@
 import { json, useLoaderData } from "remix";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
-import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
-import { IDashboardSDData, Journeys } from "~/types";
-import { getStorageDocuments } from "./storageDocument";
+import {
+  ProgressTable,
+  CompleteTable,
+  NotificationBanner,
+} from "~/composite-components";
+import { IDashboardPSData, Journeys } from "~/types";
+import { getProcessingStatments } from "~/models";
 
 export const loader = async () => {
-  return json(await getStorageDocuments());
+  return json(await getProcessingStatments());
 };
 
-const Dashboard = () => {
-  const data = useLoaderData<IDashboardSDData>();
+const ProcessingStatement = () => {
+  const data = useLoaderData<IDashboardPSData>();
   return (
     <>
       <NotificationBanner {...data.notification} />
-      <h1 className="govuk-heading-xl">Storage documents</h1>
+      <h1 className="govuk-heading-xl">Processing statements</h1>
       <Button
         label="Create a new processing statement"
         type={BUTTON_TYPE.SUBMIT}
@@ -22,11 +26,11 @@ const Dashboard = () => {
       />
       <h2 className="govuk-heading-l">In progress</h2>
       <p className="govuk-body">
-        A maximum of 50 draft storage documents is allowed at any time.
+        A maximum of 50 draft processing statements is allowed at any time.
       </p>
       <ProgressTable
         certificates={data.inProgress}
-        journey={Journeys.storageDocument}
+        journey={Journeys.ProcessingStatement}
       />
       <h2 className="govuk-heading-l">Completed</h2>
       <CompleteTable certificates={data.completed} />
@@ -34,4 +38,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ProcessingStatement;

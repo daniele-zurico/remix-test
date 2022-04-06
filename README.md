@@ -1,6 +1,49 @@
-# Welcome to Remix!
+# Introduction
 
-- [Remix Docs](https://remix.run/docs)
+The following repository is the non-js version of Fish Export Service to complaints with the GDS rules.
+
+# Folder Structure
+
+app/
+--> components/ - contains all the base components of the app
+--> composite-components/ - they usually use a set of base components (non-atomic)
+--> helpers/ - contains all the helper functions
+--> models/ - contains all the functions to interact with the server (orchestration and/or data-reader)
+--> routes/ - contains all the routes of the app (\*)
+--> styles/ - contains all the styles of the app (\*\*)
+--> types/ - contains all the types in typescript
+
+(\*) The routes are the entry points of the app. Please use a flat structure when possible. Avoid to use index.tsx when possible
+(\*\*) Most of the styles files in this folder are coming from "govuk-frontend" package and are the result of the
+
+```
+ "sass": "sass --watch ./node_modules/govuk-frontend/govuk:app/styles"
+```
+
+Avoid creating more styles if they already present in the govuk project
+
+### Environment Variables
+
+The environment variables are used to configure the app.
+
+`touch .env`
+
+Add contents of `.envSample` to `.env`
+
+```
+example:
+LIMIT_ADD_SPECIES=100
+```
+
+### Start the application
+
+---
+
+mmo-cc-orchestration-svc
+git checkout develop
+git pull
+npm i
+npm run dev:without-auth
 
 ## Development
 
@@ -27,48 +70,3 @@ npm start
 ```
 
 Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
-
-### Using a Template
-
-When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over your `app/` folder to the new project that's pre-configured for your target server.
-
-```sh
-cd ..
-# create a new project, and pick a pre-configured host
-npx create-remix@latest
-cd my-new-remix-app
-# remove the new project's app (not the old one!)
-rm -rf app
-# copy your app over
-cp -R ../my-old-remix-app/app app
-```
-
-### Environment Variables
-
-`touch .env`
-
-Add contents of `.envSample` to `.env`
-
-```
-example:
-LIMIT_ADD_SPECIES=100
-```
-
-### Start the application
-
----
-
-mmo-cc-orchestration-svc
-git checkout develop
-git pull
-npm i
-npm run dev:without-auth

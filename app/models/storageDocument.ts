@@ -1,11 +1,11 @@
-import { get } from "~/utils";
-import { IDashboardPSData } from "~/types";
+import { get } from "~/helpers";
+import { IDashboardSDData } from "~/types";
 import CONFIG from "~/config";
 
-const STORAGE_NOTE_SURL = `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/documents/2022/3?type=processingStatement`;
+const STORAGE_NOTE_SURL = `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/documents/2022/3?type=storageNotes`;
 const NOTIFICATION_URL = `${CONFIG.MMO_ECC_ORCHESTRATION_SVC_URL}/v1/notification`;
 
-export const getProcessingStatments = async (): Promise<IDashboardPSData> => {
+export const getStorageDocuments = async(): Promise<IDashboardSDData> => {
   const res: Response = await get(STORAGE_NOTE_SURL);
   const data = await res.json();
 
@@ -13,4 +13,4 @@ export const getProcessingStatments = async (): Promise<IDashboardPSData> => {
   const notification = await response.json();
 
   return { ...data, notification };
-};
+}

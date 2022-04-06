@@ -1,4 +1,4 @@
-import { get } from "~/utils";
+import { get } from "~/helpers";
 import { IDashboardData } from "~/types";
 import CONFIG from "~/config";
 

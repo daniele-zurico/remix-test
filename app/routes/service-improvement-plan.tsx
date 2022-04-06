@@ -8,14 +8,15 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-const ServiceImprovementPage = () => {
+const ServiceImprovement = () => {
   return (
     <div className="govuk-!-padding-top-6">
-    <BackButton to="/" />
+      <BackButton to="/" />
       <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">
         How we're improving the service
       </h1>
     </div>
-)};
+  );
+};
 
-export default ServiceImprovementPage;
+export default ServiceImprovement;

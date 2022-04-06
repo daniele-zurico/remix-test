@@ -1,7 +1,6 @@
 import { isEmpty } from "lodash";
 import { ICommodityCode, IProduct, ISearchState, ISpecies, ISpecieStateLookupResult, ICodeAndDescription, ILabelAndValue, IError } from "~/types";
-import { getErrorMessage } from "~/helpers";
-import { get, post } from "~/utils";
+import { getErrorMessage, get, post } from "~/helpers";
 import CONFIG from "~/config";
 
 const ADDED_SPECIES_URL = 

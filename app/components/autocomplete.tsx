@@ -1,8 +1,5 @@
 import { isEmpty } from "lodash";
-import {
-  IAccessibleAutocomplteProps,
-  ISpecies,
-} from "~/types/catchCertificate";
+import { IAccessibleAutocomplteProps, ISpecies } from "~/types";
 
 export const AccessibleAutocomplete = ({
   id,
@@ -12,23 +9,30 @@ export const AccessibleAutocomplete = ({
   defaultSelectMessage,
   nojsValues,
   onChange,
-  error
+  error,
 }: IAccessibleAutocomplteProps) => (
-  <div className={`govuk-form-group ${!isEmpty(error) ? 'govuk-form-group--error' : ''}`.trim()}>
+  <div
+    className={`govuk-form-group ${
+      !isEmpty(error) ? "govuk-form-group--error" : ""
+    }`.trim()}
+  >
     <label
       className="govuk-label govuk-!-font-weight-bold"
       htmlFor="my-autocomplete"
     >
       Common name or FAO code
       <div className="govuk-hint">For example, Lobster or LBE</div>
-      {!isEmpty(error) &&
+      {!isEmpty(error) && (
         <p id="species-error" className="govuk-error-message">
-          <span className="govuk-visually-hidden">Error:</span> Enter the common name or FAO code
+          <span className="govuk-visually-hidden">Error:</span> Enter the common
+          name or FAO code
         </p>
-      }
+      )}
       <select
         defaultValue={defaultValue}
-        className={`autocomplete__input autocomplete__input--default ${!isEmpty(error) ? 'autocomplete__input--error ' : '' }govuk-!-width-two-thirds`}
+        className={`autocomplete__input autocomplete__input--default ${
+          !isEmpty(error) ? "autocomplete__input--error " : ""
+        }govuk-!-width-two-thirds`}
         id={id}
         name={name}
         value={value}

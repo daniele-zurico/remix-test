@@ -7,14 +7,14 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-const AccessibilityStatementPage = () => {
+const AccessibilityStatement = () => {
   return (
     <div className="govuk-!-padding-top-6">
-    <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">
-      Accessibility statement for the Fish Exports service
-    </h1>
-  </div>
-  )
+      <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">
+        Accessibility statement for the Fish Exports service
+      </h1>
+    </div>
+  );
 };
 
-export default AccessibilityStatementPage;
+export default AccessibilityStatement;

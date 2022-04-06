@@ -1,23 +1,17 @@
-import {
-  Form,
-  redirect,
-  json,
-  useLoaderData,
-  useActionData
-} from "remix";
+import { Form, redirect, json, useLoaderData, useActionData } from "remix";
 import type { ActionFunction, LoaderFunction, MetaFunction } from "remix";
 import { isEmpty } from "lodash";
 import { IUserReference, IError } from "~/types";
-import { BackButton, ErrorSummary, Help } from "~/components";
+import { BackButton } from "~/components";
+import { ErrorSummary, Help } from "~/composite-components";
 import {
   Button,
   BUTTON_TYPE,
   ErrorPosition,
   FormInput,
 } from "@capgeminiuk/dcx-react-library";
-import { addUserReference, getUserReference } from "./add-your-reference/addYourReference";
-import { DataFunctionArgs } from "@remix-run/server-runtime";
-import { apiCallFailed } from "~/utils";
+import { addUserReference, getUserReference } from "~/models";
+import { apiCallFailed } from "~/helpers";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -27,7 +21,7 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-export const loader: LoaderFunction = async ({ params }: DataFunctionArgs) => {
+export const loader: LoaderFunction = async ({ params }) => {
   return json(await getUserReference(params.catchCertificate));
 };
 
@@ -44,7 +38,9 @@ export const action: ActionFunction = async ({
   const errors: IError[] = userReference.errors || [];
 
   if (errors.length > 0) {
-    return apiCallFailed(errors, { userReference: userReference.userReference });
+    return apiCallFailed(errors, {
+      userReference: userReference.userReference,
+    });
   }
 
   return redirect(
@@ -52,7 +48,7 @@ export const action: ActionFunction = async ({
   );
 };
 
-const UserReferencePage = () => {
+const UserReference = () => {
   const { errors = {}, userReference } = useActionData() || {};
   const data = useLoaderData<IUserReference>();
   return (
@@ -105,4 +101,4 @@ const UserReferencePage = () => {
   );
 };
 
-export default UserReferencePage;
+export default UserReference;
