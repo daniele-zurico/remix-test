@@ -10,7 +10,7 @@ import {
   FormInput,
 } from "@capgeminiuk/dcx-react-library";
 import { addUserReference, getUserReference } from "~/models";
-import { apiCallFailed } from "~/utils";
+import { apiCallFailed } from "~/helpers";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",

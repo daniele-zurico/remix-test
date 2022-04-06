@@ -11,7 +11,7 @@ app/
 --> models/ - contains all the functions to interact with the server (orchestration and/or data-reader)
 --> routes/ - contains all the routes of the app (\*)
 --> styles/ - contains all the styles of the app (\*\*)
---> utils/ - contains all the utils of the app
+--> types/ - contains all the types in typescript
 
 (\*) The routes are the entry points of the app. Please use a flat structure when possible. Avoid to use index.tsx when possible
 (\*\*) Most of the styles files in this folder are coming from "govuk-frontend" package and are the result of the

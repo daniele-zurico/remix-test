@@ -1,6 +1,5 @@
 import { IUserReference } from "~/types";
-import { getErrorMessage } from "~/helpers";
-import { get, post } from "~/utils";
+import { getErrorMessage, get, post } from "~/helpers";
 import CONFIG  from "~/config";
 
 const USER_REFERENCE_URL = 
