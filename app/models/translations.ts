@@ -1,13 +1,13 @@
 import { createCookie } from "remix";
 import { FileSystemBackend, RemixI18Next } from "remix-i18next";
-import { getJouneyName } from "~/helpers";
+import { getJouneyName, getSupportedLanguages } from "~/helpers";
 import { defaultLocale, supportedLanguages } from "../config";
 
 const backend = new FileSystemBackend("./public/locales");
 
 export const i18n = new RemixI18Next(backend, {
   fallbackLng: defaultLocale,
-  supportedLanguages: Object.keys(supportedLanguages),
+  supportedLanguages: getSupportedLanguages(),
   cookie: createCookie("locale"),
 });
 

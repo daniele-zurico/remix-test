@@ -23,11 +23,8 @@ import {
 import { IMainAppProps } from "~/types";
 import { supportedLanguages } from "~/config";
 
-import styles from "~/styles/all.css";
-import languageStyles from "~/styles/language.css";
-import autocompleteStyles from "~/styles/autocomplete.css";
-import jsDisable from "~/styles/js-disabled.css";
 import { getTranslations } from "./models";
+import { getStyles } from "./styles/styles";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -41,12 +38,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 };
 
 export function links() {
-  return [
-    { rel: "stylesheet", href: styles },
-    { rel: "stylesheet", href: languageStyles },
-    { rel: "stylesheet", href: autocompleteStyles },
-    { rel: "stylesheet", href: jsDisable },
-  ];
+  return getStyles();
 }
 
 export function ErrorBoundary({ error }: any) {

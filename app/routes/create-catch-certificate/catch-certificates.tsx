@@ -1,21 +1,19 @@
-import { ReactElement } from "react";
 import { json, useLoaderData } from "remix";
 import type { LoaderFunction } from "remix";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
-import { IDashboardData } from "~/types";
+import { IDashboardData, Journeys } from "~/types";
 import {
   ProgressTable,
   CompleteTable,
   NotificationBanner,
 } from "~/composite-components";
-import { Journeys } from "~/types/journeys";
 import { getCatchCertificates } from "~/models";
 
 export const loader: LoaderFunction = async () => {
   return json(await getCatchCertificates());
 };
 
-const Dashboard = (): ReactElement => {
+const CatchCertificate = () => {
   const data = useLoaderData<IDashboardData>();
 
   return (
@@ -47,4 +45,4 @@ const Dashboard = (): ReactElement => {
   );
 };
 
-export default Dashboard;
+export default CatchCertificate;

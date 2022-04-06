@@ -70,7 +70,7 @@ export const action: ActionFunction = async ({
   return redirect("/");
 };
 
-const AddSpeciesPage = () => {
+const AddSpecies = () => {
   const { errors = {} } = useActionData() || {};
   const {
     documentNumber,
@@ -85,9 +85,7 @@ const AddSpeciesPage = () => {
     presentationCode,
   } = useLoaderData();
 
-  const onChangeHandler = (event: any) => {
-    console.log("morti toi");
-  };
+  const onChangeHandler = (event: any) => {};
 
   return (
     <>
@@ -166,4 +164,4 @@ const AddSpeciesPage = () => {
   );
 };
 
-export default AddSpeciesPage;
+export default AddSpecies;

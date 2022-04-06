@@ -12,7 +12,7 @@ export const loader = async () => {
   return json(await getStorageDocuments());
 };
 
-const Dashboard = () => {
+const StorageDocument = () => {
   const data = useLoaderData<IDashboardSDData>();
   return (
     <>
@@ -38,4 +38,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default StorageDocument;

@@ -5,15 +5,14 @@ import {
   CompleteTable,
   NotificationBanner,
 } from "~/composite-components";
-import { IDashboardPSData } from "~/types";
-import { Journeys } from "~/types/journeys";
+import { IDashboardPSData, Journeys } from "~/types";
 import { getProcessingStatments } from "~/models";
 
 export const loader = async () => {
   return json(await getProcessingStatments());
 };
 
-const Dashboard = () => {
+const ProcessingStatement = () => {
   const data = useLoaderData<IDashboardPSData>();
   return (
     <>
@@ -39,4 +38,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ProcessingStatement;

@@ -48,7 +48,7 @@ export const action: ActionFunction = async ({
   );
 };
 
-const UserReferencePage = () => {
+const UserReference = () => {
   const { errors = {}, userReference } = useActionData() || {};
   const data = useLoaderData<IUserReference>();
   return (
@@ -101,4 +101,4 @@ const UserReferencePage = () => {
   );
 };
 
-export default UserReferencePage;
+export default UserReference;

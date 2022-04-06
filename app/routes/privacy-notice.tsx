@@ -8,14 +8,15 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-const PrivacyPage = () => {
-
+const Privacy = () => {
   return (
     <div className="govuk-!-padding-top-6">
-    <BackButton to="/" />
-    <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">Privacy notice</h1>
-  </div>
-  )
+      <BackButton to="/" />
+      <h1 className="govuk-heading-xl govuk-!-margin-bottom-6">
+        Privacy notice
+      </h1>
+    </div>
+  );
 };
 
-export default PrivacyPage;
+export default Privacy;
