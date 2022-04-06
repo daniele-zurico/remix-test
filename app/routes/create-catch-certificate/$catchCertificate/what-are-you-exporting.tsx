@@ -2,13 +2,15 @@ import { isEmpty } from "lodash";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { json, redirect, useActionData, useLoaderData, Form } from "remix";
 import type { ActionFunction, LoaderFunction } from "remix";
-import { BackButton, ErrorSummary, Help } from "~/components";
+import { BackButton } from "~/components";
 import { IError } from "~/types";
 import { getAddSpeciesLoaderData, addSpecies } from "~/models";
 import {
   FavouritesTab,
   ProductsTab,
   ProductTable,
+  ErrorSummary,
+  Help,
 } from "~/composite-components";
 import { getTransformedError } from "~/helpers";
 

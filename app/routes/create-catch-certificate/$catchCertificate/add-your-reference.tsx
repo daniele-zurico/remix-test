@@ -2,7 +2,8 @@ import { Form, redirect, json, useLoaderData, useActionData } from "remix";
 import type { ActionFunction, LoaderFunction, MetaFunction } from "remix";
 import { isEmpty } from "lodash";
 import { IUserReference, IError } from "~/types";
-import { BackButton, ErrorSummary, Help } from "~/components";
+import { BackButton } from "~/components";
+import { ErrorSummary, Help } from "~/composite-components";
 import {
   Button,
   BUTTON_TYPE,

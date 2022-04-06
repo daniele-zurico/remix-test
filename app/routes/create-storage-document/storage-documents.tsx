@@ -1,6 +1,10 @@
 import { json, useLoaderData } from "remix";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
-import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
+import {
+  ProgressTable,
+  CompleteTable,
+  NotificationBanner,
+} from "~/composite-components";
 import { IDashboardSDData, Journeys } from "~/types";
 import { getStorageDocuments } from "~/models";
 

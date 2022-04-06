@@ -1,21 +1,32 @@
 import {
-  createCookie,
   json,
   useLoaderData,
-  Links, LiveReload, Meta, Scripts, ScrollRestoration, Outlet 
+  Links,
+  LiveReload,
+  Meta,
+  Scripts,
+  ScrollRestoration,
+  Outlet,
 } from "remix";
 import type { LoaderFunction, MetaFunction } from "remix";
 import { useSetupTranslations } from "remix-i18next";
-import { i18n } from "~/i18n.server";
-import { Banner, Header, Error, PageNotFound, CookieBanner, Footer, LanguageToggle } from "~/components";
+import {
+  Banner,
+  Header,
+  Error,
+  PageNotFound,
+  Footer,
+  LanguageToggle,
+} from "~/composite-components";
 import { IMainAppProps } from "~/types";
 import { supportedLanguages } from "~/config";
-import { getJouneyName } from "~/helpers";
 
 import styles from "~/styles/all.css";
 import languageStyles from "~/styles/language.css";
 import autocompleteStyles from "~/styles/autocomplete.css";
 import jsDisable from "~/styles/js-disabled.css";
+import { getTranslations } from "./models";
+import { CookieBanner } from "./composite-components";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -25,28 +36,7 @@ export const meta: MetaFunction = () => ({
 });
 
 export let loader: LoaderFunction = async ({ request }) => {
-  const locale = await i18n.getLocale(request);
-  const lngInQuery = new URL(request.url).searchParams.get("lng");
-  const options: ResponseInit = {};
-  if (lngInQuery) {
-    options.headers = {
-      "Set-Cookie": await createCookie("locale").serialize(locale),
-    };
-  }
-
-  return json(
-    {
-      locale: await i18n.getLocale(request),
-      i18n: await i18n.getTranslations(request, [
-        "header",
-        "banner",
-        "cookieBanner",
-        "footer",
-      ]),
-      journey: getJouneyName(request.url)
-    },
-    options
-  );
+  return json(await getTranslations(request));
 };
 
 export function links() {
@@ -99,7 +89,10 @@ export default function App() {
       </head>
       <body className="govuk-template__body">
         <CookieBanner />
-        <Header title={`journeyTitle_${journey}`} titleTo={`/create-${journey}/${journey}s`} />
+        <Header
+          title={`journeyTitle_${journey}`}
+          titleTo={`/create-${journey}/${journey}s`}
+        />
         <div className="govuk-width-container">
           <main className="govuk-main-wrapper" id="main-content" role="main">
             <Banner />

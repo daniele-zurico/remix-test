@@ -3,7 +3,11 @@ import { json, useLoaderData } from "remix";
 import type { LoaderFunction } from "remix";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { IDashboardData } from "~/types";
-import { ProgressTable, CompleteTable, NotificationBanner } from "~/components";
+import {
+  ProgressTable,
+  CompleteTable,
+  NotificationBanner,
+} from "~/composite-components";
 import { Journeys } from "~/types/journeys";
 import { getCatchCertificates } from "~/models";
 

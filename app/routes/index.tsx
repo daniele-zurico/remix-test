@@ -1,16 +1,11 @@
 import { Form, redirect, json } from "remix";
 import type { ActionFunction, LoaderFunction } from "remix";
-import { i18n } from "~/i18n.server";
 import { useTranslation } from "react-i18next";
 import { Button, BUTTON_TYPE, FormRadio } from "@capgeminiuk/dcx-react-library";
-import { supportedLanguages } from "~/config";
+import { getTranslationsByLocale } from "~/models";
 
 export let loader: LoaderFunction = async ({ request }) => {
-  return json({
-    i18n: await i18n.getTranslations(request, ["common", "index"]),
-    locale: await i18n.getLocale(request),
-    languages: supportedLanguages
-  });
+  return json(await getTranslationsByLocale(request));
 };
 
 export const action: ActionFunction = async ({ request }) => {
