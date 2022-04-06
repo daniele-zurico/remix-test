@@ -1,10 +1,4 @@
-import {
-  Form,
-  redirect,
-  json,
-  useLoaderData,
-  useActionData
-} from "remix";
+import { Form, redirect, json, useLoaderData, useActionData } from "remix";
 import type { ActionFunction, LoaderFunction, MetaFunction } from "remix";
 import { isEmpty } from "lodash";
 import { IUserReference, IError } from "~/types";
@@ -15,8 +9,7 @@ import {
   ErrorPosition,
   FormInput,
 } from "@capgeminiuk/dcx-react-library";
-import { addUserReference, getUserReference } from "./add-your-reference/addYourReference";
-import { DataFunctionArgs } from "@remix-run/server-runtime";
+import { addUserReference, getUserReference } from "~/models";
 import { apiCallFailed } from "~/utils";
 
 export const meta: MetaFunction = () => ({
@@ -27,7 +20,7 @@ export const meta: MetaFunction = () => ({
   themeColor: "#0b0c0c",
 });
 
-export const loader: LoaderFunction = async ({ params }: DataFunctionArgs) => {
+export const loader: LoaderFunction = async ({ params }) => {
   return json(await getUserReference(params.catchCertificate));
 };
 
@@ -44,7 +37,9 @@ export const action: ActionFunction = async ({
   const errors: IError[] = userReference.errors || [];
 
   if (errors.length > 0) {
-    return apiCallFailed(errors, { userReference: userReference.userReference });
+    return apiCallFailed(errors, {
+      userReference: userReference.userReference,
+    });
   }
 
   return redirect(

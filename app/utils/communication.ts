@@ -29,7 +29,7 @@ export const apiCallFailed: (errors: IError[], data?: any) => Response = (errors
   json(
     {
       errors: getTransformedError(errors),
-      ...data
+      ...data,
     },
-    { status: 400 }
+    { status: 500 },
   );
