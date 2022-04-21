@@ -30,36 +30,34 @@ export const action: ActionFunction = async ({ request, params }): Promise<Respo
   const { catchCertificate } = params;
   const { _action, faoName, ...values } = Object.fromEntries(form);
   const _redirect = `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`;
+
+  switch(_action) {
+    case 'cancel':
+      return redirect(`${_redirect}#add-products`);
+    case 'addSpecies': {
+      const errors: IError[] = validateValues(['species'], values);
+      if (errors.length > 0) {
+        return apiCallFailed(errors, values);
+      }
   
-  if (_action === 'cancel') {
-    return redirect(`${_redirect}#add-products`);
-  }
-
-  if (_action === 'addSpecies') {
-    const errors: IError[] = validateValues(['species'], values);
-    if (errors.length > 0) {
-      return apiCallFailed(errors, values);
+      return redirect(`${_redirect}?species=${values.species}#add-state`);
     }
-
-    return redirect(`${_redirect}?species=${values.species}#add-state`);
-  }
-
-  if (_action === 'addState') {
-    const errors: IError[] = validateValues(['species', 'state'], values);
-    if (errors.length > 0) {
-      return apiCallFailed(errors, values);
+    case 'addState': {
+      const errors: IError[] = validateValues(['species', 'state'], values);
+      if (errors.length > 0) {
+        return apiCallFailed(errors, values);
+      }
+  
+      return redirect(`${_redirect}?species=${values.species}&state=${values.state}#add-presentation`);
     }
-
-    return redirect(`${_redirect}?species=${values.species}&state=${values.state}#add-presentation`)
-  }
-
-  if (_action === 'addPresentation') {
-    const errors: IError[] = validateValues(['species', 'state', 'presentation'], values);
-    if (errors.length > 0) {
-      return apiCallFailed(errors, values);
+    case 'addPresentation': {
+      const errors: IError[] = validateValues(['species', 'state', 'presentation'], values);
+      if (errors.length > 0) {
+        return apiCallFailed(errors, values);
+      }
+  
+      return redirect(`${_redirect}?species=${values.species}&state=${values.state}&presentation=${values.presentation}#add-commodity-code`);
     }
-
-    return redirect(`${_redirect}?species=${values.species}&state=${values.state}&presentation=${values.presentation}#add-commodity-code`)
   }
 
   const requestBody: any = {
