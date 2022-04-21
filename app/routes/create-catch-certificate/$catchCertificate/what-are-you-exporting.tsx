@@ -66,22 +66,10 @@ export const action: ActionFunction = async ({ request, params }): Promise<Respo
     redirect: _redirect,
     speciesCode: values.species,
     ...values,
-    species: `${faoName} (${values.species})`
+    species: faoName ? `${faoName} (${values.species})` : undefined
   };
   const response = await addSpecies(catchCertificate, requestBody);
   const errors: IError[] = response.errors || [];
-
-  if (errors.length > 0) {
-    return json({
-      errors: getTransformedError(errors),
-      ...errors,
-    });
-  }
-  if (errors.length > 0) {
-    redirect(
-      `/create-catch-certificate/${catchCertificate}//what-are-you-exporting`
-    );
-  }
 
   if (errors.length > 0) {
     return apiCallFailed(errors, values);

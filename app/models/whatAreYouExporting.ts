@@ -224,18 +224,14 @@ const onAddSpeciesResponse = async (response: Response, requestBody: any): Promi
 }
 
 export const validateValues = (validate: string[], values: any): IError[] => {
-  const errors: IError[] = [];
+  return validate.reduce((acc: IError[], key: string) => {
+    if (!values[key]) {
+     return [...acc, {
+        key,
+        message: getErrorMessage(validationErrorMessage[key])
+      }]
+    }
 
-  if (validate?.length > 0) {
-    validate.forEach((key: string)  => {
-      if (!values[key]) {
-        errors.push({
-          key,
-          message: getErrorMessage(validationErrorMessage[key])
-        })
-      }
-    })
-  }
-
-  return errors;
+    return acc;
+  }, []);
 }
