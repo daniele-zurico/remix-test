@@ -25,16 +25,13 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   );
 };
 
-export const action: ActionFunction = async ({
-  request,
-  params,
-}): Promise<Response> => {
-  const { catchCertificate } = params;
-  const _redirect = `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`;
+export const action: ActionFunction = async ({ request, params }): Promise<Response> => {
   const form = await request.formData();
+  const { catchCertificate } = params;
   const { _action, faoName, ...values } = Object.fromEntries(form);
-
-  if (_action === "cancel") {
+  const _redirect = `/create-catch-certificate/${catchCertificate}/what-are-you-exporting`;
+  
+  if (_action === 'cancel') {
     return redirect(`${_redirect}#add-products`);
   }
 
@@ -73,7 +70,6 @@ export const action: ActionFunction = async ({
     ...values,
     species: `${faoName} (${values.species})`
   };
-
   const response = await addSpecies(catchCertificate, requestBody);
   const errors: IError[] = response.errors || [];
 
