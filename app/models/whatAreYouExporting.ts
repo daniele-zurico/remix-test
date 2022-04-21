@@ -179,7 +179,13 @@ const findPresentationLabel = (presentationCode: string, lookup: ISearchState): 
     return undefined;
   }
 
-  return lookup?.presentations.find((presentation: ILabelAndValue) => presentation.value === presentationCode)?.label;
+  const presentation: ILabelAndValue  | undefined = lookup.presentations.find((presentation: ILabelAndValue) => presentation.value === presentationCode);
+
+  if (presentation === undefined) {
+    return undefined;
+  }
+
+  return presentation.label;
 }
 
 export const addSpecies = async (catchCertificate: string | undefined, requestBody: any): Promise<any> => {
