@@ -179,7 +179,7 @@ const findPresentationLabel = (presentationCode: string, lookup: ISearchState): 
     return undefined;
   }
 
-  const presentation: ILabelAndValue  | undefined = lookup.presentations.find((presentation: ILabelAndValue) => presentation.value === presentationCode);
+  const presentation: ILabelAndValue | undefined = lookup.presentations.find((presentation: ILabelAndValue) => presentation.value === presentationCode);
 
   if (presentation === undefined) {
     return undefined;
