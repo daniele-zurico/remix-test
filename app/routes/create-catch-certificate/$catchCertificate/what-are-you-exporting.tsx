@@ -91,7 +91,7 @@ export const action: ActionFunction = async ({ request, params }): Promise<Respo
 };
 
 const AddSpecies = () => {
-  const { errors = {}, species: _faoCode} = useActionData() || {};
+  const { errors = {}, species: apiFaoCode} = useActionData() || {};
   const {
     documentNumber,
     config,
@@ -154,7 +154,7 @@ const AddSpecies = () => {
               states={stateLookup.states}
               presentations={stateLookup.presentations}
               commodityCodes={commodityCodes}
-              faoCode={_faoCode || faoCode}
+              faoCode={apiFaoCode || faoCode}
               stateCode={stateCode}
               presentationCode={presentationCode}
               errors={errors}
