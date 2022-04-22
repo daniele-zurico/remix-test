@@ -8,7 +8,6 @@ export const AccessibleAutocomplete = ({
   defaultValue,
   defaultSelectMessage,
   nojsValues,
-  onChange,
   error,
 }: IAccessibleAutocomplteProps) => (
   <div
@@ -36,7 +35,6 @@ export const AccessibleAutocomplete = ({
         id={id}
         name={name}
         value={value}
-        onChange={onChange}
       >
         <option key="-1" value="">
           {defaultSelectMessage}
