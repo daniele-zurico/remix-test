@@ -5,6 +5,7 @@ import type { ActionFunction, LoaderFunction } from "remix";
 import { BackButton } from "~/components";
 import { IError } from "~/types";
 import { getAddSpeciesLoaderData, addSpecies, validateValues, getCommodityCodeDescription } from "~/models";
+import { apiCallFailed } from "~/helpers";
 import {
   FavouritesTab,
   ProductsTab,
@@ -12,7 +13,6 @@ import {
   ErrorSummary,
   Help,
 } from "~/composite-components";
-import { getTransformedError, apiCallFailed } from "~/helpers";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   const url = new URL(request.url);
