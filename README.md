@@ -35,7 +35,7 @@ example:
 LIMIT_ADD_SPECIES=100
 ```
 
-### Start the application
+### Prerequisite
 
 ---
 
@@ -44,6 +44,8 @@ git checkout develop
 git pull
 npm i
 npm run dev:without-auth
+
+Publish a notification via mmo-cc-internal-admin-fe in the local environment
 
 ## Development
 
