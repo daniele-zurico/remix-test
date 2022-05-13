@@ -2,13 +2,14 @@ import { isEmpty } from "lodash";
 import { Button, BUTTON_TYPE } from "@capgeminiuk/dcx-react-library";
 import { json, redirect, useActionData, useLoaderData, Form } from "remix";
 import type { ActionFunction, LoaderFunction } from "remix";
-import { BackButton } from "~/components";
+import { BackButton, ClientOnly } from "~/components";
 import { IError } from "~/types";
 import { getAddSpeciesLoaderData, addSpecies, validateValues, getCommodityCodeDescription } from "~/models";
 import { apiCallFailed } from "~/helpers";
 import {
   FavouritesTab,
   ProductsTab,
+  ProductsTabClient,
   ProductTable,
   ErrorSummary,
   Help,
@@ -137,7 +138,7 @@ const AddSpecies = () => {
             </li>
           </ul>
           <div className="govuk-tabs__panel" id="add-products">
-            <ProductsTab
+          <ClientOnly fallback={ <ProductsTab
               species={species}
               states={stateLookup.states}
               presentations={stateLookup.presentations}
@@ -146,7 +147,18 @@ const AddSpecies = () => {
               stateCode={stateCode}
               presentationCode={presentationCode}
               errors={errors}
-            />
+            />} >
+     {() => <ProductsTabClient
+              species={species}
+              states={stateLookup.states}
+              presentations={stateLookup.presentations}
+              commodityCodes={commodityCodes}
+              faoCode={apiFaoCode || faoCode}
+              stateCode={stateCode}
+              presentationCode={presentationCode}
+              errors={errors}
+            />  }
+    </ClientOnly>
           </div>
           <div
             className="govuk-tabs__panel govuk-tabs__panel--hidden"

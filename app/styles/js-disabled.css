@@ -7,3 +7,7 @@
 .js-enabled #reject-cookies {
   display: block;
 }
+
+.js-enabled .hide {
+  display: none;
+}

@@ -1,7 +1,7 @@
 const CONFIG = {
-  MMO_ECC_ORCHESTRATION_SVC_URL: process.env.MMO_ECC_ORCHESTRATION_SVC_URL,
-  MMO_ECC_REFERENCE_SVC_URL: process.env.MMO_ECC_REFERENCE_SVC_URL,
-  LIMIT_ADD_SPECIES: process.env.LIMIT_ADD_SPECIES
+  MMO_ECC_ORCHESTRATION_SVC_URL: 'http://localhost:5500',
+  MMO_ECC_REFERENCE_SVC_URL: 'http://localhost:9000',
+  LIMIT_ADD_SPECIES: 50
 };
 
 export const supportedLanguages = {

@@ -1,5 +1,6 @@
 export * from "./favouritesTab";
 export * from "./productsTab";
+export * from "./productsTabClient";
 export * from "./productsTable";
 export * from "./cookieBanner";
 export * from "./completeTable";
