@@ -1,5 +1,5 @@
-import { INotification } from "./main";
 import { IError } from "./errors";
+import { INotification } from "./main";
 
 export interface IAccessibleAutocomplteProps {
   id: string;
@@ -7,7 +7,6 @@ export interface IAccessibleAutocomplteProps {
   value?: string;
   defaultValue?: string;
   defaultSelectMessage?: string;
-  nojsValues: ISpecies[];
   error?: string;
 }
 
