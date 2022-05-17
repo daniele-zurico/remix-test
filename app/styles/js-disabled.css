@@ -7,3 +7,8 @@
 .js-enabled #reject-cookies {
   display: block;
 }
+
+/*  Generic rule to hide elemenets that aren't needed if JS is avaialble */
+.js-enabled .hide, {
+  display: none;
+}
