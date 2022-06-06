@@ -1,15 +1,15 @@
-export const getJouneyName = (url: string): 'catch-certificate' | 'processing-statement' | 'storage-document' => {
-  if (url.includes('catch-certificate')) {
-    return 'catch-certificate';
+export const getJouneyName = (url: string): 'create-catch-certificate' | 'create-processing-statement' | 'create-storage-document' => {
+  if (url.includes('create-catch-certificate')) {
+    return 'create-catch-certificate';
   }
 
-  if (url.includes('processing-statement')) {
-    return 'processing-statement';
+  if (url.includes('create-processing-statement')) {
+    return 'create-processing-statement';
   }
 
-  if (url.includes('storage-document')) {
-    return 'storage-document';
+  if (url.includes('create-storage-document')) {
+    return 'create-storage-document';
   }
 
-  return 'catch-certificate';
+  return null;
 }
