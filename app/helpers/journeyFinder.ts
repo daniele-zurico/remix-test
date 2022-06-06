@@ -4,11 +4,11 @@ export const getJouneyName = (url: string): 'create-catch-certificate' | 'create
   }
 
   if (url.includes('create-processing-statement')) {
-    return 'processing-statement';
+    return 'create-processing-statement';
   }
 
   if (url.includes('create-storage-document')) {
-    return 'storage-document';
+    return 'create-storage-document';
   }
 
   return null;
